@@ -1,6 +1,7 @@
 package com.heslingtonhustle;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
 
 /** Represents the player character */
@@ -9,6 +10,7 @@ public class Player {
     private Vector2 position;
     private Action movement = Action.STOP;
     private Direction facing = Direction.DOWN;
+    private Sprite sprite;
     private Texture playerUpTexture;
     private Texture playerDownTexture;
     private Texture playerLeftTexture;
@@ -20,6 +22,8 @@ public class Player {
         playerDownTexture = new Texture("Graphics/Entities/Player1/down.png");
         playerLeftTexture = new Texture("Graphics/Entities/Player1/left.png");
         playerRightTexture = new Texture("Graphics/Entities/Player1/right.png");
+        sprite = new Sprite(playerDownTexture);
+        sprite.setSize(1f*16, 1f*16);
     }
 
     /** The behaviour of the player character in a single frame. */
@@ -46,6 +50,7 @@ public class Player {
             default:
                 break;
         }
+        sprite.setPosition(position.x, position.y);
     }
 
     /** Returns a copy of the player's position */
@@ -53,11 +58,15 @@ public class Player {
         return new Vector2(position);
     }
 
+    public void setPosition(Vector2 position) {
+        this.position = position;
+    }
+
     public void move(Action action) {
         movement = action;
     }
 
-    public Texture getTexture() {
+    public Sprite getSprite() {
         Texture currentTexture;
         switch (facing) {
             case UP:
@@ -75,6 +84,8 @@ public class Player {
             default:
                 currentTexture = null;
         }
-        return currentTexture;
+        sprite.setTexture(currentTexture);
+        sprite.setPosition(position.x, position.y);
+        return sprite;
     }
 }

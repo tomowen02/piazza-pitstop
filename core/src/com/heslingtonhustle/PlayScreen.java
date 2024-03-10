@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.FitViewport;
@@ -34,12 +35,12 @@ public class PlayScreen implements Screen {
         camera.viewportWidth = GAME_WIDTH;
         camera.viewportHeight = GAME_HEIGHT;
 
+        mapManager = new MapManager();
+        mapManager.loadMap("Maps/fieldMap.tmx"); // This is just a test map that I made
+
         gameState = new State();
         inputHandler = new InputHandler();
         Gdx.input.setInputProcessor(inputHandler);
-
-        mapManager = new MapManager();
-        mapManager.loadMap("Maps/fieldMap.tmx"); // This is just a test map that I made
 
         TiledMap map = mapManager.getCurrentMap();
         renderer = new OrthogonalTiledMapRenderer(map);
@@ -62,6 +63,15 @@ public class PlayScreen implements Screen {
 
     private void updateState() {
         Action action = inputHandler.getBufferedAction();
+        if (action == Action.DEBUGGING_ACTION1) {
+            mapManager.loadMap("Maps/caveMap.tmx");
+            renderer.setMap(mapManager.getCurrentMap());
+            return;
+        } else if (action == Action.DEBUGGING_ACTION2) {
+            mapManager.loadMap("Maps/fieldMap.tmx");
+            renderer.setMap(mapManager.getCurrentMap());
+            return;
+        }
         gameState.update(action);
     }
 
@@ -76,9 +86,7 @@ public class PlayScreen implements Screen {
         renderer.render();
 
         batch.begin();
-        playerSprite.setTexture(gameState.getPlayerTexture());
-        playerSprite.setPosition(gameState.getPlayerPosition().x, gameState.getPlayerPosition().y);
-        playerSprite.draw(batch);
+        gameState.getPlayerSprite().draw(batch);
         batch.end();
     }
 

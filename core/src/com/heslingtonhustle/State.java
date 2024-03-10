@@ -1,7 +1,10 @@
 package com.heslingtonhustle;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
+
+import java.util.Map;
 
 /** Contains all data related to the logical state of the game. */
 public class State {
@@ -16,12 +19,11 @@ public class State {
         if (action != null) {
             player.move(action);
         }
-
         player.update();
     }
 
     public Vector2 getPlayerPosition() {
         return player.getPosition();
     }
-    public Texture getPlayerTexture() { return player.getTexture(); }
+    public Sprite getPlayerSprite() { return player.getSprite(); }
 }

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="30" height="20" tilewidth="16" tileheight="16" infinite="0" nextlayerid="2" nextobjectid="1">
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="30" height="20" tilewidth="16" tileheight="16" infinite="0" nextlayerid="7" nextobjectid="46">
  <tileset firstgid="1" source="../Tilesets/forest_.tsx"/>
  <layer id="1" name="Tile Layer 1" width="30" height="20">
   <data encoding="csv">
@@ -25,4 +25,22 @@
 47,47,47,47,47,47,47,145,145,47,47,47,47,47,145,145,47,47,47,47,136,164,164,164,164,164,164,164,164,164
 </data>
  </layer>
+ <objectgroup id="6" name="Collisions">
+  <object id="28" x="-4" y="162" width="80" height="90.5"/>
+  <object id="29" x="66" y="113" width="28.5" height="124.5"/>
+  <object id="30" x="91.5" y="127.5" width="13" height="12.5"/>
+  <object id="31" x="16.5" y="83" width="49.5" height="81"/>
+  <object id="32" x="133.5" y="126.5" width="19" height="15.5"/>
+  <object id="33" x="144" y="50.5" width="7.5" height="77.5"/>
+  <object id="34" x="145.5" y="50" width="335" height="13"/>
+  <object id="35" x="378.5" y="127" width="28.5" height="16"/>
+  <object id="36" x="389.5" y="111.5" width="48" height="16"/>
+  <object id="37" x="425.5" y="126.5" width="23" height="15"/>
+  <object id="38" x="401.5" y="196" width="77" height="122"/>
+  <object id="39" x="321" y="273.5" width="82" height="48.5"/>
+  <object id="40" x="336.5" y="257.5" width="64.5" height="14"/>
+  <object id="43" x="366.5" y="226.5" width="35.5" height="15"/>
+  <object id="44" x="385.5" y="210.5" width="16" height="13"/>
+  <object id="45" x="354" y="240" width="48" height="18"/>
+ </objectgroup>
 </map>

@@ -7,5 +7,7 @@ public enum Action {
     MOVE_UP,
     MOVE_DOWN,
     STOP,
-    INTERACT
+    INTERACT,
+    DEBUGGING_ACTION1,
+    DEBUGGING_ACTION2
 }

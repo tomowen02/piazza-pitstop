@@ -26,6 +26,8 @@ public class InputHandler extends InputAdapter {
         inputMap.put(Keys.UP, Action.MOVE_UP);
         inputMap.put(Keys.DOWN, Action.MOVE_DOWN);
         inputMap.put(Keys.SPACE, Action.INTERACT);
+        inputMap.put(Keys.PERIOD, Action.DEBUGGING_ACTION1); // This is just to quickly trigger an event while debugging
+        inputMap.put(Keys.COMMA, Action.DEBUGGING_ACTION2);
     }
 
     @Override
