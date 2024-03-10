@@ -1,5 +1,6 @@
 package com.heslingtonhustle;
 
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
 
 /** Contains all data related to the logical state of the game. */
@@ -22,4 +23,5 @@ public class State {
     public Vector2 getPlayerPosition() {
         return player.getPosition();
     }
+    public Texture getPlayerTexture() { return player.getTexture(); }
 }

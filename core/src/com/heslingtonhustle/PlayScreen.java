@@ -2,34 +2,53 @@ package com.heslingtonhustle;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.utils.ScreenUtils;
+import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 
 public class PlayScreen implements Screen {
     public static final int SCREEN_WIDTH = 640;
     public static final int SCREEN_HEIGHT = 480;
+    public static final float GAME_WIDTH = 30*16;
+    public static final float GAME_HEIGHT = 20*16;
     private final InputHandler inputHandler;
     private final State gameState;
-    private final FitViewport viewport;
+    private final ExtendViewport viewport;
+    private OrthographicCamera camera;
+    private MapManager mapManager;
+    private OrthogonalTiledMapRenderer renderer;
     SpriteBatch batch;
-    Texture texture;
-    Texture texture2;
+    Texture playerTexture;
+    Sprite playerSprite;
 
     public PlayScreen() {
-        viewport = new FitViewport(SCREEN_WIDTH, SCREEN_HEIGHT);
+        camera = new OrthographicCamera();
+        viewport = new ExtendViewport(GAME_WIDTH, GAME_HEIGHT, camera);
         viewport.setScreenSize(SCREEN_WIDTH, SCREEN_HEIGHT);
-        viewport.getCamera().viewportWidth = SCREEN_WIDTH;
-        viewport.getCamera().viewportHeight = SCREEN_HEIGHT;
+        camera.viewportWidth = GAME_WIDTH;
+        camera.viewportHeight = GAME_HEIGHT;
 
         gameState = new State();
         inputHandler = new InputHandler();
         Gdx.input.setInputProcessor(inputHandler);
 
+        mapManager = new MapManager();
+        mapManager.loadMap("Maps/fieldMap.tmx"); // This is just a test map that I made
+
+        TiledMap map = mapManager.getCurrentMap();
+        renderer = new OrthogonalTiledMapRenderer(map);
+
         batch = new SpriteBatch();
-        texture = new Texture("badlogic.jpg");
-        texture2 = new Texture("circle.png");
+
+        playerTexture = new Texture("circle.png");
+        playerSprite = new Sprite(playerTexture);
+        playerSprite.setSize(1f*16, 1f*16);
     }
     @Override
     public void render(float delta) {
@@ -47,15 +66,19 @@ public class PlayScreen implements Screen {
     }
 
     private void drawToScreen() {
-        viewport.getCamera().position.set(gameState.getPlayerPosition(), 0);
-        viewport.getCamera().update();
-        batch.setProjectionMatrix(viewport.getCamera().combined);
+        camera.position.set(gameState.getPlayerPosition(), 0);
+        camera.update();
+        batch.setProjectionMatrix(camera.combined);
 
         ScreenUtils.clear(0.2f, 0.2f, 0.5f, 1);
 
+        renderer.setView(camera);
+        renderer.render();
+
         batch.begin();
-        batch.draw(texture, 0, 0);
-        batch.draw(texture2, gameState.getPlayerPosition().x, gameState.getPlayerPosition().y);
+        playerSprite.setTexture(gameState.getPlayerTexture());
+        playerSprite.setPosition(gameState.getPlayerPosition().x, gameState.getPlayerPosition().y);
+        playerSprite.draw(batch);
         batch.end();
     }
 
@@ -66,7 +89,7 @@ public class PlayScreen implements Screen {
 
     @Override
     public void resize(int width, int height) {
-        viewport.update(width, height);
+        viewport.update(width, height, true);
     }
 
     @Override
@@ -87,7 +110,6 @@ public class PlayScreen implements Screen {
     @Override
     public void dispose() {
         batch.dispose();
-        texture.dispose();
-        texture2.dispose();
+        playerTexture.dispose();
     }
 }
