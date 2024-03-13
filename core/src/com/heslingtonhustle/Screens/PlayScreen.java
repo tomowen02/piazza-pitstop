@@ -10,15 +10,12 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
-<<<<<<< Updated upstream:core/src/com/heslingtonhustle/PlayScreen.java
+import com.heslingtonhustle.HeslingtonHustleGame;
 import com.heslingtonhustle.input.InputHandler;
 import com.heslingtonhustle.input.KeyboardInputHandler;
 import com.heslingtonhustle.map.MapManager;
 import com.heslingtonhustle.state.Action;
 import com.heslingtonhustle.state.State;
-=======
-import com.heslingtonhustle.*;
->>>>>>> Stashed changes:core/src/com/heslingtonhustle/Screens/PlayScreen.java
 
 public class PlayScreen implements Screen {
     public HeslingtonHustleGame heslingtonHustleGame;
