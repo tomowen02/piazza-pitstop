@@ -34,7 +34,7 @@ public class PlayScreen implements Screen {
     Sprite playerSprite;
 
     public PlayScreen(HeslingtonHustleGame parentClass) {
-        heslingtonHustleGame = heslingtonHustleGame;
+        this.heslingtonHustleGame = parentClass;
 
         camera = new OrthographicCamera();
         viewport = new ExtendViewport(GAME_WIDTH, GAME_HEIGHT, camera);

@@ -1,6 +1,6 @@
 package com.heslingtonhustle.screens;
 
-public enum Screen {
+public enum AvailableScreens {
     MenuScreen,
     PlayScreen
 }
