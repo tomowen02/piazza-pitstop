@@ -1,4 +1,4 @@
-package com.heslingtonhustle;
+package com.heslingtonhustle.map;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.maps.MapLayer;

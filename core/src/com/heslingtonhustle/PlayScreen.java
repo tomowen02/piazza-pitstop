@@ -12,6 +12,7 @@ import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.heslingtonhustle.input.InputHandler;
 import com.heslingtonhustle.input.KeyboardInputHandler;
+import com.heslingtonhustle.map.MapManager;
 import com.heslingtonhustle.state.Action;
 import com.heslingtonhustle.state.State;
 
