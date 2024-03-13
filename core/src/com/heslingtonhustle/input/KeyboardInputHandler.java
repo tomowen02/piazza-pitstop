@@ -23,10 +23,10 @@ public class KeyboardInputHandler extends InputAdapter implements InputHandler {
         pressedKeys = new HashSet<>();
         inputBuffer = new LinkedList<>();
 
-        inputMap.put(Keys.RIGHT, Action.MOVE_RIGHT);
-        inputMap.put(Keys.LEFT, Action.MOVE_LEFT);
-        inputMap.put(Keys.UP, Action.MOVE_UP);
-        inputMap.put(Keys.DOWN, Action.MOVE_DOWN);
+        inputMap.put(Keys.D, Action.MOVE_RIGHT);
+        inputMap.put(Keys.A, Action.MOVE_LEFT);
+        inputMap.put(Keys.W, Action.MOVE_UP);
+        inputMap.put(Keys.S, Action.MOVE_DOWN);
         inputMap.put(Keys.SPACE, Action.INTERACT);
         inputMap.put(Keys.PERIOD, Action.DEBUGGING_ACTION1); // This is just to quickly trigger an event while debugging
         inputMap.put(Keys.COMMA, Action.DEBUGGING_ACTION2);
