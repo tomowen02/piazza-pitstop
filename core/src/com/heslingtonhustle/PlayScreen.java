@@ -8,10 +8,10 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
-import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.heslingtonhustle.input.InputHandler;
+import com.heslingtonhustle.input.KeyboardInputHandler;
 
 public class PlayScreen implements Screen {
     public static final int SCREEN_WIDTH = 640;
@@ -39,7 +39,7 @@ public class PlayScreen implements Screen {
         mapManager.loadMap("Maps/fieldMap.tmx"); // This is just a test map that I made
 
         gameState = new State();
-        inputHandler = new InputHandler();
+        inputHandler = new KeyboardInputHandler();
         Gdx.input.setInputProcessor(inputHandler);
 
         TiledMap map = mapManager.getCurrentMap();
@@ -62,7 +62,7 @@ public class PlayScreen implements Screen {
     }
 
     private void updateState() {
-        Action action = inputHandler.getBufferedAction();
+        Action action = inputHandler.getAction();
         if (action == Action.DEBUGGING_ACTION1) {
             mapManager.loadMap("Maps/caveMap.tmx");
             renderer.setMap(mapManager.getCurrentMap());
