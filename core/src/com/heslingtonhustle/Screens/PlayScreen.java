@@ -1,4 +1,4 @@
-package com.heslingtonhustle;
+package com.heslingtonhustle.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
@@ -10,13 +10,18 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
+<<<<<<< Updated upstream:core/src/com/heslingtonhustle/PlayScreen.java
 import com.heslingtonhustle.input.InputHandler;
 import com.heslingtonhustle.input.KeyboardInputHandler;
 import com.heslingtonhustle.map.MapManager;
 import com.heslingtonhustle.state.Action;
 import com.heslingtonhustle.state.State;
+=======
+import com.heslingtonhustle.*;
+>>>>>>> Stashed changes:core/src/com/heslingtonhustle/Screens/PlayScreen.java
 
 public class PlayScreen implements Screen {
+    public HeslingtonHustleGame heslingtonHustleGame;
     public static final int SCREEN_WIDTH = 640;
     public static final int SCREEN_HEIGHT = 480;
     public static final float GAME_WIDTH = 30*16;
@@ -31,7 +36,9 @@ public class PlayScreen implements Screen {
     Texture playerTexture;
     Sprite playerSprite;
 
-    public PlayScreen() {
+    public PlayScreen(HeslingtonHustleGame parentClass) {
+        heslingtonHustleGame = heslingtonHustleGame;
+
         camera = new OrthographicCamera();
         viewport = new ExtendViewport(GAME_WIDTH, GAME_HEIGHT, camera);
         viewport.setScreenSize(SCREEN_WIDTH, SCREEN_HEIGHT);
