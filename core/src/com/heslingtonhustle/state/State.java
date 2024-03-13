@@ -2,7 +2,6 @@ package com.heslingtonhustle.state;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
-import com.heslingtonhustle.Player;
 
 /** Contains all data related to the logical state of the game. */
 public class State {

@@ -1,8 +1,9 @@
-package com.heslingtonhustle;
+package com.heslingtonhustle.state;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
+import com.heslingtonhustle.Direction;
 import com.heslingtonhustle.state.Action;
 
 /** Represents the player character */
