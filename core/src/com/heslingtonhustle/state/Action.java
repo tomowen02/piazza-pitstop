@@ -1,4 +1,4 @@
-package com.heslingtonhustle;
+package com.heslingtonhustle.state;
 
 /** Defines the different actions possible to take in the game */
 public enum Action {

@@ -2,7 +2,7 @@ package com.heslingtonhustle.input;
 
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.Input.Keys;
-import com.heslingtonhustle.Action;
+import com.heslingtonhustle.state.Action;
 
 import java.util.HashMap;
 import java.util.HashSet;

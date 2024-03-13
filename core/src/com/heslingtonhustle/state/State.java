@@ -1,10 +1,8 @@
-package com.heslingtonhustle;
+package com.heslingtonhustle.state;
 
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
-
-import java.util.Map;
+import com.heslingtonhustle.Player;
 
 /** Contains all data related to the logical state of the game. */
 public class State {
