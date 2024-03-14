@@ -126,5 +126,6 @@ public class PlayScreen implements Screen {
     public void dispose() {
         batch.dispose();
         playerTexture.dispose();
+        mapManager.dispose();
     }
 }
