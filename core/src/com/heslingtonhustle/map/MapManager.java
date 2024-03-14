@@ -8,9 +8,12 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Disposable;
+import org.graalvm.compiler.lir.amd64.vector.AMD64VectorMove;
 
 import java.util.HashMap;
+import java.util.Vector;
 
 public class MapManager implements Disposable {
     private TiledMap currentMap;
@@ -47,6 +50,27 @@ public class MapManager implements Disposable {
             }
         }
         return false;
+    }
+
+    public Vector2 getCurrentMapTileDimensions() {
+        return new Vector2(
+                (int)currentMap.getProperties().get("tilewidth"),
+                (int)currentMap.getProperties().get("tileheight")
+        );
+    }
+
+    public Vector2 getCurrentMapWorldDimensions() {
+        return new Vector2(
+                (int)currentMap.getProperties().get("width"),
+                (int)currentMap.getProperties().get("height")
+        );
+    }
+
+    public Vector2 getCurrentMapPixelDimensions() {
+        return new Vector2(
+                getCurrentMapWorldDimensions().x * getCurrentMapTileDimensions().x,
+                getCurrentMapWorldDimensions().y * getCurrentMapTileDimensions().y
+        );
     }
 
     @Override

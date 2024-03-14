@@ -40,23 +40,15 @@ public class Renderer implements Disposable {
         TiledMap map = mapManager.getCurrentMap();
         batch = new SpriteBatch();
         mapRenderer = new OrthogonalTiledMapRenderer(map, batch);
-        viewport = new ExtendViewport(30*16, 20*16, camera);
+        viewport = new ExtendViewport(mapManager.getCurrentMapPixelDimensions().x, mapManager.getCurrentMapPixelDimensions().y, camera);
         viewport.setScreenSize(SCREEN_WIDTH, SCREEN_HEIGHT);
-        //camera.viewportWidth = GAME_WIDTH;
-        //camera.viewportHeight = GAME_HEIGHT;
-
 
         textureAtlas = new TextureAtlas("pack.atlas");
         playerTexture = textureAtlas.findRegion("circle");
         buildingTexture = textureAtlas.findRegion("triangle");
 
-        //playerTexture = new Texture("circle.png");
-        //playerSprite = new Sprite(playerTexture);
         playerSprite = new Sprite(playerTexture);
         playerSprite.setScale(0.5f, 0.5f);
-
-
-
     }
 
     public void update() {
