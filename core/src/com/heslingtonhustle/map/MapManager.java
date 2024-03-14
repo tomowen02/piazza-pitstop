@@ -2,7 +2,6 @@ package com.heslingtonhustle.map;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.MapObjects;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
@@ -12,7 +11,6 @@ import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Disposable;
-import org.graalvm.compiler.lir.amd64.vector.AMD64VectorMove;
 
 import java.util.HashMap;
 import java.util.Vector;
@@ -61,6 +59,7 @@ public class MapManager implements Disposable {
     }
 
     public Vector2 getCurrentMapTileDimensions() {
+        //TODO: Add null check
         return new Vector2(
                 (int)currentMap.getProperties().get("tilewidth"),
                 (int)currentMap.getProperties().get("tileheight")
@@ -68,6 +67,7 @@ public class MapManager implements Disposable {
     }
 
     public Vector2 getCurrentMapWorldDimensions() {
+        //TODO: Add null check
         return new Vector2(
                 (int)currentMap.getProperties().get("width"),
                 (int)currentMap.getProperties().get("height")
@@ -75,6 +75,7 @@ public class MapManager implements Disposable {
     }
 
     public Vector2 getCurrentMapPixelDimensions() {
+        //TODO: Add null check
         return new Vector2(
                 getCurrentMapWorldDimensions().x * getCurrentMapTileDimensions().x,
                 getCurrentMapWorldDimensions().y * getCurrentMapTileDimensions().y

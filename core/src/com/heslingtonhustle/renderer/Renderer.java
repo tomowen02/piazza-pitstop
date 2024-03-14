@@ -7,7 +7,6 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.MapRenderer;
 import com.badlogic.gdx.maps.tiled.TiledMap;
-import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Disposable;
@@ -15,7 +14,6 @@ import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.heslingtonhustle.map.MapManager;
 import com.heslingtonhustle.state.State;
-import sun.java2d.pipe.SpanClipRenderer;
 
 public class Renderer implements Disposable {
 
@@ -40,7 +38,7 @@ public class Renderer implements Disposable {
         gameState = state;
         camera = new OrthographicCamera();
         this.mapManager = mapManager;
-        mapManager.loadMap("Maps/fieldMap.tmx"); // This is just a test map that I made
+        mapManager.loadMap("Maps/fieldMap.tmx");
         TiledMap map = mapManager.getCurrentMap();
         batch = new SpriteBatch();
         mapRenderer = mapManager.getCurrentMapRenderer(batch);
@@ -58,7 +56,6 @@ public class Renderer implements Disposable {
         Vector2 clampedPlayerPosition = clampCoordsToScreen(gameState.getPlayerPosition());
         camera.position.set(clampedPlayerPosition, 0);
 
-        //camera.position.set(gameState.getPlayerPosition(), 0);
         viewport.update(SCREEN_WIDTH, SCREEN_HEIGHT);
         batch.setProjectionMatrix(camera.combined);
 
