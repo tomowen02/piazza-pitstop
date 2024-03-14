@@ -7,11 +7,14 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
+import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.heslingtonhustle.map.MapManager;
 import com.heslingtonhustle.state.State;
+import sun.java2d.pipe.SpanClipRenderer;
 
 public class Renderer implements Disposable {
 
@@ -40,8 +43,7 @@ public class Renderer implements Disposable {
         TiledMap map = mapManager.getCurrentMap();
         batch = new SpriteBatch();
         mapRenderer = new OrthogonalTiledMapRenderer(map, batch);
-        viewport = new ExtendViewport(mapManager.getCurrentMapPixelDimensions().x, mapManager.getCurrentMapPixelDimensions().y, camera);
-        viewport.setScreenSize(SCREEN_WIDTH, SCREEN_HEIGHT);
+        viewport = new ExtendViewport(SCREEN_WIDTH/2, SCREEN_HEIGHT/2, camera);
 
         textureAtlas = new TextureAtlas("pack.atlas");
         playerTexture = textureAtlas.findRegion("circle");
@@ -52,10 +54,10 @@ public class Renderer implements Disposable {
     }
 
     public void update() {
-        /* float x = MathUtils.clamp(gameState.getPlayerPosition().x, camera.viewportWidth/2, GAME_WIDTH - camera.viewportWidth/2);
-        float y = MathUtils.clamp(gameState.getPlayerPosition().y, camera.viewportHeight/2, GAME_HEIGHT - camera.viewportHeight/2);
-        camera.position.set(x, y, 0); */
-        camera.position.set(gameState.getPlayerPosition(), 0);
+        Vector2 clampedPlayerPosition = clampCoordsToScreen(gameState.getPlayerPosition());
+        camera.position.set(clampedPlayerPosition, 0);
+
+        //camera.position.set(gameState.getPlayerPosition(), 0);
         viewport.update(SCREEN_WIDTH, SCREEN_HEIGHT);
         batch.setProjectionMatrix(camera.combined);
 
@@ -71,6 +73,20 @@ public class Renderer implements Disposable {
         playerSprite.draw(batch);
         batch.draw(buildingTexture, 50, 50);
         batch.end();
+    }
+
+    private Vector2 clampCoordsToScreen(Vector2 coords) {
+        float x = MathUtils.clamp(
+                coords.x,
+                camera.viewportWidth/2,
+                mapManager.getCurrentMapPixelDimensions().x - camera.viewportWidth/2
+        );
+        float y = MathUtils.clamp(
+                coords.y,
+                camera.viewportHeight/2,
+                mapManager.getCurrentMapPixelDimensions().y - camera.viewportHeight/2
+        );
+        return new Vector2(x, y);
     }
 
     @Override

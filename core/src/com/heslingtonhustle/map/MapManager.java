@@ -32,8 +32,9 @@ public class MapManager implements Disposable {
         }
         currentMap = loadedMaps.get(path);
 
-        MapLayer collisionLayer = currentMap.getLayers().get("Collisions");
-        collisionObjects = collisionLayer.getObjects();
+        /* This code can cause a nullptr exception if no collision layer is present */
+        //MapLayer collisionLayer = currentMap.getLayers().get("Collisions");
+        //collisionObjects = collisionLayer.getObjects();
     }
 
     public TiledMap getCurrentMap() {
