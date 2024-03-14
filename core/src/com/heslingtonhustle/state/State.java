@@ -1,6 +1,5 @@
 package com.heslingtonhustle.state;
 
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
 import com.heslingtonhustle.map.MapManager;
 
@@ -26,5 +25,8 @@ public class State {
     public Vector2 getPlayerPosition() {
         return player.getPosition();
     }
-    public Sprite getPlayerSprite() { return player.getSprite(); }
+
+    public float getPlayerFacing() {
+        return player.getFacing();
+    }
 }

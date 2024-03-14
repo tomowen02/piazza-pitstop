@@ -70,7 +70,7 @@ public class Renderer implements Disposable {
         mapRenderer.setView(camera);
         mapRenderer.render();
 
-        //playerSprite.setRotation(gameState.getPlayerFacing());
+        playerSprite.setRotation(gameState.getPlayerFacing());
         playerSprite.setPosition(playerPixelPosition.x, playerPixelPosition.y);
 
         batch.begin();
