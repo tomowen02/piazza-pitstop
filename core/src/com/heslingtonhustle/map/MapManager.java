@@ -90,6 +90,13 @@ public class MapManager implements Disposable {
         );
     }
 
+    public Vector2 worldToPixelCoords(Vector2 worldCoords) {
+        return new Vector2(
+                worldCoords.x * getCurrentMapTileDimensions().x,
+                worldCoords.y * getCurrentMapTileDimensions().y
+        );
+    }
+
     @Override
     public void dispose() {
         for (TiledMap map : loadedMaps.values()) {

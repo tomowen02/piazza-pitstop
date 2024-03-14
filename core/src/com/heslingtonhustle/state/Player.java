@@ -2,12 +2,13 @@ package com.heslingtonhustle.state;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.heslingtonhustle.Direction;
 
 /** Represents the player character */
 public class Player {
-    public static final float SPEED = 2f;
+    public static final float SPEED = 0.5f;
     private Vector2 position;
     private Action movement = Action.STOP;
     private Direction facing = Direction.DOWN;
@@ -88,5 +89,10 @@ public class Player {
         sprite.setTexture(currentTexture);
         sprite.setPosition(position.x, position.y);
         return sprite;
+    }
+
+    public void setInBounds(Vector2 mapSize) {
+        position.x = MathUtils.clamp(position.x, 0, mapSize.x);
+        position.y = MathUtils.clamp(position.y, 0, mapSize.y);
     }
 }

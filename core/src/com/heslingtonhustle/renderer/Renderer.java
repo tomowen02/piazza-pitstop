@@ -53,7 +53,8 @@ public class Renderer implements Disposable {
     }
 
     public void update() {
-        Vector2 clampedPlayerPosition = clampCoordsToScreen(gameState.getPlayerPosition());
+        Vector2 playerPixelPosition = mapManager.worldToPixelCoords(gameState.getPlayerPosition());
+        Vector2 clampedPlayerPosition = clampCoordsToScreen(playerPixelPosition);
         camera.position.set(clampedPlayerPosition, 0);
 
         viewport.update(SCREEN_WIDTH, SCREEN_HEIGHT);
@@ -66,7 +67,7 @@ public class Renderer implements Disposable {
         mapRenderer.render();
 
         //playerSprite.setRotation(gameState.getPlayerFacing());
-        playerSprite.setPosition(gameState.getPlayerPosition().x, gameState.getPlayerPosition().y);
+        playerSprite.setPosition(playerPixelPosition.x, playerPixelPosition.y);
 
         batch.begin();
         playerSprite.draw(batch);

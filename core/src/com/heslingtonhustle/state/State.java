@@ -20,6 +20,7 @@ public class State {
             player.move(action);
         }
         player.update();
+        player.setInBounds(mapManager.getCurrentMapWorldDimensions());
     }
 
     public Vector2 getPlayerPosition() {
