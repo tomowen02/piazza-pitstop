@@ -10,7 +10,7 @@ public class Player {
     public static final float DOWN = 180f;
     public static final float RIGHT = 270f;
 
-    public static final float SPEED = 2f;
+    public static final float SPEED = 0.5f;
 
     private Vector2 position;
     private Action movement = Action.STOP;
