@@ -61,7 +61,7 @@ public class Renderer implements Disposable {
 
         ScreenUtils.clear(0.2f, 0.2f, 0.5f, 1);
 
-        mapRenderer = mapManager.getCurrentMapRenderer(batch);
+        mapRenderer = mapManager.getCurrentMapRenderer(batch); // Maybe change how this works
         mapRenderer.setView(camera);
         mapRenderer.render();
 

@@ -1,6 +1,7 @@
 package com.heslingtonhustle.map;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.MapObjects;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
@@ -19,11 +20,13 @@ public class MapManager implements Disposable {
     private TiledMap currentMap;
     private TmxMapLoader mapLoader;
     private HashMap<String, TiledMap> loadedMaps;
+    private HashMap<TiledMap, OrthogonalTiledMapRenderer> loadedMapRenderers;
     private MapObjects collisionObjects;
 
     public MapManager() {
         mapLoader = new TmxMapLoader();
         loadedMaps = new HashMap<>();
+        loadedMapRenderers = new HashMap<>();
     }
 
     public void loadMap(String path) {
@@ -43,7 +46,12 @@ public class MapManager implements Disposable {
 
     public OrthogonalTiledMapRenderer getCurrentMapRenderer(SpriteBatch spriteBatch) {
         if (currentMap == null) return null;
-        return new OrthogonalTiledMapRenderer(currentMap, spriteBatch);
+
+        if (!loadedMapRenderers.containsKey(currentMap)) {
+            loadedMapRenderers.put(currentMap, new OrthogonalTiledMapRenderer(currentMap, spriteBatch));
+        }
+
+        return loadedMapRenderers.get(currentMap);
     }
 
     public boolean checkCollision(Rectangle playerRectangle) {
@@ -86,6 +94,9 @@ public class MapManager implements Disposable {
     public void dispose() {
         for (TiledMap map : loadedMaps.values()) {
             map.dispose();
+        }
+        for (OrthogonalTiledMapRenderer mapRenderer: loadedMapRenderers.values()) {
+            mapRenderer.dispose();
         }
     }
 }
