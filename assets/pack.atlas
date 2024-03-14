@@ -1,0 +1,74 @@
+
+pack.png
+size: 512, 512
+format: RGBA8888
+filter: Nearest, Nearest
+repeat: none
+badlogic
+  rotate: false
+  xy: 2, 36
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+circle
+  rotate: false
+  xy: 2, 2
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+triangle
+  rotate: false
+  xy: 260, 260
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+
+pack2.png
+size: 512, 256
+format: RGBA8888
+filter: Nearest, Nearest
+repeat: none
+Graphics/taiga_
+  rotate: false
+  xy: 2, 2
+  size: 352, 144
+  orig: 352, 144
+  offset: 0, 0
+  index: -1
+
+pack3.png
+size: 256, 64
+format: RGBA8888
+filter: Nearest, Nearest
+repeat: none
+Graphics/Entities/Player1/down
+  rotate: false
+  xy: 2, 2
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+Graphics/Entities/Player1/left
+  rotate: false
+  xy: 36, 2
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+Graphics/Entities/Player1/right
+  rotate: false
+  xy: 70, 2
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+Graphics/Entities/Player1/up
+  rotate: false
+  xy: 104, 2
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
