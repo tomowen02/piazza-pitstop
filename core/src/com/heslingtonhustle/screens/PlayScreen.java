@@ -25,33 +25,44 @@ public class PlayScreen implements Screen {
     private final State gameState;
     private final Renderer renderer;
 
+    private final MapManager mapManager;
+
     public PlayScreen(HeslingtonHustleGame parentClass) {
         this.heslingtonHustleGame = parentClass;
 
+        mapManager = new MapManager();
         gameState = new State();
         inputHandler = new KeyboardInputHandler();
-        renderer = new Renderer(gameState, new MapManager());
+        renderer = new Renderer(gameState, mapManager);
 
         Gdx.input.setInputProcessor(inputHandler);
     }
     @Override
     public void render(float delta) {
-        gameState.update(inputHandler.getAction());
+        Action action = inputHandler.getAction();
+        if (handleDebugAction(action)) {
+            action = inputHandler.getAction();
+        }
+        gameState.update(action);
         renderer.update();
     }
-//    private void updateState() {
-//        Action action = inputHandler.getAction();
-//        if (action == Action.DEBUGGING_ACTION1) {
-//            mapManager.loadMap("Maps/caveMap.tmx");
-//            renderer.setMap(mapManager.getCurrentMap());
-//            return;
-//        } else if (action == Action.DEBUGGING_ACTION2) {
-//            mapManager.loadMap("Maps/fieldMap.tmx");
-//            renderer.setMap(mapManager.getCurrentMap());
-//            return;
-//        }
-//        gameState.update(action);
-//    }
+
+    private boolean handleDebugAction(Action action) {
+        if (action == null) {
+            return false;
+        }
+        switch (action) {
+            case DEBUGGING_ACTION1:
+                mapManager.loadMap("Maps/fieldMap.tmx");
+                return true;
+            case DEBUGGING_ACTION2:
+                mapManager.loadMap("Maps/largeMap.tmx");
+                return true;
+            default:
+                return false;
+        }
+    }
+
     @Override
     public void show() {
 

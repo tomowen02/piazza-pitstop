@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.maps.MapRenderer;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.MathUtils;
@@ -23,7 +24,7 @@ public class Renderer implements Disposable {
 
     private final ExtendViewport viewport;
     private OrthographicCamera camera;
-    private OrthogonalTiledMapRenderer mapRenderer;
+    private MapRenderer mapRenderer;
     private final State gameState;
     private SpriteBatch batch;
     private Sprite playerSprite;
@@ -42,7 +43,7 @@ public class Renderer implements Disposable {
         mapManager.loadMap("Maps/fieldMap.tmx"); // This is just a test map that I made
         TiledMap map = mapManager.getCurrentMap();
         batch = new SpriteBatch();
-        mapRenderer = new OrthogonalTiledMapRenderer(map, batch);
+        mapRenderer = mapManager.getCurrentMapRenderer(batch);
         viewport = new ExtendViewport(SCREEN_WIDTH/2, SCREEN_HEIGHT/2, camera);
 
         textureAtlas = new TextureAtlas("pack.atlas");
@@ -63,6 +64,7 @@ public class Renderer implements Disposable {
 
         ScreenUtils.clear(0.2f, 0.2f, 0.5f, 1);
 
+        mapRenderer = mapManager.getCurrentMapRenderer(batch);
         mapRenderer.setView(camera);
         mapRenderer.render();
 
@@ -92,7 +94,6 @@ public class Renderer implements Disposable {
     @Override
     public void dispose() {
         batch.dispose();
-        mapRenderer.dispose();
         mapManager.dispose();
     }
 

@@ -1,11 +1,13 @@
 package com.heslingtonhustle.map;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.MapObjects;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
+import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
@@ -39,6 +41,11 @@ public class MapManager implements Disposable {
 
     public TiledMap getCurrentMap() {
         return currentMap;
+    }
+
+    public OrthogonalTiledMapRenderer getCurrentMapRenderer(SpriteBatch spriteBatch) {
+        if (currentMap == null) return null;
+        return new OrthogonalTiledMapRenderer(currentMap, spriteBatch);
     }
 
     public boolean checkCollision(Rectangle playerRectangle) {
