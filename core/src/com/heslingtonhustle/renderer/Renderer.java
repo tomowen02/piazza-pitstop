@@ -91,7 +91,6 @@ public class Renderer implements Disposable {
     @Override
     public void dispose() {
         batch.dispose();
-        mapManager.dispose();
     }
 
     public void windowResized(int width, int height) {

@@ -22,7 +22,7 @@ public class PlayScreen implements Screen {
         this.heslingtonHustleGame = parentClass;
 
         mapManager = new MapManager();
-        gameState = new State();
+        gameState = new State(mapManager);
         inputHandler = new KeyboardInputHandler();
         renderer = new Renderer(gameState, mapManager);
 
@@ -81,6 +81,6 @@ public class PlayScreen implements Screen {
 
     @Override
     public void dispose() {
-
+        mapManager.dispose();
     }
 }
