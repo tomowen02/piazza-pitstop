@@ -1,5 +1,6 @@
 package com.heslingtonhustle.renderer;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -17,8 +18,8 @@ import com.heslingtonhustle.state.State;
 
 public class Renderer implements Disposable {
 
-    public static final int SCREEN_WIDTH = 640;
-    public static final int SCREEN_HEIGHT = 480;
+    private int screenWidth;
+    public int screenHeight;
 
     private final ExtendViewport viewport;
     private OrthographicCamera camera;
@@ -35,6 +36,9 @@ public class Renderer implements Disposable {
 
     public Renderer(State state, MapManager mapManager)
     {
+        screenWidth = Gdx.graphics.getWidth();
+        screenHeight = Gdx.graphics.getHeight();
+
         gameState = state;
         camera = new OrthographicCamera();
         this.mapManager = mapManager;
@@ -42,7 +46,7 @@ public class Renderer implements Disposable {
         TiledMap map = mapManager.getCurrentMap();
         batch = new SpriteBatch();
         mapRenderer = mapManager.getCurrentMapRenderer(batch);
-        viewport = new ExtendViewport(SCREEN_WIDTH/2, SCREEN_HEIGHT/2, camera);
+        viewport = new ExtendViewport(screenWidth /2, screenHeight /2, camera);
 
         textureAtlas = new TextureAtlas("pack.atlas");
         playerTexture = textureAtlas.findRegion("circle");
@@ -57,7 +61,7 @@ public class Renderer implements Disposable {
         Vector2 clampedPlayerPosition = clampCoordsToScreen(playerPixelPosition);
         camera.position.set(clampedPlayerPosition, 0);
 
-        viewport.update(SCREEN_WIDTH, SCREEN_HEIGHT);
+        viewport.update(screenWidth, screenHeight);
         batch.setProjectionMatrix(camera.combined);
 
         ScreenUtils.clear(0.2f, 0.2f, 0.5f, 1);
@@ -95,6 +99,8 @@ public class Renderer implements Disposable {
     }
 
     public void windowResized(int width, int height) {
+        screenWidth = width;
+        screenHeight = height;
         viewport.update(width, height, true);
     }
 }
