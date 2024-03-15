@@ -48,7 +48,7 @@ public class PlayScreen implements Screen {
             action = inputHandler.getAction();
         }
         if (!isPaused) {
-            gameState.update(action);
+            gameState.update(action, delta);
         }
         renderer.update();
     }
@@ -63,6 +63,7 @@ public class PlayScreen implements Screen {
                 Gdx.app.debug("DEBUG", "Position: "+playerPos.x+", "+playerPos.y);
                 return true;
             case DEBUGGING_ACTION2:
+                Gdx.app.debug("DEBUG", "Time: "+gameState.getDebugTime());
                 return true;
             default:
                 return false;
