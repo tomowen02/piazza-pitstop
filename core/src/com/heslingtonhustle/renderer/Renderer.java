@@ -14,6 +14,7 @@ import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.heslingtonhustle.map.MapManager;
 import com.heslingtonhustle.state.State;
+import com.heslingtonhustle.screens.PauseMenu;
 
 public class Renderer implements Disposable {
 
@@ -30,10 +31,12 @@ public class Renderer implements Disposable {
 
     private final MapManager mapManager;
 
+    private final PauseMenu pauseMenu;
+
     private final TextureRegion playerTexture;
     private final TextureRegion buildingTexture;
 
-    public Renderer(State state, MapManager mapManager)
+    public Renderer(State state, MapManager mapManager, PauseMenu pauseMenu)
     {
         gameState = state;
         camera = new OrthographicCamera();
@@ -43,6 +46,8 @@ public class Renderer implements Disposable {
         batch = new SpriteBatch();
         mapRenderer = mapManager.getCurrentMapRenderer(batch);
         viewport = new ExtendViewport(SCREEN_WIDTH/2, SCREEN_HEIGHT/2, camera);
+
+        this.pauseMenu = pauseMenu;
 
         textureAtlas = new TextureAtlas("pack.atlas");
         playerTexture = textureAtlas.findRegion("circle");
@@ -72,18 +77,28 @@ public class Renderer implements Disposable {
         playerSprite.draw(batch);
         batch.draw(buildingTexture, 50, 50);
         batch.end();
+
+        pauseMenu.render();
+    }
+
+    public void ShowPauseScreen() {
+        pauseMenu.ShowPauseMenu();
+    }
+
+    public void HidePauseScreen() {
+        pauseMenu.HidePauseMenu();
     }
 
     private Vector2 clampCoordsToScreen(Vector2 coords) {
         float x = MathUtils.clamp(
                 coords.x,
-                camera.viewportWidth/2,
-                mapManager.getCurrentMapPixelDimensions().x - camera.viewportWidth/2
+                camera.viewportWidth / 2,
+                mapManager.getCurrentMapPixelDimensions().x - camera.viewportWidth / 2
         );
         float y = MathUtils.clamp(
                 coords.y,
-                camera.viewportHeight/2,
-                mapManager.getCurrentMapPixelDimensions().y - camera.viewportHeight/2
+                camera.viewportHeight / 2,
+                mapManager.getCurrentMapPixelDimensions().y - camera.viewportHeight / 2
         );
         return new Vector2(x, y);
     }
@@ -92,6 +107,7 @@ public class Renderer implements Disposable {
     public void dispose() {
         batch.dispose();
         mapManager.dispose();
+        pauseMenu.dispose();
     }
 
     public void windowResized(int width, int height) {

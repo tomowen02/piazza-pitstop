@@ -1,6 +1,7 @@
 package com.heslingtonhustle.screens;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.Screen;
 import com.heslingtonhustle.HeslingtonHustleGame;
 import com.heslingtonhustle.input.InputHandler;
@@ -13,20 +14,28 @@ import com.heslingtonhustle.state.State;
 public class PlayScreen implements Screen {
     public HeslingtonHustleGame heslingtonHustleGame;
 
+    InputMultiplexer inputMultiplexer;
     private final InputHandler inputHandler;
     private final State gameState;
     private final Renderer renderer;
     private final MapManager mapManager;
+    private final PauseMenu pauseMenu;
+    private boolean isPaused;
 
     public PlayScreen(HeslingtonHustleGame parentClass) {
         this.heslingtonHustleGame = parentClass;
+        isPaused = false;
 
         mapManager = new MapManager();
         gameState = new State();
-        inputHandler = new KeyboardInputHandler();
-        renderer = new Renderer(gameState, mapManager);
+        pauseMenu = new PauseMenu(this);
+        renderer = new Renderer(gameState, mapManager, pauseMenu);
 
-        Gdx.input.setInputProcessor(inputHandler);
+        inputMultiplexer = new InputMultiplexer();
+        inputHandler = new KeyboardInputHandler();
+        inputMultiplexer.addProcessor(inputHandler);
+        inputMultiplexer.addProcessor(pauseMenu.GetStage());
+        Gdx.input.setInputProcessor(inputMultiplexer);
     }
     @Override
     public void render(float delta) {
@@ -34,7 +43,12 @@ public class PlayScreen implements Screen {
         if (handleDebugAction(action)) {
             action = inputHandler.getAction();
         }
-        gameState.update(action);
+        if (handlePauseAction(action)) {
+            action = inputHandler.getAction();
+        }
+        if (!isPaused) {
+            gameState.update(action);
+        }
         renderer.update();
     }
 
@@ -44,14 +58,23 @@ public class PlayScreen implements Screen {
         }
         switch (action) {
             case DEBUGGING_ACTION1:
-                mapManager.loadMap("Maps/fieldMap.tmx");
+//                mapManager.loadMap("Maps/fieldMap.tmx");
                 return true;
             case DEBUGGING_ACTION2:
-                mapManager.loadMap("Maps/largeMap.tmx");
+//                mapManager.loadMap("Maps/largeMap.tmx");
+                mapManager.loadMap("Maps/campusEast.tmx");
                 return true;
             default:
                 return false;
         }
+    }
+
+    private boolean handlePauseAction(Action action) {
+        if (action == Action.PAUSE) {
+            pause();
+            return true;
+        }
+        return false;
     }
 
     @Override
@@ -66,12 +89,14 @@ public class PlayScreen implements Screen {
 
     @Override
     public void pause() {
-
+        isPaused = true;
+        renderer.ShowPauseScreen();
     }
 
     @Override
     public void resume() {
-
+        isPaused = false;
+        renderer.HidePauseScreen();
     }
 
     @Override

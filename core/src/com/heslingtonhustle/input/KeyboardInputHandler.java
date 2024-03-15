@@ -35,8 +35,10 @@ public class KeyboardInputHandler extends InputAdapter implements InputHandler {
 
         inputMap.put(Keys.SPACE, Action.INTERACT);
 
-        inputMap.put(Keys.PERIOD, Action.DEBUGGING_ACTION1); // This is just to quickly trigger an event while debugging
-        inputMap.put(Keys.COMMA, Action.DEBUGGING_ACTION2);
+        inputMap.put(Keys.ESCAPE, Action.PAUSE);
+
+        inputMap.put(Keys.COMMA, Action.DEBUGGING_ACTION1); // This is just to quickly trigger an event while debugging
+        inputMap.put(Keys.PERIOD, Action.DEBUGGING_ACTION2);
     }
 
     @Override
