@@ -8,8 +8,10 @@ public class Clock {
 
     public Clock() {
         timeUnits = 0;
-        speed = 3;
+//        speed = 4;
+        speed = 10; // ONLY FOR TESTING
     }
+
 
     public Time getTime() {
         if (timeUnits < 250) {

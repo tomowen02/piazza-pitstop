@@ -26,6 +26,7 @@ triangle
   offset: 0, 0
   index: -1
 
+
 pack2.png
 size: 512, 256
 format: RGBA8888
@@ -73,36 +74,36 @@ Graphics/Entities/Player1/up
   offset: 0, 0
   index: -1
 
-  clockPack.png
-  size: 256, 64
-  format: RGBA8888
-  filter: Nearest, Nearest
-  repeat: none
-  Graphics/UI/Clock/night
-    rotate: false
-    xy: 2, 2
-    size: 32, 32
-    orig: 32, 32
-    offset: 0, 0
-    index: -1
-  Graphics/UI/Clock/morning
-    rotate: false
-    xy: 36, 2
-    size: 32, 32
-    orig: 32, 32
-    offset: 0, 0
-    index: -1
-  Graphics/UI/Clock/evening
-    rotate: false
-    xy: 70, 2
-    size: 32, 32
-    orig: 32, 32
-    offset: 0, 0
-    index: -1
-  Graphics/Entities/night
-    rotate: false
-    xy: 104, 2
-    size: 32, 32
-    orig: 32, 32
-    offset: 0, 0
-    index: -1
+clockPack.png
+size: 256, 64
+format: RGBA8888
+filter: Nearest, Nearest
+repeat: none
+nightClock
+  rotate: false
+  xy: 2, 2
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+morningClock
+  rotate: false
+  xy: 36, 2
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+eveningClock
+  rotate: false
+  xy: 70, 2
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+afternoonClock
+  rotate: false
+  xy: 104, 2
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1

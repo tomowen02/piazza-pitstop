@@ -37,7 +37,7 @@ public class Renderer implements Disposable {
 
     private final TextureRegion playerTexture;
     private final TextureRegion buildingTexture;
-    private final TextureRegion clockTexture;
+    private TextureRegion clockTexture;
 
     public Renderer(State state, MapManager mapManager, PauseMenu pauseMenu)
     {
@@ -58,11 +58,12 @@ public class Renderer implements Disposable {
         textureAtlas = new TextureAtlas("pack.atlas");
         playerTexture = textureAtlas.findRegion("circle");
         buildingTexture = textureAtlas.findRegion("triangle");
-        clockTexture = textureAtlas.findRegion("clock");
+        clockTexture = textureAtlas.findRegion("morningClock");
 
         playerSprite = new Sprite(playerTexture);
         playerSprite.setScale(0.5f, 0.5f);
         clockSprite = new Sprite(clockTexture);
+        clockSprite.setPosition(0,0);
         clockSprite.setScale(1f, 1f);
     }
 
@@ -82,8 +83,8 @@ public class Renderer implements Disposable {
 
         playerSprite.setRotation(gameState.getPlayerFacing());
         playerSprite.setPosition(playerPixelPosition.x, playerPixelPosition.y);
-        clockSprite.setRotation(gameState.getPlayerFacing());
-        clockSprite.setPosition(0,0);
+        setClockTexture();
+
 
         batch.begin();
         playerSprite.draw(batch);
@@ -114,6 +115,24 @@ public class Renderer implements Disposable {
                 mapManager.getCurrentMapPixelDimensions().y - camera.viewportHeight / 2
         );
         return new Vector2(x, y);
+    }
+
+    private void setClockTexture() {
+        switch (gameState.getTime()) {
+            case MORNING:
+                clockTexture = textureAtlas.findRegion("morningClock");
+                break;
+            case AFTERNOON:
+                clockTexture = textureAtlas.findRegion("afternoonClock");
+                break;
+            case EVENING:
+                clockTexture = textureAtlas.findRegion("eveningClock");
+                break;
+            case NIGHT:
+                clockTexture = textureAtlas.findRegion("nightClock");
+                break;
+        }
+        clockSprite.setRegion(clockTexture);
     }
 
     @Override
