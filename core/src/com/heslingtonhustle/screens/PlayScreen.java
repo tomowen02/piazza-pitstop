@@ -33,6 +33,7 @@ public class PlayScreen implements Screen {
         pauseMenu = new PauseMenu(this);
         renderer = new Renderer(gameState, mapManager, pauseMenu);
         inputMultiplexer = new InputMultiplexer();
+        gameState = new State(mapManager);
         inputHandler = new KeyboardInputHandler();
         inputMultiplexer.addProcessor(inputHandler);
         inputMultiplexer.addProcessor(pauseMenu.GetStage());
@@ -107,6 +108,6 @@ public class PlayScreen implements Screen {
 
     @Override
     public void dispose() {
-
+        mapManager.dispose();
     }
 }

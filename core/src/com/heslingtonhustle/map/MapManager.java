@@ -1,7 +1,6 @@
 package com.heslingtonhustle.map;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.MapObjects;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
@@ -14,7 +13,6 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Disposable;
 
 import java.util.HashMap;
-import java.util.Vector;
 
 public class MapManager implements Disposable {
     private TiledMap currentMap;
@@ -87,6 +85,13 @@ public class MapManager implements Disposable {
         return new Vector2(
                 getCurrentMapWorldDimensions().x * getCurrentMapTileDimensions().x,
                 getCurrentMapWorldDimensions().y * getCurrentMapTileDimensions().y
+        );
+    }
+
+    public Vector2 worldToPixelCoords(Vector2 worldCoords) {
+        return new Vector2(
+                worldCoords.x * getCurrentMapTileDimensions().x,
+                worldCoords.y * getCurrentMapTileDimensions().y
         );
     }
 
