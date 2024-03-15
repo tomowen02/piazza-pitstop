@@ -41,7 +41,7 @@ public class Renderer implements Disposable {
         gameState = state;
         camera = new OrthographicCamera();
         this.mapManager = mapManager;
-        mapManager.loadMap("Maps/fieldMap.tmx");
+        mapManager.loadMap("Maps/campusEast.tmx");
         TiledMap map = mapManager.getCurrentMap();
         batch = new SpriteBatch();
         mapRenderer = mapManager.getCurrentMapRenderer(batch);

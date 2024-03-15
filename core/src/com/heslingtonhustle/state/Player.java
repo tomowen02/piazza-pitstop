@@ -1,5 +1,6 @@
 package com.heslingtonhustle.state;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
@@ -34,24 +35,23 @@ public class Player {
                 break;
             case MOVE_UP:
                 if (facing != Direction.UP) { facing = Direction.UP; };
-                position.y += SPEED;
+                setPosition(new Vector2(position.x, position.y+SPEED));
                 break;
             case MOVE_DOWN:
                 if (facing != Direction.DOWN) { facing = Direction.DOWN; };
-                position.y -= SPEED;
+                setPosition(new Vector2(position.x, position.y-SPEED));
                 break;
             case MOVE_LEFT:
                 if (facing != Direction.LEFT) { facing = Direction.LEFT; };
-                position.x -= SPEED;
+                setPosition(new Vector2(position.x-SPEED, position.y));
                 break;
             case MOVE_RIGHT:
                 if (facing != Direction.RIGHT) { facing = Direction.RIGHT; };
-                position.x += SPEED;
+                setPosition(new Vector2(position.x+SPEED, position.y));
                 break;
             default:
                 break;
         }
-        sprite.setPosition(position.x, position.y);
     }
 
     /** Returns a copy of the player's position */
@@ -61,6 +61,7 @@ public class Player {
 
     public void setPosition(Vector2 position) {
         this.position = position;
+        sprite.setPosition(position.x, position.y);
     }
 
     public void move(Action action) {

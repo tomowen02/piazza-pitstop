@@ -1,6 +1,5 @@
 package com.heslingtonhustle.state;
 
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
 
 /** Contains all data related to the logical state of the game. */
@@ -22,5 +21,5 @@ public class State {
     public Vector2 getPlayerPosition() {
         return player.getPosition();
     }
-    public Sprite getPlayerSprite() { return player.getSprite(); }
+    public void setPlayerPosition(Vector2 position) { player.setPosition(position); }
 }

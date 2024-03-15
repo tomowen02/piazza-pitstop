@@ -3,6 +3,7 @@ package com.heslingtonhustle.screens;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.math.Vector2;
 import com.heslingtonhustle.HeslingtonHustleGame;
 import com.heslingtonhustle.input.InputHandler;
 import com.heslingtonhustle.input.KeyboardInputHandler;
@@ -28,9 +29,9 @@ public class PlayScreen implements Screen {
 
         mapManager = new MapManager();
         gameState = new State();
+        gameState.setPlayerPosition(new Vector2(552, 610)); // You might want this to be somewhere else?
         pauseMenu = new PauseMenu(this);
         renderer = new Renderer(gameState, mapManager, pauseMenu);
-
         inputMultiplexer = new InputMultiplexer();
         inputHandler = new KeyboardInputHandler();
         inputMultiplexer.addProcessor(inputHandler);
@@ -58,11 +59,10 @@ public class PlayScreen implements Screen {
         }
         switch (action) {
             case DEBUGGING_ACTION1:
-//                mapManager.loadMap("Maps/fieldMap.tmx");
+                Vector2 playerPos = gameState.getPlayerPosition();
+                Gdx.app.debug("DEBUG", "Position: "+playerPos.x+", "+playerPos.y);
                 return true;
             case DEBUGGING_ACTION2:
-//                mapManager.loadMap("Maps/largeMap.tmx");
-                mapManager.loadMap("Maps/campusEast.tmx");
                 return true;
             default:
                 return false;
