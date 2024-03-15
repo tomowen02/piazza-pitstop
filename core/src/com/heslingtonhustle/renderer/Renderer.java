@@ -28,6 +28,7 @@ public class Renderer implements Disposable {
     private final State gameState;
     private SpriteBatch batch;
     private Sprite playerSprite;
+    private Sprite clockSprite;
     private TextureAtlas textureAtlas;
 
     private final MapManager mapManager;
@@ -36,6 +37,7 @@ public class Renderer implements Disposable {
 
     private final TextureRegion playerTexture;
     private final TextureRegion buildingTexture;
+    private final TextureRegion clockTexture;
 
     public Renderer(State state, MapManager mapManager, PauseMenu pauseMenu)
     {
@@ -56,9 +58,12 @@ public class Renderer implements Disposable {
         textureAtlas = new TextureAtlas("pack.atlas");
         playerTexture = textureAtlas.findRegion("circle");
         buildingTexture = textureAtlas.findRegion("triangle");
+        clockTexture = textureAtlas.findRegion("clock");
 
         playerSprite = new Sprite(playerTexture);
         playerSprite.setScale(0.5f, 0.5f);
+        clockSprite = new Sprite(clockTexture);
+        clockSprite.setScale(1f, 1f);
     }
 
     public void update() {
@@ -77,10 +82,13 @@ public class Renderer implements Disposable {
 
         playerSprite.setRotation(gameState.getPlayerFacing());
         playerSprite.setPosition(playerPixelPosition.x, playerPixelPosition.y);
+        clockSprite.setRotation(gameState.getPlayerFacing());
+        clockSprite.setPosition(0,0);
 
         batch.begin();
         playerSprite.draw(batch);
         batch.draw(buildingTexture, 50, 50);
+        clockSprite.draw(batch);
         batch.end();
 
         pauseMenu.render();
