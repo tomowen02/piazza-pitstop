@@ -28,16 +28,12 @@ public class PlayScreen implements Screen {
         isPaused = false;
 
         mapManager = new MapManager();
-        gameState = new State();
-        gameState.setPlayerPosition(new Vector2(552, 610)); // You might want this to be somewhere else?
+        gameState = new State(mapManager);
         pauseMenu = new PauseMenu(this);
         renderer = new Renderer(gameState, mapManager, pauseMenu);
-        inputMultiplexer = new InputMultiplexer();
-        gameState = new State(mapManager);
+
         inputHandler = new KeyboardInputHandler();
-        inputMultiplexer.addProcessor(inputHandler);
-        inputMultiplexer.addProcessor(pauseMenu.GetStage());
-        Gdx.input.setInputProcessor(inputMultiplexer);
+        addInputHandlers();
     }
     @Override
     public void render(float delta) {
@@ -77,6 +73,14 @@ public class PlayScreen implements Screen {
             return true;
         }
         return false;
+    }
+
+    private void addInputHandlers() {
+        inputMultiplexer = new InputMultiplexer();
+
+        inputMultiplexer.addProcessor(inputHandler);
+        inputMultiplexer.addProcessor(pauseMenu.GetStage());
+        Gdx.input.setInputProcessor(inputMultiplexer);
     }
 
     @Override

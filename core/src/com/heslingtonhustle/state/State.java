@@ -28,9 +28,6 @@ public class State {
     public Vector2 getPlayerPosition() {
         return player.getPosition();
     }
-    public void setPlayerPosition(Vector2 position) {
-        player.setPosition(position);
-    }
 
     public Time getTime() {
         return clock.getTime();

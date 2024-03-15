@@ -54,11 +54,6 @@ public class Player {
         return new Vector2(position);
     }
 
-    public void setPosition(Vector2 position) {
-        this.position = position;
-        sprite.setPosition(position.x, position.y);
-    }
-
     public void move(Action action) {
         movement = action;
     }
