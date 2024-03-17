@@ -30,7 +30,6 @@ public class Renderer implements Disposable {
     private final State gameState;
     private SpriteBatch batch;
     private Sprite playerSprite;
-    private Sprite clockSprite;
     private TextureAtlas textureAtlas;
 
     private final MapManager mapManager;
@@ -38,7 +37,8 @@ public class Renderer implements Disposable {
     private final PauseMenu pauseMenu;
 
     private final TextureRegion playerTexture;
-    private TextureRegion clockTexture;
+
+    private HudRenderer hudRenderer;
 
     public Renderer(State state, MapManager mapManager, PauseMenu pauseMenu)
     {
@@ -58,17 +58,14 @@ public class Renderer implements Disposable {
 
         textureAtlas = new TextureAtlas("pack.atlas");
         playerTexture = textureAtlas.findRegion("circle");
-        clockTexture = textureAtlas.findRegion("morningClock");
+
+        hudRenderer = new HudRenderer(gameState, textureAtlas);
 
         playerSprite = new Sprite(playerTexture);
         float playerWidthInPixels = mapManager.worldToPixelValue(state.getPlayerWidth());
         float playerHeightInPixels = mapManager.worldToPixelValue(state.getPlayerHeight());
         playerSprite.setSize(playerWidthInPixels, playerHeightInPixels);
         playerSprite.setOriginCenter();
-
-        clockSprite = new Sprite(clockTexture);
-        clockSprite.setPosition(0,0);
-        clockSprite.setScale(1f, 1f);
     }
 
     public void update() {
@@ -92,13 +89,13 @@ public class Renderer implements Disposable {
 
         playerSprite.setRotation(gameState.getPlayerFacing());
         playerSprite.setPosition(playerPixelPosition.x, playerPixelPosition.y);
-        setClockTexture();
 
 
         batch.begin();
         playerSprite.draw(batch);
-        clockSprite.draw(batch);
         batch.end();
+
+        hudRenderer.render();
 
         pauseMenu.render();
     }
@@ -125,28 +122,11 @@ public class Renderer implements Disposable {
         return new Vector2(x, y);
     }
 
-    private void setClockTexture() {
-        switch (gameState.getTime()) {
-            case MORNING:
-                clockTexture = textureAtlas.findRegion("morningClock");
-                break;
-            case AFTERNOON:
-                clockTexture = textureAtlas.findRegion("afternoonClock");
-                break;
-            case EVENING:
-                clockTexture = textureAtlas.findRegion("eveningClock");
-                break;
-            case NIGHT:
-                clockTexture = textureAtlas.findRegion("nightClock");
-                break;
-        }
-        clockSprite.setRegion(clockTexture);
-    }
-
     @Override
     public void dispose() {
         batch.dispose();
         mapManager.dispose();
+        hudRenderer.dispose();
         pauseMenu.dispose();
     }
 
@@ -154,5 +134,6 @@ public class Renderer implements Disposable {
         screenWidth = width;
         screenHeight = height;
         viewport.update(width, height, true);
+        hudRenderer.resize(width, height);
     }
 }
