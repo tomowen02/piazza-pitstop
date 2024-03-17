@@ -40,7 +40,7 @@ public class State {
     public String getDebugTime() {
         return clock.getDebugString();
     }
-    public float getPlayerFacing() {
+    public Facing getPlayerFacing() {
         return player.getFacing();
     }
 
@@ -53,5 +53,9 @@ public class State {
 
     public float getPlayerHeight() {
         return player.getPlayerHeight();
+    }
+
+    public Action getPlayerMovement() {
+        return player.getMovement();
     }
 }

@@ -8,8 +8,7 @@ public class Clock {
 
     public Clock() {
         timeUnits = 0;
-//        speed = 4;
-        speed = 10; // ONLY FOR TESTING
+        speed = 6; // Probably want this to be less
     }
 
 

@@ -16,7 +16,7 @@ public class Player {
     private Vector2 position;
     private Rectangle collisionBox;
     private Action movement = Action.STOP;
-    private float facing = UP;
+    private Facing facing = Facing.DOWN;
     private final float width;
     private final float height;
 
@@ -33,19 +33,19 @@ public class Player {
             case STOP:
                 break;
             case MOVE_UP:
-                facing = UP;
+                facing = Facing.UP;
                 setPosition(position.x, position.y+SPEED);
                 break;
             case MOVE_DOWN:
-                facing = DOWN;
+                facing = Facing.DOWN;
                 setPosition(position.x, position.y-SPEED);
                 break;
             case MOVE_LEFT:
-                facing = LEFT;
+                facing = Facing.LEFT;
                 setPosition(position.x-SPEED, position.y);
                 break;
             case MOVE_RIGHT:
-                facing = RIGHT;
+                facing = Facing.RIGHT;
                 setPosition(position.x+SPEED, position.y);
                 break;
             default:
@@ -81,7 +81,7 @@ public class Player {
         movement = action;
     }
 
-    public float getFacing() {
+    public Facing getFacing() {
         return facing;
     }
 
@@ -100,5 +100,9 @@ public class Player {
     public void setInBounds(Vector2 mapSize) {
         position.x = MathUtils.clamp(position.x, 0, mapSize.x);
         position.y = MathUtils.clamp(position.y, 0, mapSize.y);
+    }
+
+    public Action getMovement() {
+        return movement;
     }
 }

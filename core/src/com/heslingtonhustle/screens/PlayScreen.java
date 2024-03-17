@@ -28,9 +28,10 @@ public class PlayScreen implements Screen {
         this.heslingtonHustleGame = parentClass;
         isPaused = false;
 
-        float playerSize = 0.75f; // This is in world units
+        float playerWidth = 0.6f; // This is in world units
+        float playerHeight = 0.9f;
         mapManager = new MapManager();
-        gameState = new State(mapManager, playerSize, playerSize);
+        gameState = new State(mapManager, playerWidth, playerHeight);
         pauseMenu = new PauseMenu(this);
         renderer = new Renderer(gameState, mapManager, pauseMenu);
 

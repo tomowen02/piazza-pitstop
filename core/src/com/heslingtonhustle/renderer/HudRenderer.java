@@ -23,7 +23,7 @@ public class HudRenderer implements Disposable {
     private float PADDING = 50f;
 
     private Sprite clockSprite;
-    private float clockSize = 100f;
+    private float clockSize = 75;
     private TextureRegion clockTexture;
 
     public HudRenderer(State gameState, TextureAtlas textureAtlas){
@@ -54,16 +54,16 @@ public class HudRenderer implements Disposable {
     private void setClockTexture() {
         switch (gameState.getTime()) {
             case MORNING:
-                clockTexture = textureAtlas.findRegion("morningClock");
+                clockTexture = textureAtlas.findRegion("clock-morning");
                 break;
             case AFTERNOON:
-                clockTexture = textureAtlas.findRegion("afternoonClock");
+                clockTexture = textureAtlas.findRegion("clock-afternoon");
                 break;
             case EVENING:
-                clockTexture = textureAtlas.findRegion("eveningClock");
+                clockTexture = textureAtlas.findRegion("clock-evening");
                 break;
             case NIGHT:
-                clockTexture = textureAtlas.findRegion("nightClock");
+                clockTexture = textureAtlas.findRegion("clock-night");
                 break;
         }
         clockSprite.setRegion(clockTexture);

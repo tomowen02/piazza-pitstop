@@ -2,10 +2,8 @@ package com.heslingtonhustle.renderer;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.maps.MapRenderer;
 import com.badlogic.gdx.maps.tiled.TiledMap;
@@ -28,15 +26,14 @@ public class Renderer implements Disposable {
     private OrthographicCamera camera;
     private MapRenderer mapRenderer;
     private final State gameState;
+    private final CharacterRenderer playerRenderer;
     private SpriteBatch batch;
-    private Sprite playerSprite;
+
     private TextureAtlas textureAtlas;
 
     private final MapManager mapManager;
 
     private final PauseMenu pauseMenu;
-
-    private final TextureRegion playerTexture;
 
     private HudRenderer hudRenderer;
 
@@ -56,16 +53,13 @@ public class Renderer implements Disposable {
 
         this.pauseMenu = pauseMenu;
 
-        textureAtlas = new TextureAtlas("pack.atlas");
-        playerTexture = textureAtlas.findRegion("circle");
+        textureAtlas = new TextureAtlas("mainAtlas.atlas");
 
         hudRenderer = new HudRenderer(gameState, textureAtlas);
 
-        playerSprite = new Sprite(playerTexture);
         float playerWidthInPixels = mapManager.worldToPixelValue(state.getPlayerWidth());
         float playerHeightInPixels = mapManager.worldToPixelValue(state.getPlayerHeight());
-        playerSprite.setSize(playerWidthInPixels, playerHeightInPixels);
-        playerSprite.setOriginCenter();
+        playerRenderer = new CharacterRenderer(playerWidthInPixels, playerHeightInPixels, textureAtlas, "character00");
     }
 
     public void update() {
@@ -87,12 +81,8 @@ public class Renderer implements Disposable {
             collisionRenderer.setProjectionMatrix(camera.combined);
         }
 
-        playerSprite.setRotation(gameState.getPlayerFacing());
-        playerSprite.setPosition(playerPixelPosition.x, playerPixelPosition.y);
-
-
         batch.begin();
-        playerSprite.draw(batch);
+        playerRenderer.render(batch, playerPixelPosition.x, playerPixelPosition.y, gameState.getPlayerFacing(), gameState.getPlayerMovement());
         batch.end();
 
         hudRenderer.render();
