@@ -3,6 +3,7 @@ package com.heslingtonhustle.screens;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.heslingtonhustle.HeslingtonHustleGame;
 import com.heslingtonhustle.input.InputHandler;
@@ -27,8 +28,9 @@ public class PlayScreen implements Screen {
         this.heslingtonHustleGame = parentClass;
         isPaused = false;
 
+        float playerSize = 0.75f; // This is in world units
         mapManager = new MapManager();
-        gameState = new State(mapManager);
+        gameState = new State(mapManager, playerSize, playerSize);
         pauseMenu = new PauseMenu(this);
         renderer = new Renderer(gameState, mapManager, pauseMenu);
 
@@ -57,7 +59,10 @@ public class PlayScreen implements Screen {
         switch (action) {
             case DEBUGGING_ACTION1:
                 Vector2 playerPos = gameState.getPlayerPosition();
+                Rectangle playerCollisionBox = gameState.getPlayerCollisionBox();
                 Gdx.app.debug("DEBUG", "Position: "+playerPos.x+", "+playerPos.y);
+                Gdx.app.debug("DEBUG", "CollisionBox: "+playerCollisionBox.getX()+", "+playerCollisionBox.getY());
+
                 return true;
             case DEBUGGING_ACTION2:
                 Gdx.app.debug("DEBUG", "Time: "+gameState.getDebugTime());

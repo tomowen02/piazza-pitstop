@@ -1,5 +1,6 @@
 package com.heslingtonhustle.state;
 
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.heslingtonhustle.map.MapManager;
 
@@ -9,20 +10,24 @@ public class State {
     private final Clock clock;
     private final MapManager mapManager;
 
-    public State(MapManager mapManager) {
-        player = new Player();
+    public State(MapManager mapManager, float playerWidth, float playerHeight) {
+        player = new Player(32, 40, playerWidth, playerHeight);
         clock = new Clock();
         this.mapManager = mapManager;
     }
 
     /** Given an Action, apply that action to the state. */
-    public void update(Action action, float delta) {
+    public void update(Action action, float timeDelta) {
         if (action != null) {
             player.move(action);
         }
+        Vector2 previousPlayerPos = player.getPosition();
         player.update();
-        clock.update(delta);
+        if (mapManager.isCollision(player.getCollisionBox())) {
+            player.setPosition(previousPlayerPos);
+        }
         player.setInBounds(mapManager.getCurrentMapWorldDimensions());
+        clock.update(timeDelta);
     }
 
     public Vector2 getPlayerPosition() {
@@ -37,5 +42,16 @@ public class State {
     }
     public float getPlayerFacing() {
         return player.getFacing();
+    }
+
+    public Rectangle getPlayerCollisionBox() {
+        return player.getCollisionBox();
+    }
+    public float getPlayerWidth() {
+        return player.getPlayerWidth();
+    }
+
+    public float getPlayerHeight() {
+        return player.getPlayerHeight();
     }
 }

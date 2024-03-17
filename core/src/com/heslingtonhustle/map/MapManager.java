@@ -2,6 +2,8 @@ package com.heslingtonhustle.map;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.MapObjects;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
@@ -19,6 +21,7 @@ public class MapManager implements Disposable {
     private TmxMapLoader mapLoader;
     private HashMap<String, TiledMap> loadedMaps;
     private HashMap<TiledMap, OrthogonalTiledMapRenderer> loadedMapRenderers;
+    private ShapeRenderer collisionRenderer;
     private MapObjects collisionObjects;
 
     public MapManager() {
@@ -34,8 +37,13 @@ public class MapManager implements Disposable {
         currentMap = loadedMaps.get(path);
 
         /* This code can cause a nullptr exception if no collision layer is present */
-        //MapLayer collisionLayer = currentMap.getLayers().get("Collisions");
-        //collisionObjects = collisionLayer.getObjects();
+        try {
+            MapLayer collisionLayer = currentMap.getLayers().get("Collisions");
+            collisionObjects = collisionLayer.getObjects();
+        } catch (NullPointerException e) {
+            Gdx.app.debug("DEBUG", "NO COLLISION LAYER FOUND!");
+        }
+
     }
 
     public TiledMap getCurrentMap() {
@@ -52,7 +60,25 @@ public class MapManager implements Disposable {
         return loadedMapRenderers.get(currentMap);
     }
 
-    public boolean checkCollision(Rectangle playerRectangle) {
+    public ShapeRenderer getCollisionRenderer() {
+        if (collisionRenderer == null) {
+            collisionRenderer = new ShapeRenderer();
+        }
+        collisionRenderer.begin(ShapeRenderer.ShapeType.Filled);
+        collisionRenderer.setColor(255,0,0,50);
+        for (RectangleMapObject rectangleObject : collisionObjects.getByType(RectangleMapObject.class)) {
+            Rectangle collisionRectangle = rectangleObject.getRectangle();
+            collisionRenderer.rect(collisionRectangle.x, collisionRectangle.y, collisionRectangle.width, collisionRectangle.height);
+        }
+        collisionRenderer.end();
+        return collisionRenderer;
+    }
+
+    public boolean isCollision(Rectangle playerRectangle) {
+        if (collisionObjects == null) {
+            return false;
+        }
+        playerRectangle = worldRectangleToPixelRectangle(playerRectangle);
         // For each rectangle in the collisions layer, check whether the player rectangle intercepts
         for (RectangleMapObject rectangleObject : collisionObjects.getByType(RectangleMapObject.class)) {
             Rectangle collisionRectangle = rectangleObject.getRectangle();
@@ -95,6 +121,18 @@ public class MapManager implements Disposable {
         );
     }
 
+    public float worldToPixelValue(float worldValue) {
+        return worldValue * getCurrentMapTileDimensions().x;
+    }
+
+    private Rectangle worldRectangleToPixelRectangle(Rectangle rectangle) {
+        float x = rectangle.x * getCurrentMapTileDimensions().x;
+        float y = rectangle.y * getCurrentMapTileDimensions().y;
+        float width = rectangle.width * getCurrentMapTileDimensions().x;
+        float height = rectangle.height * getCurrentMapTileDimensions().y;
+        return new Rectangle(x, y, width, height);
+    }
+
     @Override
     public void dispose() {
         for (TiledMap map : loadedMaps.values()) {
@@ -102,6 +140,9 @@ public class MapManager implements Disposable {
         }
         for (OrthogonalTiledMapRenderer mapRenderer: loadedMapRenderers.values()) {
             mapRenderer.dispose();
+        }
+        if (collisionRenderer != null) {
+            collisionRenderer.dispose();
         }
     }
 }

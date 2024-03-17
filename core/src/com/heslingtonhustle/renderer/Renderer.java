@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.maps.MapRenderer;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.math.MathUtils;
@@ -18,6 +19,7 @@ import com.heslingtonhustle.state.State;
 import com.heslingtonhustle.screens.PauseMenu;
 
 public class Renderer implements Disposable {
+    private final boolean DEBUG_COLLISIONS = false;
 
     private int screenWidth;
     public int screenHeight;
@@ -36,7 +38,6 @@ public class Renderer implements Disposable {
     private final PauseMenu pauseMenu;
 
     private final TextureRegion playerTexture;
-    private final TextureRegion buildingTexture;
     private TextureRegion clockTexture;
 
     public Renderer(State state, MapManager mapManager, PauseMenu pauseMenu)
@@ -57,11 +58,14 @@ public class Renderer implements Disposable {
 
         textureAtlas = new TextureAtlas("pack.atlas");
         playerTexture = textureAtlas.findRegion("circle");
-        buildingTexture = textureAtlas.findRegion("triangle");
         clockTexture = textureAtlas.findRegion("morningClock");
 
         playerSprite = new Sprite(playerTexture);
-        playerSprite.setScale(0.5f, 0.5f);
+        float playerWidthInPixels = mapManager.worldToPixelValue(state.getPlayerWidth());
+        float playerHeightInPixels = mapManager.worldToPixelValue(state.getPlayerHeight());
+        playerSprite.setSize(playerWidthInPixels, playerHeightInPixels);
+        playerSprite.setOriginCenter();
+
         clockSprite = new Sprite(clockTexture);
         clockSprite.setPosition(0,0);
         clockSprite.setScale(1f, 1f);
@@ -81,6 +85,11 @@ public class Renderer implements Disposable {
         mapRenderer.setView(camera);
         mapRenderer.render();
 
+        if (DEBUG_COLLISIONS) {
+            ShapeRenderer collisionRenderer = mapManager.getCollisionRenderer();
+            collisionRenderer.setProjectionMatrix(camera.combined);
+        }
+
         playerSprite.setRotation(gameState.getPlayerFacing());
         playerSprite.setPosition(playerPixelPosition.x, playerPixelPosition.y);
         setClockTexture();
@@ -88,7 +97,6 @@ public class Renderer implements Disposable {
 
         batch.begin();
         playerSprite.draw(batch);
-        batch.draw(buildingTexture, 50, 50);
         clockSprite.draw(batch);
         batch.end();
 
