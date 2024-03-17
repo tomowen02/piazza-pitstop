@@ -6,16 +6,17 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.Disposable;
 
 import java.util.HashMap;
 
-public class textureMananger {
+public class textureManager {
 
     private HashMap<String, Animation<TextureRegion>> animations;
     private HashMap<String, TextureRegion> staticTextures;
     private float animationTime;
 
-    public textureMananger() {
+    public textureManager() {
         animationTime = 0f;
         animations = new HashMap<String, Animation<TextureRegion>>();
         staticTextures = new HashMap<String, TextureRegion>();
