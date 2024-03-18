@@ -15,6 +15,8 @@ import com.heslingtonhustle.map.MapManager;
 import com.heslingtonhustle.state.State;
 import com.heslingtonhustle.screens.PauseMenu;
 
+import static java.lang.Math.round;
+
 public class Renderer implements Disposable {
     private final boolean DEBUG_COLLISIONS = false;
 
@@ -108,6 +110,8 @@ public class Renderer implements Disposable {
                 camera.viewportHeight / 2,
                 mapManager.getCurrentMapPixelDimensions().y - camera.viewportHeight / 2
         );
+        x = round(x*10) / 10; // Round to two decimal places to avoid tearing
+        y = round(y*10) / 10;
         return new Vector2(x, y);
     }
 

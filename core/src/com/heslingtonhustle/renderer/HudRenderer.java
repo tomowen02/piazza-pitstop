@@ -34,6 +34,7 @@ public class HudRenderer implements Disposable {
     private TextureRegion clockTexture;
     private final Sprite calendarSprite;
     private TextureRegion calendarTexture;
+    private TextureManager textureManager;
 
     public HudRenderer(State gameState, TextureAtlas textureAtlas){
         this.gameState = gameState;
@@ -49,6 +50,9 @@ public class HudRenderer implements Disposable {
         font = new BitmapFont();
 
         shapeRenderer = new ShapeRenderer();
+
+        textureManager = new TextureManager();
+        addAnimations();
 
         clockTexture = textureAtlas.findRegion("morningClock");
         clockSprite = new Sprite();
@@ -156,6 +160,13 @@ public class HudRenderer implements Disposable {
         }
 
         batch.end();
+    }
+
+    private void addAnimations() {
+        TextureRegion[] clockAnimationFrames = new TextureRegion[2];
+        clockAnimationFrames[0] = clockTexture = textureAtlas.findRegion("clock-night");
+        clockAnimationFrames[1] = clockTexture = textureAtlas.findRegion("clock-red");
+        textureManager.addAnimation("clock-night", clockAnimationFrames, 0.4f);
     }
 
     public void resize(int width, int height) {
