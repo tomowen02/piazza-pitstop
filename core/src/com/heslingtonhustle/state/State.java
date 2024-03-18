@@ -111,7 +111,7 @@ public class State {
 
     public void pushTestDialog() {
         // This is temporary
-        List<String> options = new ArrayList<String>(Arrays.asList("Increment day", "Decrement day", "Set time speed to VERY FAST", "Set time speed to normal"));
+        List<String> options = new ArrayList<String>(Arrays.asList("Increment day", "Decrement day", "Set time speed to VERY FAST", "Set time speed to normal", "Close"));
         dialogManager.addDialog("This is the debugging console. Please select an option", options, selectedOption -> {
             switch (selectedOption) {
                 case 0: // Option 0 selected
@@ -125,6 +125,8 @@ public class State {
                     break;
                 case 3:
                     clock.setSpeed(6);
+                    break;
+                case 4:
                     break;
             }
         });
