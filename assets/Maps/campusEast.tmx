@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="137" height="96" tilewidth="16" tileheight="16" infinite="0" nextlayerid="8" nextobjectid="451">
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="137" height="96" tilewidth="16" tileheight="16" infinite="0" nextlayerid="8" nextobjectid="462">
  <tileset firstgid="1" source="../Tilesets/modernCity.tsx"/>
  <tileset firstgid="4097" source="../Tilesets/sereneVillage.tsx"/>
  <tileset firstgid="4952" source="../Tilesets/forest_.tsx"/>
@@ -203,7 +203,7 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
- <objectgroup id="4" name="Collisions" visible="0">
+ <objectgroup id="4" name="Collisions">
   <object id="208" x="160" y="192" width="112" height="160"/>
   <object id="209" x="144" y="284" width="112" height="164"/>
   <object id="210" x="136" y="420" width="104" height="124"/>
@@ -367,49 +367,18 @@
     <property name="sleep" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="436" x="464" y="572" width="16" height="12">
+  <object id="436" x="1268" y="988" width="40" height="20">
    <properties>
     <property name="eat" type="int" value="1"/>
     <property name="identifier" value="house"/>
     <property name="interactable" value=""/>
    </properties>
   </object>
-  <object id="438" x="416" y="572" width="16" height="16">
+  <object id="438" x="504" y="872" width="28" height="16">
    <properties>
     <property name="identifier" value="house"/>
     <property name="interactable" value=""/>
     <property name="study" type="int" value="10"/>
-   </properties>
-  </object>
-  <object id="439" x="416" y="404" width="20" height="4">
-   <properties>
-    <property name="identifier" value="house"/>
-    <property name="interactable" value=""/>
-   </properties>
-  </object>
-  <object id="440" x="464" y="400" width="16" height="12">
-   <properties>
-    <property name="identifier" value="house"/>
-    <property name="interactable" value=""/>
-    <property name="recreation" type="int" value="1"/>
-   </properties>
-  </object>
-  <object id="441" x="608" y="400" width="16" height="12">
-   <properties>
-    <property name="identifier" value="house"/>
-    <property name="interactable" value=""/>
-   </properties>
-  </object>
-  <object id="442" x="1184" y="416" width="16" height="12">
-   <properties>
-    <property name="identifier" value="house"/>
-    <property name="interactable" value=""/>
-   </properties>
-  </object>
-  <object id="443" x="1360" y="400" width="16" height="12">
-   <properties>
-    <property name="identifier" value="house"/>
-    <property name="interactable" value=""/>
    </properties>
   </object>
   <object id="444" x="1488" y="364" width="16" height="16">
@@ -424,34 +393,82 @@
     <property name="interactable" value=""/>
    </properties>
   </object>
-  <object id="446" x="1548" y="544" width="20" height="12">
+  <object id="451" x="404" y="576" width="36" height="20">
    <properties>
     <property name="identifier" value="house"/>
     <property name="interactable" value=""/>
+    <property name="sleep" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="447" x="1372" y="556" width="20" height="16">
+  <object id="452" x="452" y="576" width="36" height="20">
    <properties>
     <property name="identifier" value="house"/>
     <property name="interactable" value=""/>
+    <property name="sleep" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="448" x="1376" y="668" width="16" height="16">
-   <properties>
-    <property name="change_score" type="int" value="10"/>
-    <property name="identifier" value="house"/>
-    <property name="interactable" value=""/>
-   </properties>
-  </object>
-  <object id="449" x="1548" y="764" width="24" height="16">
+  <object id="453" x="404" y="400" width="36" height="20">
    <properties>
     <property name="identifier" value="house"/>
     <property name="interactable" value=""/>
-    <property name="new_map" value="caveMap.tmx"/>
-    <property name="new_map_x" type="int" value="2"/>
-    <property name="new_map_y" type="int" value="2"/>
+    <property name="sleep" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="450" x="688" y="584" width="48" height="56"/>
+  <object id="454" x="452" y="400" width="36" height="20">
+   <properties>
+    <property name="identifier" value="house"/>
+    <property name="interactable" value=""/>
+    <property name="sleep" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="455" x="600" y="400" width="36" height="20">
+   <properties>
+    <property name="identifier" value="house"/>
+    <property name="interactable" value=""/>
+    <property name="sleep" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="456" x="1172" y="416" width="36" height="20">
+   <properties>
+    <property name="identifier" value="house"/>
+    <property name="interactable" value=""/>
+    <property name="sleep" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="457" x="1352" y="400" width="36" height="20">
+   <properties>
+    <property name="identifier" value="house"/>
+    <property name="interactable" value=""/>
+    <property name="sleep" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="458" x="1368" y="668" width="36" height="20">
+   <properties>
+    <property name="identifier" value="house"/>
+    <property name="interactable" value=""/>
+    <property name="sleep" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="459" x="1364" y="560" width="36" height="20">
+   <properties>
+    <property name="identifier" value="house"/>
+    <property name="interactable" value=""/>
+    <property name="sleep" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="460" x="1540" y="764" width="36" height="20">
+   <properties>
+    <property name="identifier" value="house"/>
+    <property name="interactable" value=""/>
+    <property name="sleep" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="461" x="1540" y="544" width="36" height="20">
+   <properties>
+    <property name="identifier" value="house"/>
+    <property name="interactable" value=""/>
+    <property name="sleep" type="bool" value="true"/>
+   </properties>
+  </object>
  </objectgroup>
 </map>
