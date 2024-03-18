@@ -57,6 +57,7 @@ public class State {
                 mapManager.loadMap("Maps/" + trigger.getNewMap());
                 player.setPosition(trigger.getNewMapCoords());
             }
+            score += trigger.changeScore();
         } else {
             // We have a normal action
             player.move(action);

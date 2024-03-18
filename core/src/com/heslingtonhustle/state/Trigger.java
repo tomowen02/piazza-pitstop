@@ -15,11 +15,18 @@ public class Trigger {
         identifier = (String)mapProperties.get("identifier"); //TODO: null check
     }
 
+    public int changeScore() {
+        if (mapProperties.containsKey("change_score")) {
+            return (int)mapProperties.get("change_score");
+        }
+        return 0;
+    }
+
     public String getNewMap() {
         if (mapProperties.containsKey("new_map")) {
             return (String)mapProperties.get("new_map");
         }
-        else return null;
+        return null;
     }
 
     public Vector2 getNewMapCoords() {
