@@ -46,21 +46,7 @@ public class State {
             // A dialog box is currently being displayed
             handleDialogAction(action);
         } else if (action == Action.INTERACT) {
-            Trigger trigger = mapManager.getTrigger(player.getCollisionBox());
-            if (trigger == null) {
-                return;
-            }
-            if (trigger.isInteractable()) {
-                activityManager.startActivity(trigger.getIdentifier());
-            }
-            if (trigger.getNewMap() != null) {
-                mapManager.loadMap("Maps/" + trigger.getNewMap());
-                player.setPosition(trigger.getNewMapCoords());
-            }
-            score += trigger.changeScore();
-            if (trigger.canSleep()) {
-                clock.incrementDay();
-            }
+            handleInteraction();
         } else {
             // We have a normal action
             player.move(action);
@@ -77,6 +63,24 @@ public class State {
                 break;
             case INTERACT:
                 dialogManager.submit();
+        }
+    }
+
+    private void handleInteraction() {
+        Trigger trigger = mapManager.getTrigger(player.getCollisionBox());
+        if (trigger == null) {
+            return;
+        }
+        if (trigger.isInteractable()) {
+            activityManager.startActivity(trigger.getIdentifier());
+        }
+        if (trigger.getNewMap() != null) {
+            mapManager.loadMap("Maps/" + trigger.getNewMap());
+            player.setPosition(trigger.getNewMapCoords());
+        }
+        score += trigger.changeScore();
+        if (trigger.canSleep()) {
+            clock.incrementDay();
         }
     }
 
