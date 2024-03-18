@@ -11,11 +11,11 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
 public class PauseMenu {
-    private boolean DEBUG = false;
-    private Screen playScreen;
-    private Stage stage;
+    private final boolean DEBUG = false;
+    private final Screen playScreen;
+    private final Stage stage;
     private Table optionsTable;
-    private Skin skin;
+    private final Skin skin;
     private boolean isVisible;
 
     public PauseMenu(Screen parentClass) {

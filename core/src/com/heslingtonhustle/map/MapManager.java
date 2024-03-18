@@ -17,14 +17,13 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Disposable;
 import com.heslingtonhustle.state.Trigger;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
 public class MapManager implements Disposable {
     private TiledMap currentMap;
-    private TmxMapLoader mapLoader;
-    private HashMap<String, TiledMap> loadedMaps;
-    private HashMap<TiledMap, OrthogonalTiledMapRenderer> loadedMapRenderers;
+    private final TmxMapLoader mapLoader;
+    private final HashMap<String, TiledMap> loadedMaps;
+    private final HashMap<TiledMap, OrthogonalTiledMapRenderer> loadedMapRenderers;
     private ShapeRenderer collisionRenderer;
     private MapObjects collisionObjects;
     private MapObjects triggerObjects;
@@ -55,10 +54,6 @@ public class MapManager implements Disposable {
             Gdx.app.debug("DEBUG", "NO TRIGGER LAYER FOUND!");
         }
 
-    }
-
-    public TiledMap getCurrentMap() {
-        return currentMap;
     }
 
     public OrthogonalTiledMapRenderer getCurrentMapRenderer(SpriteBatch spriteBatch) {

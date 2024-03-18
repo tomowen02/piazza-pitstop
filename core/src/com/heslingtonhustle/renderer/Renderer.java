@@ -6,7 +6,6 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.maps.MapRenderer;
-import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Disposable;
@@ -23,19 +22,19 @@ public class Renderer implements Disposable {
     public int screenHeight;
 
     private final ExtendViewport viewport;
-    private OrthographicCamera camera;
+    private final OrthographicCamera camera;
     private MapRenderer mapRenderer;
     private final State gameState;
     private final CharacterRenderer playerRenderer;
-    private SpriteBatch batch;
+    private final SpriteBatch batch;
 
-    private TextureAtlas textureAtlas;
+    private final TextureAtlas textureAtlas;
 
     private final MapManager mapManager;
 
     private final PauseMenu pauseMenu;
 
-    private HudRenderer hudRenderer;
+    private final HudRenderer hudRenderer;
 
     public Renderer(State state, MapManager mapManager, PauseMenu pauseMenu)
     {
@@ -46,10 +45,10 @@ public class Renderer implements Disposable {
         camera = new OrthographicCamera();
         this.mapManager = mapManager;
         mapManager.loadMap("Maps/campusEast.tmx");
-        TiledMap map = mapManager.getCurrentMap();
+
         batch = new SpriteBatch();
         mapRenderer = mapManager.getCurrentMapRenderer(batch);
-        viewport = new ExtendViewport(screenWidth /2, screenHeight /2, camera);
+        viewport = new ExtendViewport(screenWidth/2f, screenHeight/2f, camera);
 
         this.pauseMenu = pauseMenu;
 

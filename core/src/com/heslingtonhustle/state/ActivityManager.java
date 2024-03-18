@@ -1,10 +1,9 @@
 package com.heslingtonhustle.state;
 
 import java.util.HashMap;
-import com.heslingtonhustle.state.Activity;
 
 public class ActivityManager {
-    private HashMap<String, Activity> activities;
+    private final HashMap<String, Activity> activities;
 
     public ActivityManager() {
         activities = new HashMap<>();

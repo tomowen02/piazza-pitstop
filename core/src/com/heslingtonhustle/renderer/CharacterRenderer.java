@@ -10,9 +10,9 @@ import com.heslingtonhustle.state.Facing;
 
 public class CharacterRenderer {
     private final TextureManager characterTextures;
-    private Sprite characterSprite;
-    private TextureAtlas textureAtlas;
-    private String textureRegionPrefix;
+    private final Sprite characterSprite;
+    private final TextureAtlas textureAtlas;
+    private final String textureRegionPrefix;
 
 
     public CharacterRenderer(float width, float height, TextureAtlas textureAtlas, String textureRegionPrefix) {

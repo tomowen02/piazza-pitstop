@@ -1,8 +1,8 @@
 package com.heslingtonhustle.state;
 
 public class Clock {
-    private float MAX_TIME = 1000;  // This is the number of time units in a day.
-                                    // This doesn't really mean anything as the player cant do anything at night anyway
+    private final float MAX_TIME = 1000;  // This is the number of time units in a day.
+                                          // This doesn't really mean anything as the player cant do anything at night anyway
     private float speed;
     private float timeUnits;
     private int day;
@@ -43,6 +43,7 @@ public class Clock {
         return day;
     }
 
+    // Is this method necessary? Should the day ever decrease?
     public int decrementDay() {
         timeUnits = 0;
         day -= 1;

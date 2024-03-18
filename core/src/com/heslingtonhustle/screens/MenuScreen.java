@@ -12,11 +12,11 @@ import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.heslingtonhustle.HeslingtonHustleGame;
 
 public class MenuScreen implements Screen {
-    private boolean DEBUG = false;
-    private HeslingtonHustleGame heslingtonHustleGame;
-    private Stage stage;
+    private final boolean DEBUG = false;
+    private final HeslingtonHustleGame heslingtonHustleGame;
+    private final Stage stage;
     private Table optionsTable;
-    private Skin skin;
+    private final Skin skin;
 
 
     public MenuScreen(HeslingtonHustleGame parentClass) {

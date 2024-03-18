@@ -11,14 +11,14 @@ import java.util.HashMap;
 
 public class TextureManager {
 
-    private HashMap<String, Animation<TextureRegion>> animations;
-    private HashMap<String, TextureRegion> staticTextures;
+    private final HashMap<String, Animation<TextureRegion>> animations;
+    private final HashMap<String, TextureRegion> staticTextures;
     private float animationTime;
 
     public TextureManager() {
         animationTime = 0f;
-        animations = new HashMap<String, Animation<TextureRegion>>();
-        staticTextures = new HashMap<String, TextureRegion>();
+        animations = new HashMap<>();
+        staticTextures = new HashMap<>();
     }
 
     public TextureRegion retrieveTexture(String key) {
@@ -36,7 +36,7 @@ public class TextureManager {
     }
 
     public void addAnimation(String animationKey, Array<TextureAtlas.AtlasRegion> textureRegions) {
-        animations.put(animationKey, new Animation<TextureRegion>(0.1f, textureRegions));
+        animations.put(animationKey, new Animation<>(0.1f, textureRegions));
     }
 
     public void addTexture(String textureKey, TextureRegion texture) {

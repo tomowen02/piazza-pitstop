@@ -14,25 +14,25 @@ import com.heslingtonhustle.state.State;
 import java.util.List;
 
 public class HudRenderer implements Disposable {
-    private State gameState;
+    private final State gameState;
 
-    private OrthographicCamera hudCamera;
-    private ScreenViewport viewport;
+    private final OrthographicCamera hudCamera;
+    private final ScreenViewport viewport;
 
-    private DialogManager dialogManager;
+    private final DialogManager dialogManager;
 
-    private TextureAtlas textureAtlas;
-    private SpriteBatch batch;
+    private final TextureAtlas textureAtlas;
+    private final SpriteBatch batch;
 
-    private ShapeRenderer shapeRenderer;
-    private BitmapFont font;
+    private final ShapeRenderer shapeRenderer;
+    private final BitmapFont font;
 
-    private float PADDING = 50f;
+    private final float PADDING = 50f;
 
-    private Sprite clockSprite;
-    private float clockSize = 100;
+    private final Sprite clockSprite;
+    private final float clockSize = 100;
     private TextureRegion clockTexture;
-    private Sprite calendarSprite;
+    private final Sprite calendarSprite;
     private TextureRegion calendarTexture;
 
     public HudRenderer(State gameState, TextureAtlas textureAtlas){

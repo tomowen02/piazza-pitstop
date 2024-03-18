@@ -5,7 +5,7 @@ import com.badlogic.gdx.Gdx;
 public class Activity {
 
     public Activity() {
-        ;
+
     }
 
     public void start() {
