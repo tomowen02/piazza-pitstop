@@ -1,8 +1,13 @@
 package com.heslingtonhustle.state;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.heslingtonhustle.map.MapManager;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /** Contains all data related to the logical state of the game. */
 public class State {
@@ -20,7 +25,7 @@ public class State {
 
     /** Given an Action, apply that action to the state. */
     public void update(Action action, float timeDelta) {
-        if (action != null && dialogManager.isShowing()) {
+        if (action != null && !dialogManager.isEmpty()) {
             // We have an action that might be to do with the dialog
             handleDialogAction(action);
         } else if (action != null) {
@@ -37,14 +42,15 @@ public class State {
     }
 
     private void handleDialogAction(Action action) {
-        DialogBox dialog = dialogManager.showDialog();
         switch (action) {
             case MOVE_UP:
-                dialog.decreaseSelection();
+                dialogManager.decreaseSelection();
                 break;
             case MOVE_DOWN:
-                dialog.increaseSelection();
+                dialogManager.increaseSelection();
                 break;
+            case INTERACT:
+                dialogManager.submit();
         }
     }
 
@@ -81,8 +87,22 @@ public class State {
         return dialogManager;
     }
 
-    public void pushDialog(DialogBox dialogBox) {
+    public void pushWelcomeDialog() {
+        dialogManager.addDialog("Hello, welcome to the Heslington Hustle game by Pitstop Piazza!");
+    }
+
+    public void pushTestDialog() {
         // This is temporary
-        dialogManager.add(dialogBox);
+        List<String> options = new ArrayList<String>(Arrays.asList("Hello world", "Heyy", "What's up"));
+        dialogManager.addDialog("Welcome to the game. Please select an options", options, selectedOption -> {
+            switch (selectedOption) {
+                case 0: // Option 0 selected
+                    Gdx.app.debug("DEBUG", "Options 0 selected");
+                    break;
+                case 1: // Option 1 selected
+                    Gdx.app.debug("DEBUG", "Options 1 selected");
+                    break;
+            }
+        });
     }
 }

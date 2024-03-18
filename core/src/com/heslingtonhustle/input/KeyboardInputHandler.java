@@ -34,6 +34,7 @@ public class KeyboardInputHandler extends InputAdapter implements InputHandler {
         inputMap.put(Keys.DOWN, Action.MOVE_DOWN);
 
         inputMap.put(Keys.SPACE, Action.INTERACT);
+        inputMap.put(Keys.ENTER, Action.INTERACT);
 
         inputMap.put(Keys.ESCAPE, Action.PAUSE);
 

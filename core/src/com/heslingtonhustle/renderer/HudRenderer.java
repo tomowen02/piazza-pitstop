@@ -7,9 +7,7 @@ import com.badlogic.gdx.graphics.g2d.*;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Disposable;
-import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
-import com.heslingtonhustle.state.DialogBox;
 import com.heslingtonhustle.state.DialogManager;
 import com.heslingtonhustle.state.State;
 
@@ -20,6 +18,8 @@ public class HudRenderer implements Disposable {
 
     private OrthographicCamera hudCamera;
     private ScreenViewport viewport;
+
+    private DialogManager dialogManager;
 
     private TextureAtlas textureAtlas;
     private SpriteBatch batch;
@@ -38,6 +38,8 @@ public class HudRenderer implements Disposable {
 
         hudCamera = new OrthographicCamera();
         viewport = new ScreenViewport(hudCamera);
+
+        dialogManager = gameState.getDialogManager();
 
         this.textureAtlas = textureAtlas;
         batch = new SpriteBatch();
@@ -62,7 +64,7 @@ public class HudRenderer implements Disposable {
         clockSprite.draw(batch);
         batch.end();
 
-        checkDialog();
+        showDialog();
     }
 
     private void setClockTexture() {
@@ -83,19 +85,18 @@ public class HudRenderer implements Disposable {
         clockSprite.setRegion(clockTexture);
     }
 
-    private void checkDialog() {
-        DialogManager dialogManager = gameState.getDialogManager();
+    private void showDialog() {
         if (dialogManager.isEmpty()) {
+            // No dialog box to show
             return;
         }
-        DialogBox dialog = dialogManager.showDialog();
+        String message = dialogManager.getMessage();
+        List<String> options = dialogManager.getOptions();
+        int selectedOption = dialogManager.getSelectedOption();
 
-        showDialog(dialog, 250);
-    }
-
-    private void showDialog(DialogBox dialog, float height) {
         float x = 100;
         float y = 100;
+        float height = 250;
         float width = Gdx.graphics.getWidth() - x*2;
 
         // Start ShapeRenderer for the background
@@ -107,13 +108,12 @@ public class HudRenderer implements Disposable {
         batch.begin();
 
         font.setColor(Color.WHITE);
-        font.draw(batch, dialog.getMessage(), x + 20, y + height - 20, width - 40, Align.left, true);
+        font.draw(batch, message, x + 20, y + height - 20, width - 40, Align.left, true);
 
         // Draw options
-        List<String> options = dialog.getOptions();
         float optionY = y + height - 60; // Starting Y position for options
         for (int i = 0; i < options.size(); i++) {
-            String optionPrefix = (dialog.getSelectedOption() == i) ? "> " : "  ";
+            String optionPrefix = (selectedOption == i) ? "> " : "  ";
             font.draw(batch, optionPrefix + options.get(i), x + 20, optionY, width - 40, Align.left, false);
             optionY -= 20; // Move up for the next option
         }

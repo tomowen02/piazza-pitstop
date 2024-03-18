@@ -11,12 +11,7 @@ import com.heslingtonhustle.input.KeyboardInputHandler;
 import com.heslingtonhustle.map.MapManager;
 import com.heslingtonhustle.renderer.Renderer;
 import com.heslingtonhustle.state.Action;
-import com.heslingtonhustle.state.DialogBox;
 import com.heslingtonhustle.state.State;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 public class PlayScreen implements Screen {
     public HeslingtonHustleGame heslingtonHustleGame;
@@ -42,6 +37,8 @@ public class PlayScreen implements Screen {
 
         inputHandler = new KeyboardInputHandler();
         addInputHandlers();
+
+        gameState.pushWelcomeDialog();
     }
     @Override
     public void render(float delta) {
@@ -74,9 +71,7 @@ public class PlayScreen implements Screen {
                 Gdx.app.debug("DEBUG", "Time: "+gameState.getDebugTime());
                 return true;
             case DEBUGGING_ACTION3:
-                List<String> options = new ArrayList<String>(Arrays.asList("Hello world", "Heyy", "What's up"));
-                DialogBox dialogBox = new DialogBox("Hello world!", options);
-                gameState.pushDialog(dialogBox);
+                gameState.pushTestDialog();
                 return true;
             default:
                 return false;
