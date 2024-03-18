@@ -1,6 +1,5 @@
 package com.heslingtonhustle.state;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.heslingtonhustle.map.MapManager;
@@ -16,6 +15,7 @@ public class State {
     private final MapManager mapManager;
     private final DialogManager dialogManager;
     private final ActivityManager activityManager;
+    private int score;
 
     public State(MapManager mapManager, float playerWidth, float playerHeight) {
         player = new Player(38.25f, 57.25f, playerWidth, playerHeight);
@@ -24,6 +24,7 @@ public class State {
         dialogManager = new DialogManager();
         activityManager = new ActivityManager();
         setupActivities();
+        score = 0;
     }
 
     /** Given an Action, apply that action to the state. */
@@ -39,15 +40,22 @@ public class State {
         player.setInBounds(mapManager.getCurrentMapWorldDimensions());
         clock.increaseTime(timeDelta);
     }
-
+    private boolean a = false;
     private void handleAction(Action action) {
         if (!dialogManager.isEmpty()) {
             // A dialog box is currently being displayed
             handleDialogAction(action);
         } else if (action == Action.INTERACT) {
             Trigger trigger = mapManager.getTrigger(player.getCollisionBox());
-            if (trigger != null && trigger.isInteractable) {
-                activityManager.startActivity(trigger.identifier);
+            if (trigger == null) {
+                return;
+            }
+            if (trigger.isInteractable()) {
+                activityManager.startActivity(trigger.getIdentifier());
+            }
+            if (trigger.getNewMap() != null) {
+                mapManager.loadMap("Maps/" + trigger.getNewMap());
+                player.setPosition(trigger.getNewMapCoords());
             }
         } else {
             // We have a normal action
@@ -133,5 +141,9 @@ public class State {
     private void setupActivities() {
         Activity activity = new Activity();
         activityManager.addActivity("house", activity);
+    }
+
+    public int getScore() {
+        return score;
     }
 }

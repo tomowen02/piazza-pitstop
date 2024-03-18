@@ -112,9 +112,7 @@ public class MapManager implements Disposable {
             return null;
         }
         MapProperties mapProperties = overlappingRectangle.getProperties();
-        Trigger trigger = new Trigger();
-        trigger.isInteractable = mapProperties.containsKey("interactable");
-        trigger.identifier = (String)mapProperties.get("identifier");
+        Trigger trigger = new Trigger(mapProperties);
         return trigger;
     }
 

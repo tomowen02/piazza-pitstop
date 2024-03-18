@@ -442,6 +442,9 @@
    <properties>
     <property name="identifier" value="house"/>
     <property name="interactable" value=""/>
+    <property name="new_map" value="caveMap.tmx"/>
+    <property name="new_map_x" type="int" value="2"/>
+    <property name="new_map_y" type="int" value="2"/>
    </properties>
   </object>
   <object id="450" x="688" y="584" width="48" height="56"/>
