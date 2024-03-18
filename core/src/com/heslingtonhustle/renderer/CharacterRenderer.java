@@ -9,7 +9,7 @@ import com.heslingtonhustle.state.Action;
 import com.heslingtonhustle.state.Facing;
 
 public class CharacterRenderer {
-    private final textureManager characterTextures;
+    private final TextureManager characterTextures;
     private Sprite characterSprite;
     private TextureAtlas textureAtlas;
     private String textureRegionPrefix;
@@ -19,7 +19,7 @@ public class CharacterRenderer {
         this.textureAtlas = textureAtlas;
         this.textureRegionPrefix = textureRegionPrefix;
 
-        characterTextures = new textureManager();
+        characterTextures = new TextureManager();
         addCharacterTextures();
         characterSprite = new Sprite(characterTextures.retrieveTexture("idle-down"));
         characterSprite.setSize(width, height);

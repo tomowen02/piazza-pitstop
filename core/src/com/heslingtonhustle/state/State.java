@@ -37,7 +37,7 @@ public class State {
             player.setPosition(previousPlayerPos);
         }
         player.setInBounds(mapManager.getCurrentMapWorldDimensions());
-        clock.update(timeDelta);
+        clock.increaseTime(timeDelta);
     }
 
     private void handleAction(Action action) {
