@@ -125,5 +125,6 @@ public class Renderer implements Disposable {
         screenHeight = height;
         viewport.update(width, height, true);
         hudRenderer.resize(width, height);
+        pauseMenu.resize(width, height);
     }
 }

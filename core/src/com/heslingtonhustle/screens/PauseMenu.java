@@ -81,6 +81,12 @@ public class PauseMenu {
         return stage;
     }
 
+    public void resize(int width, int height) {
+        stage.getCamera().viewportWidth = Gdx.graphics.getWidth();
+        stage.getCamera().viewportHeight = Gdx.graphics.getHeight();
+        stage.getViewport().update(width, height, true);
+    }
+
     public void dispose() {
         stage.dispose();
         skin.dispose();
