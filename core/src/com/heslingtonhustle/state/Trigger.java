@@ -16,8 +16,31 @@ public class Trigger {
     }
 
     public int changeScore() {
-        if (mapProperties.containsKey("change_score")) {
-            return (int)mapProperties.get("change_score");
+        return getPropertyValue("score", false);
+    }
+
+    public int study() {
+        return getPropertyValue("study", true);
+    }
+
+    public int recreation() {
+        return getPropertyValue("recreation", true);
+    }
+
+    public int eat() {
+        return getPropertyValue("eat", true);
+    }
+
+    private int getPropertyValue(String property, boolean mustBePositive) {
+        if (mapProperties.containsKey(property)) {
+            int value = (int)mapProperties.get(property);
+            if (mustBePositive) {
+                if (value > 0) {
+                    return value;
+                }
+            } else {
+                return value;
+            }
         }
         return 0;
     }

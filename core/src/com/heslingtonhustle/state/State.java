@@ -82,6 +82,15 @@ public class State {
         if (trigger.canSleep()) {
             clock.incrementDay();
         }
+        if (trigger.recreation() > 0) {
+            // do recreation
+        }
+        if (trigger.eat() > 0) {
+            // eat
+        }
+        if (trigger.study() > 0) {
+            // study
+        }
     }
 
     public Vector2 getPlayerPosition() {
