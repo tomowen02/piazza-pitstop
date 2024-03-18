@@ -3,6 +3,9 @@ package com.heslingtonhustle.state;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+import com.heslingtonhustle.activities.Activity;
+import com.heslingtonhustle.activities.Sleep;
+import com.heslingtonhustle.activities.Study;
 import com.heslingtonhustle.map.MapManager;
 
 import java.util.ArrayList;
@@ -132,8 +135,14 @@ public class State {
         });
     }
 
+    public void incrementDay() {
+        clock.incrementDay();
+    }
+
     private void setupActivities() {
-        Activity activity = new Activity();
-        activityManager.addActivity("house", activity);
+        Activity sleepActivity = new Sleep(this);
+        activityManager.addActivity("house", sleepActivity);
+        Activity studyActivity = new Study(this);
+        activityManager.addActivity("study", studyActivity);
     }
 }

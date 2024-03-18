@@ -1,7 +1,9 @@
 package com.heslingtonhustle.state;
 
 import java.util.HashMap;
-import com.heslingtonhustle.state.Activity;
+
+import com.badlogic.gdx.Gdx;
+import com.heslingtonhustle.activities.Activity;
 
 public class ActivityManager {
     private HashMap<String, Activity> activities;
@@ -16,7 +18,11 @@ public class ActivityManager {
 
     public void startActivity(String identifier) {
         Activity activity = activities.get(identifier);
-        activity.start();
+        if (activity != null) {
+            activity.start();
+        } else {
+            Gdx.app.debug("DEBUG", "There is no activity with the identifier " + identifier);
+        }
     }
 
 

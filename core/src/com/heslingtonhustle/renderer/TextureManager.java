@@ -35,8 +35,12 @@ public class TextureManager {
         throw new NullPointerException("Texture has not been added");
     }
 
-    public void addAnimation(String animationKey, Array<TextureAtlas.AtlasRegion> textureRegions) {
-        animations.put(animationKey, new Animation<TextureRegion>(0.1f, textureRegions));
+    public void addAnimation(String animationKey, Array<TextureAtlas.AtlasRegion> textureRegions, float speed) {
+        animations.put(animationKey, new Animation<TextureRegion>(speed, textureRegions));
+    }
+
+    public void addAnimation(String animationKey, TextureRegion[] animationFrames, float speed) {
+        animations.put(animationKey, new Animation<TextureRegion>(speed, animationFrames));
     }
 
     public void addTexture(String textureKey, TextureRegion texture) {

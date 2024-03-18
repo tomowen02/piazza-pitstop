@@ -2,11 +2,13 @@ package com.heslingtonhustle.renderer;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.maps.MapRenderer;
 import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.maps.tiled.TiledMapTileSet;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Disposable;
@@ -15,6 +17,8 @@ import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.heslingtonhustle.map.MapManager;
 import com.heslingtonhustle.state.State;
 import com.heslingtonhustle.screens.PauseMenu;
+
+import static java.lang.Math.round;
 
 public class Renderer implements Disposable {
     private final boolean DEBUG_COLLISIONS = false;
@@ -109,6 +113,8 @@ public class Renderer implements Disposable {
                 camera.viewportHeight / 2,
                 mapManager.getCurrentMapPixelDimensions().y - camera.viewportHeight / 2
         );
+        x = round(x*10) / 10; // Round to two decimal places to avoid tearing
+        y = round(y*10) / 10;
         return new Vector2(x, y);
     }
 

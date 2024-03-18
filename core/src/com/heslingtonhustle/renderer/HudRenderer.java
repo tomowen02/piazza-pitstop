@@ -3,14 +3,17 @@ package com.heslingtonhustle.renderer;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.*;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.utils.Align;
+import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.heslingtonhustle.state.DialogManager;
 import com.heslingtonhustle.state.State;
 
+import java.util.LinkedList;
 import java.util.List;
 
 public class HudRenderer implements Disposable {
@@ -34,6 +37,7 @@ public class HudRenderer implements Disposable {
     private TextureRegion clockTexture;
     private Sprite calendarSprite;
     private TextureRegion calendarTexture;
+    private TextureManager textureManager;
 
     public HudRenderer(State gameState, TextureAtlas textureAtlas){
         this.gameState = gameState;
@@ -50,9 +54,13 @@ public class HudRenderer implements Disposable {
 
         shapeRenderer = new ShapeRenderer();
 
+        textureManager = new TextureManager();
+        addAnimations();
+
         clockTexture = textureAtlas.findRegion("morningClock");
         clockSprite = new Sprite();
         clockSprite.setSize(clockSize,clockSize);
+
 
         calendarTexture = textureAtlas.findRegion("calendar-empty");
         calendarSprite = new Sprite();
@@ -87,7 +95,7 @@ public class HudRenderer implements Disposable {
                 clockTexture = textureAtlas.findRegion("clock-evening");
                 break;
             case NIGHT:
-                clockTexture = textureAtlas.findRegion("clock-night");
+                clockTexture = textureManager.retrieveTexture("clock-night");
                 break;
         }
         clockSprite.setRegion(clockTexture);
@@ -156,6 +164,13 @@ public class HudRenderer implements Disposable {
         }
 
         batch.end();
+    }
+
+    private void addAnimations() {
+        TextureRegion[] clockAnimationFrames = new TextureRegion[2];
+        clockAnimationFrames[0] = clockTexture = textureAtlas.findRegion("clock-night");
+        clockAnimationFrames[1] = clockTexture = textureAtlas.findRegion("clock-red");
+        textureManager.addAnimation("clock-night", clockAnimationFrames, 0.4f);
     }
 
     public void resize(int width, int height) {

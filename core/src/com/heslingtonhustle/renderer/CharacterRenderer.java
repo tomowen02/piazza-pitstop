@@ -48,13 +48,13 @@ public class CharacterRenderer {
         // the findRegions() function will find all areas of the atlas that have the same name and a number suffix
         // For example findRegions("walking_left") will find "walking_left_00", "walking_left_01", "walking_left_02 etc.
         Array<TextureAtlas.AtlasRegion> walkingLeft = textureAtlas.findRegions(textureRegionPrefix+"-walking-left");
-        characterTextures.addAnimation("walking-left", walkingLeft);
+        characterTextures.addAnimation("walking-left", walkingLeft, 0.1f);
         Array<TextureAtlas.AtlasRegion> walkingRight = textureAtlas.findRegions(textureRegionPrefix+"-walking-right");
-        characterTextures.addAnimation("walking-right", walkingRight);
+        characterTextures.addAnimation("walking-right", walkingRight, 0.1f);
         Array<TextureAtlas.AtlasRegion> walkingUp = textureAtlas.findRegions(textureRegionPrefix+"-walking-up");
-        characterTextures.addAnimation("walking-up", walkingUp);
+        characterTextures.addAnimation("walking-up", walkingUp, 0.1f);
         Array<TextureAtlas.AtlasRegion> walkingDown = textureAtlas.findRegions(textureRegionPrefix+"-walking-down");
-        characterTextures.addAnimation("walking-down", walkingDown);
+        characterTextures.addAnimation("walking-down", walkingDown, 0.1f);
     }
 
     private String getTextureKey(Facing direction, Action action) {
