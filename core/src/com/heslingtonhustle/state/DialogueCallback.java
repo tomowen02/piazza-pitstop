@@ -1,5 +1,5 @@
 package com.heslingtonhustle.state;
 
-public interface DialogCallback {
+public interface DialogueCallback {
     void onSelected(int selectedOption);
 }

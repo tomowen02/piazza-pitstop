@@ -9,7 +9,7 @@ public class Activity {
     }
 
     public void start() {
-        // Maybe we want to add callbacks to activities like I did for dialog boxes??
+        // Maybe we want to add callbacks to activities like I did for dialogue boxes??
         Gdx.app.debug("ACTIVITY", "You have just completed an activity!");
     }
 }

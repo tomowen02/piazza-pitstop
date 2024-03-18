@@ -38,7 +38,7 @@ public class PlayScreen implements Screen {
         inputHandler = new KeyboardInputHandler();
         addInputHandlers();
 
-        gameState.pushWelcomeDialog();
+        gameState.pushWelcomeDialogue();
     }
     @Override
     public void render(float delta) {
@@ -71,7 +71,7 @@ public class PlayScreen implements Screen {
                 Gdx.app.debug("DEBUG", "Time: "+gameState.getDebugTime());
                 return true;
             case DEBUGGING_ACTION3:
-                gameState.pushTestDialog();
+                gameState.pushTestDialogue();
                 return true;
             default:
                 return false;

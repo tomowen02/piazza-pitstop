@@ -13,7 +13,7 @@ public class State {
     private final Player player;
     private final Clock clock;
     private final MapManager mapManager;
-    private final DialogManager dialogManager;
+    private final DialogueManager dialogueManager;
     private final ActivityManager activityManager;
     private Activities activities;
     private int score;
@@ -22,7 +22,7 @@ public class State {
         player = new Player(38.25f, 57.25f, playerWidth, playerHeight);
         clock = new Clock();
         this.mapManager = mapManager;
-        dialogManager = new DialogManager();
+        dialogueManager = new DialogueManager();
         activityManager = new ActivityManager();
         setupActivities();
         activities = new Activities();
@@ -44,9 +44,9 @@ public class State {
     }
 
     private void handleAction(Action action) {
-        if (!dialogManager.isEmpty()) {
-            // A dialog box is currently being displayed
-            handleDialogAction(action);
+        if (!dialogueManager.isEmpty()) {
+            // A dialogue box is currently being displayed
+            handleDialogueAction(action);
         } else if (action == Action.INTERACT) {
             handleInteraction();
         } else {
@@ -55,16 +55,16 @@ public class State {
         }
     }
 
-    private void handleDialogAction(Action action) {
+    private void handleDialogueAction(Action action) {
         switch (action) {
             case MOVE_UP:
-                dialogManager.decreaseSelection();
+                dialogueManager.decreaseSelection();
                 break;
             case MOVE_DOWN:
-                dialogManager.increaseSelection();
+                dialogueManager.increaseSelection();
                 break;
             case INTERACT:
-                dialogManager.submit();
+                dialogueManager.submit();
         }
     }
 
@@ -127,19 +127,19 @@ public class State {
         return player.getMovement();
     }
 
-    public DialogManager getDialogManager() {
-        return dialogManager;
+    public DialogueManager getDialogueManager() {
+        return dialogueManager;
     }
 
-    public void pushWelcomeDialog() {
-        dialogManager.addDialog("Hello, welcome to the Heslington Hustle game by Pitstop Piazza! " +
+    public void pushWelcomeDialogue() {
+        dialogueManager.addDialogue("Hello, welcome to the Heslington Hustle game by Pitstop Piazza! " +
                 "Note: if the scaling is weird and very zoomed out, try restarting, and only go fullscreen after pressing play");
     }
 
-    public void pushTestDialog() {
+    public void pushTestDialogue() {
         // This is temporary
         List<String> options = new ArrayList<>(Arrays.asList("Increment day", "Decrement day", "Set time speed to VERY FAST", "Set time speed to normal"));
-        dialogManager.addDialog("This is the debugging console. Please select an option", options, selectedOption -> {
+        dialogueManager.addDialogue("This is the debugging console. Please select an option", options, selectedOption -> {
             switch (selectedOption) {
                 case 0: // Option 0 selected
                     clock.incrementDay();

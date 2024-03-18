@@ -8,7 +8,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
-import com.heslingtonhustle.state.DialogManager;
+import com.heslingtonhustle.state.DialogueManager;
 import com.heslingtonhustle.state.State;
 
 import java.util.List;
@@ -19,7 +19,7 @@ public class HudRenderer implements Disposable {
     private final OrthographicCamera hudCamera;
     private final ScreenViewport viewport;
 
-    private final DialogManager dialogManager;
+    private final DialogueManager dialogueManager;
 
     private final TextureAtlas textureAtlas;
     private final SpriteBatch batch;
@@ -41,7 +41,7 @@ public class HudRenderer implements Disposable {
         hudCamera = new OrthographicCamera();
         viewport = new ScreenViewport(hudCamera);
 
-        dialogManager = gameState.getDialogManager();
+        dialogueManager = gameState.getDialogueManager();
 
         this.textureAtlas = textureAtlas;
         batch = new SpriteBatch();
@@ -72,7 +72,7 @@ public class HudRenderer implements Disposable {
         calendarSprite.draw(batch);
         batch.end();
 
-        showDialog();
+        showDialogue();
     }
 
     private void setClockTexture() {
@@ -122,14 +122,14 @@ public class HudRenderer implements Disposable {
         calendarSprite.setRegion(calendarTexture);
     }
 
-    private void showDialog() {
-        if (dialogManager.isEmpty()) {
-            // No dialog box to show
+    private void showDialogue() {
+        if (dialogueManager.isEmpty()) {
+            // No dialogue box to show
             return;
         }
-        String message = dialogManager.getMessage();
-        List<String> options = dialogManager.getOptions();
-        int selectedOption = dialogManager.getSelectedOption();
+        String message = dialogueManager.getMessage();
+        List<String> options = dialogueManager.getOptions();
+        int selectedOption = dialogueManager.getSelectedOption();
 
         float x = 100;
         float y = 100;
