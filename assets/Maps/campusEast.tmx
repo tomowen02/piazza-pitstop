@@ -369,6 +369,7 @@
   </object>
   <object id="436" x="464" y="572" width="16" height="12">
    <properties>
+    <property name="eat" type="int" value="1"/>
     <property name="identifier" value="house"/>
     <property name="interactable" value=""/>
    </properties>
@@ -377,6 +378,7 @@
    <properties>
     <property name="identifier" value="house"/>
     <property name="interactable" value=""/>
+    <property name="study" type="int" value="10"/>
    </properties>
   </object>
   <object id="439" x="416" y="404" width="20" height="4">
@@ -389,6 +391,7 @@
    <properties>
     <property name="identifier" value="house"/>
     <property name="interactable" value=""/>
+    <property name="recreation" type="int" value="1"/>
    </properties>
   </object>
   <object id="441" x="608" y="400" width="16" height="12">

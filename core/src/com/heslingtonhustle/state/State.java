@@ -15,6 +15,7 @@ public class State {
     private final MapManager mapManager;
     private final DialogManager dialogManager;
     private final ActivityManager activityManager;
+    private Activities activities;
     private int score;
 
     public State(MapManager mapManager, float playerWidth, float playerHeight) {
@@ -24,6 +25,7 @@ public class State {
         dialogManager = new DialogManager();
         activityManager = new ActivityManager();
         setupActivities();
+        activities = new Activities();
         score = 0;
     }
 
@@ -40,7 +42,7 @@ public class State {
         player.setInBounds(mapManager.getCurrentMapWorldDimensions());
         clock.increaseTime(timeDelta);
     }
-    private boolean a = false;
+
     private void handleAction(Action action) {
         if (!dialogManager.isEmpty()) {
             // A dialog box is currently being displayed
@@ -83,13 +85,13 @@ public class State {
             clock.incrementDay();
         }
         if (trigger.recreation() > 0) {
-            // do recreation
+            activities.recreate(trigger.recreation());
         }
         if (trigger.eat() > 0) {
-            // eat
+            activities.eat(trigger.eat());
         }
         if (trigger.study() > 0) {
-            // study
+            activities.study(trigger.study());
         }
     }
 
