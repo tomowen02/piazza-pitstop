@@ -88,13 +88,14 @@ public class State {
     }
 
     public void pushWelcomeDialog() {
-        dialogManager.addDialog("Hello, welcome to the Heslington Hustle game by Pitstop Piazza!");
+        dialogManager.addDialog("Hello, welcome to the Heslington Hustle game by Pitstop Piazza! " +
+                "Note: if the scaling is weird and very zoomed out, try restarting, and only go fullscreen after pressing play");
     }
 
     public void pushTestDialog() {
         // This is temporary
         List<String> options = new ArrayList<String>(Arrays.asList("Hello world", "Heyy", "What's up"));
-        dialogManager.addDialog("Welcome to the game. Please select an options", options, selectedOption -> {
+        dialogManager.addDialog("Welcome to the game. Please select an option", options, selectedOption -> {
             switch (selectedOption) {
                 case 0: // Option 0 selected
                     Gdx.app.debug("DEBUG", "Options 0 selected");
