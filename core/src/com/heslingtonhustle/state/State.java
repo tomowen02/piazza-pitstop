@@ -15,22 +15,21 @@ public class State {
     private final Clock clock;
     private final MapManager mapManager;
     private final DialogManager dialogManager;
+    private final ActivityManager activityManager;
 
     public State(MapManager mapManager, float playerWidth, float playerHeight) {
-        player = new Player(32, 40, playerWidth, playerHeight);
+        player = new Player(38.25f, 57.25f, playerWidth, playerHeight);
         clock = new Clock();
         this.mapManager = mapManager;
         dialogManager = new DialogManager();
+        activityManager = new ActivityManager();
+        setupActivities();
     }
 
     /** Given an Action, apply that action to the state. */
     public void update(Action action, float timeDelta) {
-        if (action != null && !dialogManager.isEmpty()) {
-            // We have an action that might be to do with the dialog
-            handleDialogAction(action);
-        } else if (action != null) {
-            // We have a normal action
-            player.move(action);
+        if (action != null) {
+            handleAction(action);
         }
         Vector2 previousPlayerPos = player.getPosition();
         player.update();
@@ -39,6 +38,22 @@ public class State {
         }
         player.setInBounds(mapManager.getCurrentMapWorldDimensions());
         clock.update(timeDelta);
+    }
+
+    private void handleAction(Action action) {
+        if (!dialogManager.isEmpty()) {
+            // A dialog box is currently being displayed
+            handleDialogAction(action);
+        } else if (action == Action.INTERACT) {
+            Trigger trigger = mapManager.getTrigger(player.getCollisionBox());
+            if (trigger != null && trigger.isInteractable) {
+                activityManager.startActivity(trigger.identifier);
+            }
+        }
+        {
+            // We have a normal action
+            player.move(action);
+        }
     }
 
     private void handleDialogAction(Action action) {
@@ -105,5 +120,10 @@ public class State {
                     break;
             }
         });
+    }
+
+    private void setupActivities() {
+        Activity activity = new Activity();
+        activityManager.addActivity("house", activity);
     }
 }

@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.MapObjects;
+import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
@@ -12,8 +13,11 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Disposable;
+import com.heslingtonhustle.state.Trigger;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class MapManager implements Disposable {
@@ -23,6 +27,7 @@ public class MapManager implements Disposable {
     private HashMap<TiledMap, OrthogonalTiledMapRenderer> loadedMapRenderers;
     private ShapeRenderer collisionRenderer;
     private MapObjects collisionObjects;
+    private MapObjects triggerObjects;
 
     public MapManager() {
         mapLoader = new TmxMapLoader();
@@ -36,12 +41,18 @@ public class MapManager implements Disposable {
         }
         currentMap = loadedMaps.get(path);
 
-        /* This code can cause a nullptr exception if no collision layer is present */
         try {
             MapLayer collisionLayer = currentMap.getLayers().get("Collisions");
             collisionObjects = collisionLayer.getObjects();
         } catch (NullPointerException e) {
             Gdx.app.debug("DEBUG", "NO COLLISION LAYER FOUND!");
+        }
+
+        try {
+            MapLayer triggerLayer = currentMap.getLayers().get("Triggers");
+            triggerObjects = triggerLayer.getObjects();
+        } catch (NullPointerException e) {
+            Gdx.app.debug("DEBUG", "NO TRIGGER LAYER FOUND!");
         }
 
     }
@@ -61,14 +72,25 @@ public class MapManager implements Disposable {
     }
 
     public ShapeRenderer getCollisionRenderer() {
+        // This method gets the renderer that is used to show the collision rectangles and trigger rectangles
+        // for debugging purposes
         if (collisionRenderer == null) {
             collisionRenderer = new ShapeRenderer();
         }
         collisionRenderer.begin(ShapeRenderer.ShapeType.Filled);
-        collisionRenderer.setColor(255,0,0,50);
-        for (RectangleMapObject rectangleObject : collisionObjects.getByType(RectangleMapObject.class)) {
-            Rectangle collisionRectangle = rectangleObject.getRectangle();
-            collisionRenderer.rect(collisionRectangle.x, collisionRectangle.y, collisionRectangle.width, collisionRectangle.height);
+        if (collisionObjects != null) {
+            collisionRenderer.setColor(255, 0, 0, 50);
+            for (RectangleMapObject rectangleObject : collisionObjects.getByType(RectangleMapObject.class)) {
+                Rectangle collisionRectangle = rectangleObject.getRectangle();
+                collisionRenderer.rect(collisionRectangle.x, collisionRectangle.y, collisionRectangle.width, collisionRectangle.height);
+            }
+        }
+        if (triggerObjects != null) {
+            collisionRenderer.setColor(0, 0, 255, 50);
+            for (RectangleMapObject rectangleObject : triggerObjects.getByType(RectangleMapObject.class)) {
+                Rectangle triggerRectangle = rectangleObject.getRectangle();
+                collisionRenderer.rect(triggerRectangle.x, triggerRectangle.y, triggerRectangle.width, triggerRectangle.height);
+            }
         }
         collisionRenderer.end();
         return collisionRenderer;
@@ -79,15 +101,26 @@ public class MapManager implements Disposable {
             return false;
         }
         playerRectangle = worldRectangleToPixelRectangle(playerRectangle);
-        // For each rectangle in the collisions layer, check whether the player rectangle intercepts
-        for (RectangleMapObject rectangleObject : collisionObjects.getByType(RectangleMapObject.class)) {
-            Rectangle collisionRectangle = rectangleObject.getRectangle();
-            if (Intersector.overlaps(collisionRectangle, playerRectangle)) {
-                Gdx.app.debug("DEBUG", "Collision!");
-                return true;
-            }
+        Array<RectangleMapObject> mapCollisionRectangles = collisionObjects.getByType(RectangleMapObject.class);
+        RectangleMapObject overlappingRectangle = getOverlappingMapRectangle(playerRectangle, mapCollisionRectangles);
+        return overlappingRectangle != null;
+    }
+
+    public Trigger getTrigger(Rectangle playerRectangle) {
+        if (triggerObjects == null) {
+            return null;
         }
-        return false;
+        playerRectangle = worldRectangleToPixelRectangle(playerRectangle);
+        Array<RectangleMapObject> mapTriggerRectangles = triggerObjects.getByType(RectangleMapObject.class);
+        RectangleMapObject overlappingRectangle = getOverlappingMapRectangle(playerRectangle, mapTriggerRectangles);
+        if (overlappingRectangle == null) {
+            return null;
+        }
+        MapProperties mapProperties = overlappingRectangle.getProperties();
+        Trigger trigger = new Trigger();
+        trigger.isInteractable = mapProperties.containsKey("interactable");
+        trigger.identifier = (String)mapProperties.get("identifier");
+        return trigger;
     }
 
     public Vector2 getCurrentMapTileDimensions() {
@@ -131,6 +164,18 @@ public class MapManager implements Disposable {
         float width = rectangle.width * getCurrentMapTileDimensions().x;
         float height = rectangle.height * getCurrentMapTileDimensions().y;
         return new Rectangle(x, y, width, height);
+    }
+
+    private RectangleMapObject getOverlappingMapRectangle(Rectangle playerRectangle, Array<RectangleMapObject> mapRectangles) {
+        // For each rectangle in the collisions layer, check whether the player rectangle intercepts
+        for (RectangleMapObject rectangleObject : mapRectangles) {
+            Rectangle collisionRectangle = rectangleObject.getRectangle();
+            if (Intersector.overlaps(collisionRectangle, playerRectangle)) {
+                Gdx.app.debug("DEBUG", "Collision!");
+                return rectangleObject;
+            }
+        }
+        return null;
     }
 
     @Override
