@@ -26,6 +26,10 @@ public class Clock {
         }
     }
 
+    public int getDay() {
+        return day;
+    }
+
     public void increaseTime(float delta) {
         if (timeUnits >= MAX_TIME) {
             return;
@@ -39,11 +43,22 @@ public class Clock {
         return day;
     }
 
+    public int decrementDay() {
+        timeUnits = 0;
+        day -= 1;
+        return day;
+    }
+
     public void increaseSpeed(int speedIncrease) {
         speed += speedIncrease;
     }
 
+    public void setSpeed(int speed) {
+        // This is mainly used for debugging
+        this.speed = speed;
+    }
+
     public String getDebugString() {
-        return timeUnits + " " + getTime();
+        return timeUnits +" "+getTime() + " Day: "+getDay() + " Speed: "+speed;
     }
 }

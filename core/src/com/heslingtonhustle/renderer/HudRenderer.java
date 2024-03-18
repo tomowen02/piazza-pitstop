@@ -30,8 +30,10 @@ public class HudRenderer implements Disposable {
     private float PADDING = 50f;
 
     private Sprite clockSprite;
-    private float clockSize = 75;
+    private float clockSize = 100;
     private TextureRegion clockTexture;
+    private Sprite calendarSprite;
+    private TextureRegion calendarTexture;
 
     public HudRenderer(State gameState, TextureAtlas textureAtlas){
         this.gameState = gameState;
@@ -50,7 +52,11 @@ public class HudRenderer implements Disposable {
 
         clockTexture = textureAtlas.findRegion("morningClock");
         clockSprite = new Sprite();
-        clockSprite.setSize(100,100);
+        clockSprite.setSize(clockSize,clockSize);
+
+        calendarTexture = textureAtlas.findRegion("calendar-empty");
+        calendarSprite = new Sprite();
+        calendarSprite.setSize(clockSize, clockSize);
     }
 
     public void render(){
@@ -59,9 +65,11 @@ public class HudRenderer implements Disposable {
         shapeRenderer.setProjectionMatrix(hudCamera.combined);
 
         setClockTexture();
+        setCalendarTexture();
 
         batch.begin();
         clockSprite.draw(batch);
+        calendarSprite.draw(batch);
         batch.end();
 
         showDialog();
@@ -83,6 +91,35 @@ public class HudRenderer implements Disposable {
                 break;
         }
         clockSprite.setRegion(clockTexture);
+    }
+
+    private void setCalendarTexture() {
+        switch (gameState.getDay()) {
+            case 1:
+                calendarTexture = textureAtlas.findRegion("calendar-1");
+                break;
+            case 2:
+                calendarTexture = textureAtlas.findRegion("calendar-2");
+                break;
+            case 3:
+                calendarTexture = textureAtlas.findRegion("calendar-3");
+                break;
+            case 4:
+                calendarTexture = textureAtlas.findRegion("calendar-4");
+                break;
+            case 5:
+                calendarTexture = textureAtlas.findRegion("calendar-5");
+                break;
+            case 6:
+                calendarTexture = textureAtlas.findRegion("calendar-6");
+                break;
+            case 7:
+                calendarTexture = textureAtlas.findRegion("calendar-7");
+                break;
+            default:
+                calendarTexture = textureAtlas.findRegion("calendar-empty");
+        }
+        calendarSprite.setRegion(calendarTexture);
     }
 
     private void showDialog() {
@@ -125,6 +162,10 @@ public class HudRenderer implements Disposable {
         float clockX = Gdx.graphics.getWidth() - (clockSize+PADDING);
         float clockY = PADDING;
         clockSprite.setPosition(clockX,clockY);
+
+        float calendarX = PADDING;
+        float calendarY = PADDING;
+        calendarSprite.setPosition(calendarX, calendarY);
 
         viewport.update(width, height, true);
     }

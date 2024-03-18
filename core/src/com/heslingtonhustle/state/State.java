@@ -49,8 +49,7 @@ public class State {
             if (trigger != null && trigger.isInteractable) {
                 activityManager.startActivity(trigger.identifier);
             }
-        }
-        {
+        } else {
             // We have a normal action
             player.move(action);
         }
@@ -75,6 +74,9 @@ public class State {
 
     public Time getTime() {
         return clock.getTime();
+    }
+    public int getDay() {
+        return clock.getDay();
     }
     public String getDebugTime() {
         return clock.getDebugString();
@@ -109,14 +111,20 @@ public class State {
 
     public void pushTestDialog() {
         // This is temporary
-        List<String> options = new ArrayList<String>(Arrays.asList("Hello world", "Heyy", "What's up"));
-        dialogManager.addDialog("Welcome to the game. Please select an option", options, selectedOption -> {
+        List<String> options = new ArrayList<String>(Arrays.asList("Increment day", "Decrement day", "Set time speed to VERY FAST", "Set time speed to normal"));
+        dialogManager.addDialog("This is the debugging console. Please select an option", options, selectedOption -> {
             switch (selectedOption) {
                 case 0: // Option 0 selected
-                    Gdx.app.debug("DEBUG", "Options 0 selected");
+                    clock.incrementDay();
                     break;
                 case 1: // Option 1 selected
-                    Gdx.app.debug("DEBUG", "Options 1 selected");
+                    clock.decrementDay();
+                    break;
+                case 2:
+                    clock.setSpeed(15);
+                    break;
+                case 3:
+                    clock.setSpeed(6);
                     break;
             }
         });
