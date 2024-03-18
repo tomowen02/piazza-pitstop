@@ -58,6 +58,9 @@ public class State {
                 player.setPosition(trigger.getNewMapCoords());
             }
             score += trigger.changeScore();
+            if (trigger.canSleep()) {
+                clock.incrementDay();
+            }
         } else {
             // We have a normal action
             player.move(action);

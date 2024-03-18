@@ -364,6 +364,7 @@
    <properties>
     <property name="identifier" value="house"/>
     <property name="interactable" value=""/>
+    <property name="sleep" type="bool" value="true"/>
    </properties>
   </object>
   <object id="436" x="464" y="572" width="16" height="12">

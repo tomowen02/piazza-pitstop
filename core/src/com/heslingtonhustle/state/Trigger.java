@@ -29,6 +29,13 @@ public class Trigger {
         return null;
     }
 
+    public boolean canSleep() {
+        if (mapProperties.containsKey("sleep")) {
+            return (boolean)mapProperties.get("sleep");
+        }
+        return false;
+    }
+
     public Vector2 getNewMapCoords() {
         return new Vector2((int)mapProperties.get("new_map_x"), (int)mapProperties.get("new_map_y"));
     }
