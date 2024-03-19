@@ -40,8 +40,8 @@ public class Renderer implements Disposable {
 
     public Renderer(State state, MapManager mapManager, PauseMenu pauseMenu)
     {
-        screenWidth = Gdx.graphics.getWidth();
-        screenHeight = Gdx.graphics.getHeight();
+        screenWidth = 300;
+        screenHeight = 200;
 
         gameState = state;
         camera = new OrthographicCamera();
@@ -50,7 +50,7 @@ public class Renderer implements Disposable {
 
         batch = new SpriteBatch();
         mapRenderer = mapManager.getCurrentMapRenderer(batch);
-        viewport = new ExtendViewport(screenWidth/2f, screenHeight/2f, camera);
+        viewport = new ExtendViewport(screenWidth, screenHeight, camera);
 
         this.pauseMenu = pauseMenu;
 
