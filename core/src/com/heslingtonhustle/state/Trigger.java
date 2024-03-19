@@ -23,7 +23,7 @@ public class Trigger {
 
     public int getValue() {
         if (activity != null) {
-            return (int) mapProperties.get(activity);
+            return getPropertyValue(activity, true);
         }
         return 0;
     }
