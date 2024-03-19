@@ -3,30 +3,33 @@ package com.heslingtonhustle;
 import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Screen;
 import com.heslingtonhustle.screens.MenuScreen;
 import com.heslingtonhustle.screens.PlayScreen;
 import com.heslingtonhustle.screens.AvailableScreens;
 
 public class HeslingtonHustleGame extends Game {
-	private final AvailableScreens DEFAULT_AvailableScreens = AvailableScreens.MenuScreen;
-	private MenuScreen menuScreen;
-	private PlayScreen playScreen;
+	private final AvailableScreens DEFAULT_SCREEN = AvailableScreens.MenuScreen;
+	private Screen currentScreen;
 
 	@Override
 	public void create() {
 		Gdx.app.setLogLevel(Application.LOG_DEBUG); // Logs all messages to the console
-		changeScreen(DEFAULT_AvailableScreens);
+		changeScreen(DEFAULT_SCREEN);
 	}
 
 	public boolean changeScreen(AvailableScreens availableScreens) {
+		if (currentScreen != null) {
+			currentScreen.dispose();
+		}
 		switch (availableScreens) {
 			case MenuScreen:
-				if (menuScreen == null) { menuScreen = new MenuScreen(this); }
-				setScreen(menuScreen);
+				currentScreen = new MenuScreen(this);
+				setScreen(currentScreen);
 				break;
 			case PlayScreen:
-				if (playScreen == null) { playScreen = new PlayScreen(this); }
-				setScreen(playScreen);
+				currentScreen = new PlayScreen(this);
+				setScreen(currentScreen);
 				break;
 			default:
 				return false;

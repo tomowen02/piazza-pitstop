@@ -8,7 +8,8 @@ public class Activity {
 
     public Activity() {
         counter = 0;
-        value = 0;
+        value = 0; // Represents different things depending on the type of activity
+                    // The value can be specified in the Tiled trigger (e.g. eat: 2)
         timesPerformedToday = 0;
         maxTimesPerDay = 1;
     }

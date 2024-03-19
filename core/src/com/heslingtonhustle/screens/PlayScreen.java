@@ -32,7 +32,7 @@ public class PlayScreen implements Screen {
         float playerHeight = 0.9f;
         mapManager = new MapManager();
         gameState = new State(mapManager, playerWidth, playerHeight);
-        pauseMenu = new PauseMenu(this);
+        pauseMenu = new PauseMenu(this, gameState);
         renderer = new Renderer(gameState, mapManager, pauseMenu);
 
         inputHandler = new KeyboardInputHandler();
@@ -53,6 +53,10 @@ public class PlayScreen implements Screen {
             gameState.update(action, delta);
         }
         renderer.update();
+
+        if (gameState.isGameOver()) {
+            heslingtonHustleGame.changeScreen(AvailableScreens.MenuScreen);
+        }
     }
 
     private boolean handleDebugAction(Action action) {
@@ -119,11 +123,12 @@ public class PlayScreen implements Screen {
 
     @Override
     public void hide() {
-
     }
 
     @Override
     public void dispose() {
         mapManager.dispose();
+        renderer.dispose();
+        pauseMenu.dispose();
     }
 }

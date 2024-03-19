@@ -12,6 +12,7 @@ import java.util.List;
 /** Contains all data related to the logical state of the game. */
 public class State {
     private static final int MAX_DAYS = 7;
+    private boolean gameOver;
     private final Player player;
     private final Clock clock;
     private final MapManager mapManager;
@@ -21,6 +22,8 @@ public class State {
     private int score;
 
     public State(MapManager mapManager, float playerWidth, float playerHeight) {
+        gameOver = false;
+
         player = new Player(38.25f, 57.25f, playerWidth, playerHeight);
         clock = new Clock();
         this.mapManager = mapManager;
@@ -107,7 +110,9 @@ public class State {
 
     private void advanceDay() {
         if (clock.getDay() == MAX_DAYS) {
-            dialogueManager.addDialogue("Game Over");
+            dialogueManager.addDialogue("Game Over. Your score was: "+score, selectedOption -> {
+                gameOver = true;
+            });
             return;
         }
 
@@ -202,5 +207,13 @@ public class State {
 
     public boolean isInteractionPossible() {
         return  currentTrigger != null;
+    }
+
+    public boolean isGameOver() {
+        return gameOver;
+    }
+
+    public void setGameOver() {
+        gameOver = true;
     }
 }

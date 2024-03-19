@@ -120,7 +120,6 @@ public class Renderer implements Disposable {
         batch.dispose();
         mapManager.dispose();
         hudRenderer.dispose();
-        pauseMenu.dispose();
     }
 
     public void windowResized(int width, int height) {
