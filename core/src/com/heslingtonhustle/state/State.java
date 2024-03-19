@@ -25,8 +25,8 @@ public class State {
         dialogueManager = new DialogueManager();
 
         activities = new HashMap<>();
-        activities.put("eat", new Activity());
-        activities.put("recreation", new Activity());
+        activities.put("eat", new Activity(2));
+        activities.put("recreation", new Activity(2));
         activities.put("study", new Activity());
         activities.put("sleep", new Activity());
 
@@ -86,7 +86,7 @@ public class State {
         score += trigger.changeScore();
 
         if (trigger.canSleep()) {
-            clock.incrementDay();
+            advanceDay();
             Activity activity  = activities.get("sleep");
             if (activity != null) {
                 activity.increaseValue(1);
@@ -100,6 +100,13 @@ public class State {
                 activities.put(s, new Activity()); // Useful feature?
             }
             activities.get(s).increaseValue(i);
+        }
+    }
+
+    private void advanceDay() {
+        clock.incrementDay();
+        for (Activity activity : activities.values()) {
+            activity.dayAdvanced();
         }
     }
 
