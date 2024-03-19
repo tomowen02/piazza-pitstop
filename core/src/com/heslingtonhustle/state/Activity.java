@@ -4,7 +4,7 @@ public class Activity {
     private int counter;
     private int value;
     private int timesPerformedToday;
-    private final int maxTimesPerDay;
+    private int maxTimesPerDay;
 
     public Activity() {
         counter = 0;
@@ -44,5 +44,13 @@ public class Activity {
 
     public void dayAdvanced() {
         timesPerformedToday = 0;
+    }
+
+    public int getTimesPerformedToday() {
+        return timesPerformedToday;
+    }
+
+    public void changeMaxTimesPerDay(int times) {
+        maxTimesPerDay = times;
     }
 }

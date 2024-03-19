@@ -26,8 +26,8 @@ public class State {
 
         activities = new HashMap<>();
         activities.put("eat", new Activity(2));
-        activities.put("recreation", new Activity(2));
-        activities.put("study", new Activity());
+        activities.put("recreation", new Activity(3));
+        activities.put("study", new Activity(2));
         activities.put("sleep", new Activity());
 
         score = 0;
@@ -104,10 +104,16 @@ public class State {
     }
 
     private void advanceDay() {
-        clock.incrementDay();
+        Activity study = activities.get("study");
+        if (study.getTimesPerformedToday() == 2) {
+            study.changeMaxTimesPerDay(1);
+        }
+
         for (Activity activity : activities.values()) {
             activity.dayAdvanced();
         }
+
+        clock.incrementDay();
     }
 
     //Debug function
