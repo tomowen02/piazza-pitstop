@@ -6,6 +6,7 @@ import com.badlogic.gdx.math.Vector2;
 public class Trigger {
     private boolean isInteractable;
     private String identifier;
+    private String activity;
 
     private final MapProperties mapProperties;
 
@@ -13,6 +14,19 @@ public class Trigger {
         this.mapProperties = mapProperties;
         isInteractable = mapProperties.containsKey("interactable");
         identifier = (String)mapProperties.get("identifier"); //TODO: null check
+
+        activity = mapProperties.containsKey("activity") ? (String)mapProperties.get("activity") : null;
+    }
+
+    public String getActivity() {
+        return activity;
+    }
+
+    public int getValue() {
+        if (activity != null) {
+            return (int) mapProperties.get(activity);
+        }
+        return 0;
     }
 
     public int changeScore() {

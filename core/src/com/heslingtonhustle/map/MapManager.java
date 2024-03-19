@@ -164,7 +164,7 @@ public class MapManager implements Disposable {
         for (RectangleMapObject rectangleObject : mapRectangles) {
             Rectangle collisionRectangle = rectangleObject.getRectangle();
             if (Intersector.overlaps(collisionRectangle, playerRectangle)) {
-                Gdx.app.debug("DEBUG", "Collision!");
+                //Gdx.app.debug("DEBUG", "Collision!");
                 return rectangleObject;
             }
         }

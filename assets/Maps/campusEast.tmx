@@ -369,6 +369,7 @@
   </object>
   <object id="436" x="1268" y="988" width="40" height="20">
    <properties>
+    <property name="activity" value="eat"/>
     <property name="eat" type="int" value="1"/>
     <property name="identifier" value="house"/>
     <property name="interactable" value=""/>
@@ -376,6 +377,7 @@
   </object>
   <object id="438" x="504" y="872" width="28" height="16">
    <properties>
+    <property name="activity" value="study"/>
     <property name="identifier" value="house"/>
     <property name="interactable" value=""/>
     <property name="study" type="int" value="10"/>

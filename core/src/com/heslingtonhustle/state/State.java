@@ -89,26 +89,13 @@ public class State {
             clock.incrementDay();
             Activity activity  = activities.get("sleep");
             if (activity != null) {
-                activity.increaseValue(trigger.recreation());
+                activity.increaseValue(1);
             }
         }
-        if (trigger.recreation() > 0) {
-            Activity activity  = activities.get("recreation");
-            if (activity != null) {
-                activity.increaseValue(trigger.recreation());
-            }
-        }
-        if (trigger.eat() > 0) {
-            Activity activity  = activities.get("eat");
-            if (activity != null) {
-                activity.increaseValue(trigger.eat());
-            }
-        }
-        if (trigger.study() > 0) {
-            Activity activity  = activities.get("study");
-            if (activity != null) {
-                activity.increaseValue(trigger.study());
-            }
+        String s = trigger.getActivity();
+        if (s != null) {
+            int i = trigger.getValue();
+            activities.get(s).increaseValue(i);
         }
     }
 
