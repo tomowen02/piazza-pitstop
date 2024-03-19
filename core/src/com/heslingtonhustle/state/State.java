@@ -100,10 +100,11 @@ public class State {
         }
     }
 
+    //Debug function
     public void printActivities() {
         for (String s : activities.keySet()) {
-            System.out.println(s + " count: " + String.valueOf(activities.get(s).getCount()));
-            System.out.println(s + " value: " + String.valueOf(activities.get(s).getValue()));
+            System.out.println(s + " count: " + activities.get(s).getCount());
+            System.out.println(s + " value: " + activities.get(s).getValue());
         }
     }
 
