@@ -173,8 +173,9 @@ public class State {
     }
 
     public void pushWelcomeDialogue() {
-        dialogueManager.addDialogue("Hello, welcome to the Heslington Hustle game by Pitstop Piazza! " +
-                "Note: if the scaling is weird and very zoomed out, try restarting, and only go fullscreen after pressing play");
+        dialogueManager.addDialogue("Hello, welcome to the Heslington Hustle game by Pitstop Piazza! \n" +
+                "Instructions: move around the map with W,A,S,D. Interact with buildings with SPACE to do activities.\n" +
+                "The clock is at the bottom right. You cannot do anything at night time and must sleep by interacting with a house.");
     }
 
     public void pushTestDialogue() {

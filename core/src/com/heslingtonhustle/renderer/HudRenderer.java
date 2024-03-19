@@ -168,7 +168,7 @@ public class HudRenderer implements Disposable {
         font.draw(batch, message, x + 20, y + height - 20, width - 40, Align.left, true);
 
         // Draw options
-        float optionY = y + height - 80; // Starting Y position for options
+        float optionY = y + height - 130; // Starting Y position for options
         for (int i = 0; i < options.size(); i++) {
             String optionPrefix = (selectedOption == i) ? "> " : "  ";
             font.draw(batch, optionPrefix + options.get(i), x + 20, optionY, width - 40, Align.left, false);
