@@ -6,6 +6,7 @@ import com.heslingtonhustle.map.MapManager;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 
 /** Contains all data related to the logical state of the game. */
@@ -14,8 +15,7 @@ public class State {
     private final Clock clock;
     private final MapManager mapManager;
     private final DialogueManager dialogueManager;
-    private final ActivityManager activityManager;
-    private Activities activities;
+    private final HashMap<String, Activity> activities;
     private int score;
 
     public State(MapManager mapManager, float playerWidth, float playerHeight) {
@@ -23,9 +23,13 @@ public class State {
         clock = new Clock();
         this.mapManager = mapManager;
         dialogueManager = new DialogueManager();
-        activityManager = new ActivityManager();
-        setupActivities();
-        activities = new Activities();
+
+        activities = new HashMap<>();
+        activities.put("eat", new Activity());
+        activities.put("recreation", new Activity());
+        activities.put("study", new Activity());
+        activities.put("sleep", new Activity());
+
         score = 0;
     }
 
@@ -74,7 +78,7 @@ public class State {
             return;
         }
         if (trigger.isInteractable()) {
-            activityManager.startActivity(trigger.getIdentifier());
+            //
         }
         if (trigger.getNewMap() != null) {
             mapManager.loadMap("Maps/" + trigger.getNewMap());
@@ -83,15 +87,35 @@ public class State {
         score += trigger.changeScore();
         if (trigger.canSleep()) {
             clock.incrementDay();
+            Activity activity  = activities.get("sleep");
+            if (activity != null) {
+                activity.increaseValue(trigger.recreation());
+            }
         }
         if (trigger.recreation() > 0) {
-            activities.recreate(trigger.recreation());
+            Activity activity  = activities.get("recreation");
+            if (activity != null) {
+                activity.increaseValue(trigger.recreation());
+            }
         }
         if (trigger.eat() > 0) {
-            activities.eat(trigger.eat());
+            Activity activity  = activities.get("eat");
+            if (activity != null) {
+                activity.increaseValue(trigger.eat());
+            }
         }
         if (trigger.study() > 0) {
-            activities.study(trigger.study());
+            Activity activity  = activities.get("study");
+            if (activity != null) {
+                activity.increaseValue(trigger.study());
+            }
+        }
+    }
+
+    public void printActivities() {
+        for (String s : activities.keySet()) {
+            System.out.println(s + " count: " + String.valueOf(activities.get(s).getCount()));
+            System.out.println(s + " value: " + String.valueOf(activities.get(s).getValue()));
         }
     }
 
@@ -155,11 +179,6 @@ public class State {
                     break;
             }
         });
-    }
-
-    private void setupActivities() {
-        Activity activity = new Activity();
-        activityManager.addActivity("house", activity);
     }
 
     public int getScore() {
