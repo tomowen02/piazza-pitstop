@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.*;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.utils.Align;
+import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.heslingtonhustle.state.DialogueManager;
@@ -34,6 +35,7 @@ public class HudRenderer implements Disposable {
     private TextureRegion clockTexture;
     private final Sprite calendarSprite;
     private TextureRegion calendarTexture;
+    private final Sprite interactSprite;
     private TextureManager textureManager;
 
     public HudRenderer(State gameState, TextureAtlas textureAtlas){
@@ -54,13 +56,18 @@ public class HudRenderer implements Disposable {
         textureManager = new TextureManager();
         addAnimations();
 
-        clockTexture = textureAtlas.findRegion("morningClock");
+        clockTexture = textureAtlas.findRegion("morningClock"); // This is the default but will be overwritten
         clockSprite = new Sprite();
         clockSprite.setSize(clockSize,clockSize);
 
-        calendarTexture = textureAtlas.findRegion("calendar-empty");
+        calendarTexture = textureAtlas.findRegion("calendar-empty"); // This is the default but will be overwritten
         calendarSprite = new Sprite();
         calendarSprite.setSize(clockSize, clockSize);
+
+        interactSprite = new Sprite();
+        interactSprite.setSize(128, 34);
+        interactSprite.setRegion(textureManager.retrieveTexture("interact"));
+
     }
 
     public void render(){
@@ -70,10 +77,14 @@ public class HudRenderer implements Disposable {
 
         setClockTexture();
         setCalendarTexture();
+        setInteractTexture();
 
         batch.begin();
         clockSprite.draw(batch);
         calendarSprite.draw(batch);
+        if (gameState.isInteractionPossible()) {
+            interactSprite.draw(batch);
+        }
         batch.end();
 
         showDialogue();
@@ -92,6 +103,7 @@ public class HudRenderer implements Disposable {
                 break;
             case NIGHT:
                 clockTexture = textureAtlas.findRegion("clock-night");
+                clockTexture = textureManager.retrieveTexture("clock-night");
                 break;
         }
         clockSprite.setRegion(clockTexture);
@@ -124,6 +136,10 @@ public class HudRenderer implements Disposable {
                 calendarTexture = textureAtlas.findRegion("calendar-empty");
         }
         calendarSprite.setRegion(calendarTexture);
+    }
+
+    private void setInteractTexture() {
+        interactSprite.setRegion(textureManager.retrieveTexture("interact"));
     }
 
     private void showDialogue() {
@@ -167,6 +183,9 @@ public class HudRenderer implements Disposable {
         clockAnimationFrames[0] = clockTexture = textureAtlas.findRegion("clock-night");
         clockAnimationFrames[1] = clockTexture = textureAtlas.findRegion("clock-red");
         textureManager.addAnimation("clock-night", clockAnimationFrames, 0.4f);
+
+        Array<TextureAtlas.AtlasRegion> interact = textureAtlas.findRegions("interact");
+        textureManager.addAnimation("interact", interact, 0.4f);
     }
 
     public void resize(int width, int height) {
@@ -177,6 +196,10 @@ public class HudRenderer implements Disposable {
         float calendarX = PADDING;
         float calendarY = PADDING;
         calendarSprite.setPosition(calendarX, calendarY);
+
+        float interactX = PADDING;
+        float interactY = height - PADDING - 34;
+        interactSprite.setPosition(interactX, interactY);
 
         viewport.update(width, height, true);
     }
