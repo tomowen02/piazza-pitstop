@@ -11,6 +11,7 @@ import java.util.List;
 
 /** Contains all data related to the logical state of the game. */
 public class State {
+    private static final int MAX_DAYS = 7;
     private final Player player;
     private final Clock clock;
     private final MapManager mapManager;
@@ -104,6 +105,11 @@ public class State {
     }
 
     private void advanceDay() {
+        if (clock.getDay() == MAX_DAYS) {
+            dialogueManager.addDialogue("Game Over");
+            return;
+        }
+
         Activity study = activities.get("study");
         if (study.getTimesPerformedToday() == 2) {
             study.changeMaxTimesPerDay(1);
