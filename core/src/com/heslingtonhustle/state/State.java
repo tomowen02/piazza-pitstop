@@ -95,6 +95,7 @@ public class State {
             Activity activity  = activities.get("sleep");
             if (activity != null) {
                 activity.increaseValue(1);
+                dialogueManager.addDialogue("You have just slept!");
             }
         }
         
@@ -104,7 +105,14 @@ public class State {
             if (!activities.containsKey(activityID)) {
                 activities.put(activityID, new Activity()); // Useful feature?
             }
-            activities.get(activityID).increaseValue(i);
+            Activity activity = activities.get(activityID);
+            if (activity.increaseValue(i)) {
+                dialogueManager.addDialogue(currentTrigger.getSuccessMessage());
+            } else {
+                dialogueManager.addDialogue(currentTrigger.getFailedMessage());
+            }
+
+
         }
     }
 

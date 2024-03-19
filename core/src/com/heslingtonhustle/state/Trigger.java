@@ -63,4 +63,18 @@ public class Trigger {
     public Vector2 getNewMapCoords() {
         return new Vector2((int)mapProperties.get("new_map_x"), (int)mapProperties.get("new_map_y"));
     }
+
+    public String getSuccessMessage() {
+        if (mapProperties.containsKey("success_message")) {
+            return (String)mapProperties.get("success_message");
+        }
+        return null;
+    }
+
+    public String getFailedMessage() {
+        if (mapProperties.containsKey("failed_message")) {
+            return (String)mapProperties.get("failed_message");
+        }
+        return null;
+    }
 }
