@@ -362,8 +362,6 @@
  <objectgroup id="7" name="Triggers">
   <object id="435" x="608" y="592" width="16" height="12">
    <properties>
-    <property name="identifier" value="house"/>
-    <property name="interactable" value=""/>
     <property name="sleep" type="bool" value="true"/>
    </properties>
   </object>
@@ -371,104 +369,68 @@
    <properties>
     <property name="activity" value="eat"/>
     <property name="eat" type="int" value="1"/>
-    <property name="identifier" value="house"/>
-    <property name="interactable" value=""/>
    </properties>
   </object>
   <object id="438" x="504" y="872" width="28" height="16">
    <properties>
     <property name="activity" value="study"/>
-    <property name="identifier" value="house"/>
-    <property name="interactable" value=""/>
     <property name="study" type="int" value="10"/>
    </properties>
   </object>
-  <object id="444" x="1488" y="364" width="16" height="16">
-   <properties>
-    <property name="identifier" value="house"/>
-    <property name="interactable" value=""/>
-   </properties>
-  </object>
-  <object id="445" x="1536" y="364" width="16" height="16">
-   <properties>
-    <property name="identifier" value="house"/>
-    <property name="interactable" value=""/>
-   </properties>
-  </object>
+  <object id="444" x="1488" y="364" width="16" height="16"/>
+  <object id="445" x="1536" y="364" width="16" height="16"/>
   <object id="451" x="404" y="576" width="36" height="20">
    <properties>
-    <property name="identifier" value="house"/>
-    <property name="interactable" value=""/>
     <property name="sleep" type="bool" value="true"/>
    </properties>
   </object>
   <object id="452" x="452" y="576" width="36" height="20">
    <properties>
-    <property name="identifier" value="house"/>
-    <property name="interactable" value=""/>
     <property name="sleep" type="bool" value="true"/>
    </properties>
   </object>
   <object id="453" x="404" y="400" width="36" height="20">
    <properties>
-    <property name="identifier" value="house"/>
-    <property name="interactable" value=""/>
     <property name="sleep" type="bool" value="true"/>
    </properties>
   </object>
   <object id="454" x="452" y="400" width="36" height="20">
    <properties>
-    <property name="identifier" value="house"/>
-    <property name="interactable" value=""/>
     <property name="sleep" type="bool" value="true"/>
    </properties>
   </object>
   <object id="455" x="600" y="400" width="36" height="20">
    <properties>
-    <property name="identifier" value="house"/>
-    <property name="interactable" value=""/>
     <property name="sleep" type="bool" value="true"/>
    </properties>
   </object>
   <object id="456" x="1172" y="416" width="36" height="20">
    <properties>
-    <property name="identifier" value="house"/>
-    <property name="interactable" value=""/>
     <property name="sleep" type="bool" value="true"/>
    </properties>
   </object>
   <object id="457" x="1352" y="400" width="36" height="20">
    <properties>
-    <property name="identifier" value="house"/>
-    <property name="interactable" value=""/>
     <property name="sleep" type="bool" value="true"/>
    </properties>
   </object>
   <object id="458" x="1368" y="668" width="36" height="20">
    <properties>
-    <property name="identifier" value="house"/>
-    <property name="interactable" value=""/>
     <property name="sleep" type="bool" value="true"/>
    </properties>
   </object>
   <object id="459" x="1364" y="560" width="36" height="20">
    <properties>
-    <property name="identifier" value="house"/>
-    <property name="interactable" value=""/>
     <property name="sleep" type="bool" value="true"/>
    </properties>
   </object>
   <object id="460" x="1540" y="764" width="36" height="20">
    <properties>
-    <property name="identifier" value="house"/>
-    <property name="interactable" value=""/>
     <property name="sleep" type="bool" value="true"/>
    </properties>
   </object>
   <object id="461" x="1540" y="544" width="36" height="20">
    <properties>
-    <property name="identifier" value="house"/>
-    <property name="interactable" value=""/>
     <property name="sleep" type="bool" value="true"/>
    </properties>
   </object>
