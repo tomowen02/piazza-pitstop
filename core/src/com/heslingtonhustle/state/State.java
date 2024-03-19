@@ -16,6 +16,8 @@ public class State {
     private final DialogueManager dialogueManager;
     private final ActivityManager activityManager;
     private Activities activities;
+    private Trigger currentTrigger;
+    private boolean isInteractionPossible;
     private int score;
 
     public State(MapManager mapManager, float playerWidth, float playerHeight) {
@@ -27,10 +29,13 @@ public class State {
         setupActivities();
         activities = new Activities();
         score = 0;
+        currentTrigger = null;
+        isInteractionPossible = false;
     }
 
     /** Given an Action, apply that action to the state. */
     public void update(Action action, float timeDelta) {
+        currentTrigger = mapManager.getTrigger(player.getCollisionBox());
         if (action != null) {
             handleAction(action);
         }
@@ -70,7 +75,7 @@ public class State {
 
     private void handleInteraction() {
         Trigger trigger = mapManager.getTrigger(player.getCollisionBox());
-        if (trigger == null) {
+        if (currentTrigger == null) {
             return;
         }
         if (trigger.isInteractable()) {
@@ -165,4 +170,17 @@ public class State {
     public int getScore() {
         return score;
     }
+<<<<<<< Updated upstream
+=======
+    public void increaseScore(int increase) {
+        score += increase;
+    }
+
+    public boolean isInteractionPossible() {
+        if (currentTrigger == null) {
+            return false;
+        }
+        return currentTrigger.isInteractable();
+    }
+>>>>>>> Stashed changes
 }
