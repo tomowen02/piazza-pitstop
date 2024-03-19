@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="137" height="96" tilewidth="16" tileheight="16" infinite="0" nextlayerid="8" nextobjectid="462">
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="137" height="96" tilewidth="16" tileheight="16" infinite="0" nextlayerid="8" nextobjectid="463">
  <tileset firstgid="1" source="../Tilesets/modernCity.tsx"/>
  <tileset firstgid="4097" source="../Tilesets/sereneVillage.tsx"/>
  <tileset firstgid="4952" source="../Tilesets/forest_.tsx"/>
@@ -203,7 +203,7 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
- <objectgroup id="4" name="Collisions">
+ <objectgroup id="4" name="Collisions" visible="0">
   <object id="208" x="160" y="192" width="112" height="160"/>
   <object id="209" x="144" y="284" width="112" height="164"/>
   <object id="210" x="136" y="420" width="104" height="124"/>
@@ -378,7 +378,11 @@
    </properties>
   </object>
   <object id="444" x="1488" y="364" width="16" height="16"/>
-  <object id="445" x="1536" y="364" width="16" height="16"/>
+  <object id="445" x="1536" y="364" width="16" height="16">
+   <properties>
+    <property name="sleep" type="bool" value="true"/>
+   </properties>
+  </object>
   <object id="451" x="404" y="576" width="36" height="20">
    <properties>
     <property name="sleep" type="bool" value="true"/>
@@ -432,6 +436,12 @@
   <object id="461" x="1540" y="544" width="36" height="20">
    <properties>
     <property name="sleep" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="462" x="1784" y="580">
+   <properties>
+    <property name="activity" value="recreation"/>
+    <property name="recreation" type="int" value="5"/>
    </properties>
   </object>
  </objectgroup>

@@ -96,6 +96,9 @@ public class State {
         String s = trigger.getActivity();
         if (s != null) {
             int i = trigger.getValue();
+            if (!activities.containsKey(s)) {
+                activities.put(s, new Activity()); // Useful feature?
+            }
             activities.get(s).increaseValue(i);
         }
     }
