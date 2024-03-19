@@ -77,14 +77,14 @@ public class State {
         if (trigger == null) {
             return;
         }
-        if (trigger.isInteractable()) {
-            //
-        }
+
         if (trigger.getNewMap() != null) {
             mapManager.loadMap("Maps/" + trigger.getNewMap());
             player.setPosition(trigger.getNewMapCoords());
         }
+
         score += trigger.changeScore();
+
         if (trigger.canSleep()) {
             clock.incrementDay();
             Activity activity  = activities.get("sleep");
@@ -92,6 +92,7 @@ public class State {
                 activity.increaseValue(1);
             }
         }
+        
         String s = trigger.getActivity();
         if (s != null) {
             int i = trigger.getValue();

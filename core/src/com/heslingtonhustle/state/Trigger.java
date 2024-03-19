@@ -4,16 +4,15 @@ import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.math.Vector2;
 
 public class Trigger {
-    private boolean isInteractable;
-    private String identifier;
-    private String activity;
+
+    private final int id;
+    private final String activity;
 
     private final MapProperties mapProperties;
 
     public Trigger(MapProperties mapProperties) {
         this.mapProperties = mapProperties;
-        isInteractable = mapProperties.containsKey("interactable");
-        identifier = (String)mapProperties.get("identifier"); //TODO: null check
+        id = (int)mapProperties.get("id");
 
         activity = mapProperties.containsKey("activity") ? (String)mapProperties.get("activity") : null;
     }
@@ -31,18 +30,6 @@ public class Trigger {
 
     public int changeScore() {
         return getPropertyValue("score", false);
-    }
-
-    public int study() {
-        return getPropertyValue("study", true);
-    }
-
-    public int recreation() {
-        return getPropertyValue("recreation", true);
-    }
-
-    public int eat() {
-        return getPropertyValue("eat", true);
     }
 
     private int getPropertyValue(String property, boolean mustBePositive) {
@@ -75,13 +62,5 @@ public class Trigger {
 
     public Vector2 getNewMapCoords() {
         return new Vector2((int)mapProperties.get("new_map_x"), (int)mapProperties.get("new_map_y"));
-    }
-
-    public boolean isInteractable() {
-        return isInteractable;
-    }
-
-    public String getIdentifier() {
-        return identifier;
     }
 }
