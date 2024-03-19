@@ -16,10 +16,8 @@ public class State {
     private final Clock clock;
     private final MapManager mapManager;
     private final DialogueManager dialogueManager;
-    private final ActivityManager activityManager;
-    private Activities activities;
+    private final HashMap<String, Activity> activities;
     private Trigger currentTrigger;
-    private boolean isInteractionPossible;
     private int score;
 
     public State(MapManager mapManager, float playerWidth, float playerHeight) {
@@ -36,7 +34,6 @@ public class State {
 
         score = 0;
         currentTrigger = null;
-        isInteractionPossible = false;
     }
 
     /** Given an Action, apply that action to the state. */
@@ -80,19 +77,17 @@ public class State {
     }
 
     private void handleInteraction() {
-        Trigger trigger = mapManager.getTrigger(player.getCollisionBox());
         if (currentTrigger == null) {
             return;
         }
-
-        if (trigger.getNewMap() != null) {
-            mapManager.loadMap("Maps/" + trigger.getNewMap());
-            player.setPosition(trigger.getNewMapCoords());
+        if (currentTrigger.getNewMap() != null) {
+            mapManager.loadMap("Maps/" + currentTrigger.getNewMap());
+            player.setPosition(currentTrigger.getNewMapCoords());
         }
 
-        score += trigger.changeScore();
+        score += currentTrigger.changeScore();
 
-        if (trigger.canSleep()) {
+        if (currentTrigger.canSleep()) {
             advanceDay();
             Activity activity  = activities.get("sleep");
             if (activity != null) {
@@ -100,13 +95,13 @@ public class State {
             }
         }
         
-        String s = trigger.getActivity();
-        if (s != null) {
-            int i = trigger.getValue();
-            if (!activities.containsKey(s)) {
-                activities.put(s, new Activity()); // Useful feature?
+        String activityID = currentTrigger.getActivity();
+        if (activityID != null) {
+            int i = currentTrigger.getValue();
+            if (!activities.containsKey(activityID)) {
+                activities.put(activityID, new Activity()); // Useful feature?
             }
-            activities.get(s).increaseValue(i);
+            activities.get(activityID).increaseValue(i);
         }
     }
 
@@ -206,9 +201,6 @@ public class State {
     }
 
     public boolean isInteractionPossible() {
-        if (currentTrigger == null) {
-            return false;
-        }
-        return currentTrigger.isInteractable();
+        return  currentTrigger != null;
     }
 }

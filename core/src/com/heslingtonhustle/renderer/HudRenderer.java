@@ -201,6 +201,7 @@ public class HudRenderer implements Disposable {
         float interactY = height - PADDING - 34;
         interactSprite.setPosition(interactX, interactY);
 
+        
         viewport.update(width, height, true);
     }
 
