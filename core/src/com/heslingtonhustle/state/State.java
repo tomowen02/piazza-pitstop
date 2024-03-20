@@ -20,6 +20,7 @@ public class State {
     private final HashMap<String, Activity> activities;
     private Trigger currentTrigger;
     private int score;
+    private int energy;
 
     public State(MapManager mapManager, float playerWidth, float playerHeight) {
         gameOver = false;
@@ -36,6 +37,7 @@ public class State {
         activities.put("sleep", new Activity());
 
         score = 0;
+        replenishEnergy();
         currentTrigger = null;
     }
 
@@ -106,7 +108,9 @@ public class State {
                 activities.put(activityID, new Activity()); // Useful feature?
             }
             Activity activity = activities.get(activityID);
-            if (activity.increaseValue(i)) {
+            if (canDoActivity(activity)) {
+                activity.increaseValue(i);
+                exertEnergy(currentTrigger.getEnergyCost());
                 dialogueManager.addDialogue(currentTrigger.getSuccessMessage());
             } else {
                 dialogueManager.addDialogue(currentTrigger.getFailedMessage());
@@ -114,6 +118,19 @@ public class State {
 
 
         }
+    }
+
+    private boolean canDoActivity(Activity activity) {
+        if (!activity.canIncreaseValue()) {
+            return false;
+        }
+        if (!hasEnoughEnergy(currentTrigger.getEnergyCost())) {
+            return false;
+        }
+        if (clock.getTime() == Time.NIGHT) {
+            return false;
+        }
+        return true;
     }
 
     private void advanceDay() {
@@ -133,7 +150,7 @@ public class State {
             activity.dayAdvanced();
         }
 
-        clock.incrementDay();
+        nextDay();
     }
 
     //Debug function
@@ -192,7 +209,7 @@ public class State {
         dialogueManager.addDialogue("This is the debugging console. Please select an option", options, selectedOption -> {
             switch (selectedOption) {
                 case 0: // Option 0 selected
-                    clock.incrementDay();
+                    nextDay();
                     break;
                 case 1: // Option 1 selected
                     clock.decrementDay();
@@ -214,8 +231,26 @@ public class State {
         score += increase;
     }
 
+    public void replenishEnergy() {
+        // This is the amount of energy that the player starts with at the beginning of each day
+        energy = 15;
+    }
+    
+    private void exertEnergy(int energyCost) {
+        energy -= energyCost;
+    }
+
+    private boolean hasEnoughEnergy(int energyCost) {
+        return energy - energyCost >= 0;
+    }
+
     public boolean isInteractionPossible() {
         return  currentTrigger != null;
+    }
+
+    public void nextDay() {
+        clock.incrementDay();
+        replenishEnergy();
     }
 
     public boolean isGameOver() {

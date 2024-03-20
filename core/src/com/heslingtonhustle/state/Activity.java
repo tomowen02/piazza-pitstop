@@ -29,12 +29,15 @@ public class Activity {
         return value;
     }
 
-    public boolean increaseValue(int value) {
-        if (timesPerformedToday >= maxTimesPerDay || value <= 0) {
-            return false;
-        }
+    public void increaseValue(int value) {
         this.value += value;
         incrementCounter();
+    }
+
+    public boolean canIncreaseValue() {
+        if (timesPerformedToday >= maxTimesPerDay) {
+            return false;
+        }
         return true;
     }
 

@@ -369,6 +369,7 @@
    <properties>
     <property name="activity" value="eat"/>
     <property name="eat" type="int" value="1"/>
+    <property name="energy_cost" type="int" value="5"/>
     <property name="failed_message" value="You can't do that at the moment"/>
     <property name="score" type="int" value="20"/>
     <property name="success_message" value="You have just eaten"/>
@@ -377,6 +378,7 @@
   <object id="438" x="536" y="872" width="56" height="28">
    <properties>
     <property name="activity" value="study"/>
+    <property name="energy_cost" type="int" value="5"/>
     <property name="failed_message" value="You can't do that at the moment"/>
     <property name="score" type="int" value="15"/>
     <property name="study" type="int" value="2"/>
@@ -447,6 +449,7 @@
   <object id="462" x="1808" y="572" width="44" height="32">
    <properties>
     <property name="activity" value="recreation"/>
+    <property name="energy_cost" type="int" value="5"/>
     <property name="failed_message" value="You can't do that at the moment"/>
     <property name="recreation" type="int" value="5"/>
     <property name="score" type="int" value="20"/>
@@ -456,6 +459,7 @@
   <object id="466" x="208" y="1020" width="56" height="28">
    <properties>
     <property name="activity" value="study"/>
+    <property name="energy_cost" type="int" value="5"/>
     <property name="failed_message" value="You can't do that at the moment"/>
     <property name="score" type="int" value="20"/>
     <property name="study" type="int" value="5"/>
@@ -465,6 +469,7 @@
   <object id="469" x="532" y="1244" width="56" height="36">
    <properties>
     <property name="activity" value="recreation"/>
+    <property name="energy_cost" type="int" value="5"/>
     <property name="failed_message" value="You can't relax at the moment"/>
     <property name="recreation" type="int" value="5"/>
     <property name="score" type="int" value="100"/>

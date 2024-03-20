@@ -28,6 +28,13 @@ public class Trigger {
         return 0;
     }
 
+    public int getEnergyCost() {
+        if (activity != null) {
+            return getPropertyValue("energy_cost", false);
+        }
+        return 0;
+    }
+
     public int changeScore() {
         return getPropertyValue("score", false);
     }
