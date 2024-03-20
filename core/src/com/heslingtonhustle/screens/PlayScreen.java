@@ -65,12 +65,7 @@ public class PlayScreen implements Screen {
         }
         switch (action) {
             case DEBUGGING_ACTION1:
-                /*Vector2 playerPos = gameState.getPlayerPosition();
-                Rectangle playerCollisionBox = gameState.getPlayerCollisionBox();
-                Gdx.app.debug("DEBUG", "Position: "+playerPos.x+", "+playerPos.y);
-                Gdx.app.debug("DEBUG", "CollisionBox: "+playerCollisionBox.getX()+", "+playerCollisionBox.getY());*/
                 gameState.printActivities();
-
                 return true;
             case DEBUGGING_ACTION2:
                 Gdx.app.debug("DEBUG", "Time: "+gameState.getDebugTime());
