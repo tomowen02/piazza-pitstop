@@ -1,6 +1,5 @@
 package com.heslingtonhustle.state;
 
-import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.heslingtonhustle.map.MapManager;
 

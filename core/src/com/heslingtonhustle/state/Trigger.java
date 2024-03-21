@@ -20,10 +20,16 @@ public class Trigger {
         activity = mapProperties.containsKey("activity") ? (String)mapProperties.get("activity") : null;
     }
 
+    /**
+     * @return The activity to perform. Null if none specified.
+     */
     public String getActivity() {
         return activity;
     }
 
+    /**
+     * @return The value assigned to the activity. 0 if no activity.
+     */
     public int getValue() {
         if (activity != null) {
             return getPropertyValue(activity, true);
