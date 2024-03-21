@@ -105,7 +105,7 @@ public class MapManager implements Disposable {
             return false;
         }
         playerRectangle = worldRectangleToPixelRectangle(playerRectangle);
-        Array<RectangleMapObject> mapCollisionRectangles = getRectangles(collisionRectangles);
+        Array<RectangleMapObject> mapCollisionRectangles = getRectangles(collisionRectangles, collisionObjects);
         RectangleMapObject overlappingRectangle = getOverlappingMapRectangle(playerRectangle, mapCollisionRectangles);
         return overlappingRectangle != null;
     }
@@ -115,7 +115,8 @@ public class MapManager implements Disposable {
             return null;
         }
         playerRectangle = worldRectangleToPixelRectangle(playerRectangle);
-        Array<RectangleMapObject> mapTriggerRectangles = getRectangles(triggerRectangles);
+        Array<RectangleMapObject> mapTriggerRectangles = getRectangles(triggerRectangles, triggerObjects);
+        //System.out.println(triggerRectangles.size());
         RectangleMapObject overlappingRectangle = getOverlappingMapRectangle(playerRectangle, mapTriggerRectangles);
         if (overlappingRectangle == null) {
             return null;
@@ -129,11 +130,13 @@ public class MapManager implements Disposable {
      * @param cache Collection containing cached object. May be modified to add a new array.
      * @return The array of rectangles added to/retrieved from the cache.
      */
-    private Array<RectangleMapObject> getRectangles(HashMap<TiledMap, Array<RectangleMapObject>> cache) {
+    private Array<RectangleMapObject> getRectangles(HashMap<TiledMap,
+                                                    Array<RectangleMapObject>> cache,
+                                                    MapObjects objects) {
         if (currentMap == null) return new Array<>();
 
         if (!cache.containsKey(currentMap)) {
-            cache.put(currentMap, collisionObjects.getByType(RectangleMapObject.class));
+            cache.put(currentMap, objects.getByType(RectangleMapObject.class));
         }
 
         return cache.get(currentMap);
