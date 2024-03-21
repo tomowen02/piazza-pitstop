@@ -141,6 +141,7 @@ public class State {
 
     private void advanceDay() {
         if (clock.getDay() == MAX_DAYS) {
+            printActivities();
             dialogueManager.addDialogue("Game Over. Your score was: "+score, selectedOption -> {
                 gameOver = true;
             });
@@ -162,10 +163,15 @@ public class State {
 
     //Debug function
     public void printActivities() {
+        StringBuilder builder = new StringBuilder();
+
         for (String s : activities.keySet()) {
-            System.out.println(s + " count: " + activities.get(s).getCount());
-            System.out.println(s + " value: " + activities.get(s).getValue());
+            builder.append(s).append(" count: ").append(activities.get(s).getCount()).append("\n");
+            //builder.append(s).append(" value: ").append(activities.get(s).getValue()).append("\n");
         }
+
+        String result = builder.toString();
+        dialogueManager.addDialogue(result);
     }
 
     public Vector2 getPlayerPosition() {

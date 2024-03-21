@@ -116,7 +116,6 @@ public class MapManager implements Disposable {
         }
         playerRectangle = worldRectangleToPixelRectangle(playerRectangle);
         Array<RectangleMapObject> mapTriggerRectangles = getRectangles(triggerRectangles, triggerObjects);
-        //System.out.println(triggerRectangles.size());
         RectangleMapObject overlappingRectangle = getOverlappingMapRectangle(playerRectangle, mapTriggerRectangles);
         if (overlappingRectangle == null) {
             return null;
