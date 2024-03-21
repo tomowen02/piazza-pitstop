@@ -82,6 +82,12 @@ public class HudRenderer implements Disposable {
         batch.begin();
         clockSprite.draw(batch);
         calendarSprite.draw(batch);
+        font.draw(
+                batch,
+                "Energy: " + String.valueOf(gameState.getEnergy()),
+                PADDING,
+                viewport.getScreenHeight() - PADDING/2
+        );
         if (gameState.isInteractionPossible()) {
             interactSprite.draw(batch);
         }
