@@ -27,7 +27,9 @@ public class Player {
         setPosition(startingX,startingY);
     }
 
-    /** The behaviour of the player character in a single frame. */
+    /**
+     * The behaviour of the player character in a single frame. Call move() first.
+     */
     public void update() {
         switch (movement) {
             case STOP:
@@ -53,7 +55,9 @@ public class Player {
         }
     }
 
-    /** Returns a copy of the player's position */
+    /**
+     * @return Copy of the player's position.
+     */
     public Vector2 getPosition() {
         return new Vector2(position);
     }
