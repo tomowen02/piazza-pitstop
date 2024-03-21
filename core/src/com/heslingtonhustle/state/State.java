@@ -119,8 +119,6 @@ public class State {
             } else {
                 dialogueManager.addDialogue(currentTrigger.getFailedMessage());
             }
-
-
         }
     }
 
@@ -262,5 +260,9 @@ public class State {
 
     public void setGameOver() {
         gameOver = true;
+    }
+
+    public int getEnergy() {
+        return energy;
     }
 }
