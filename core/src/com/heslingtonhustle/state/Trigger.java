@@ -3,6 +3,9 @@ package com.heslingtonhustle.state;
 import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.math.Vector2;
 
+/**
+ * A trigger that can be populated from an external editor. Defines behaviour when the player interacts with an object.
+ */
 public class Trigger {
 
     private final int id;

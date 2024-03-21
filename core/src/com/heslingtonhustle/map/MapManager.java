@@ -19,6 +19,11 @@ import com.heslingtonhustle.state.Trigger;
 
 import java.util.HashMap;
 
+/**
+ * Facilitates communication about maps between the State and the Renderer.
+ * Caches loaded maps, map renderers, and collision data.
+ * Use this class to load all of your maps, handle collisions, and retrieve data such as map size.
+ */
 public class MapManager implements Disposable {
     private TiledMap currentMap;
     private final TmxMapLoader mapLoader;

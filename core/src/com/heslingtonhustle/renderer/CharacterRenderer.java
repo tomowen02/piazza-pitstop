@@ -8,6 +8,9 @@ import com.badlogic.gdx.utils.Array;
 import com.heslingtonhustle.state.Action;
 import com.heslingtonhustle.state.Facing;
 
+/**
+ * This class can be used to render the main character and any other NPC.
+ */
 public class CharacterRenderer {
     private final TextureManager characterTextures;
     private final Sprite characterSprite;
@@ -15,7 +18,7 @@ public class CharacterRenderer {
     private final String textureRegionPrefix;
 
 
-    // This class could be used to render not only the main character, but also any other NPCs that may be added later on
+    //
     public CharacterRenderer(float width, float height, TextureAtlas textureAtlas, String textureRegionPrefix) {
         // Because the idea is that this can be used for multiple characters, we use textureRegionPrefix
         // For example, in the texture atlas, if you have regions such as 'main-player-idle-down', 'main-player-idle-right',
@@ -52,6 +55,8 @@ public class CharacterRenderer {
         // Now we need to add the textures that are used in animation.
         // the findRegions() function will find all areas of the atlas that have the same name and a number suffix
         // For example findRegions("walking_left") will find "walking_left_00", "walking_left_01", "walking_left_02 etc.
+
+        // NB: finderegion is quite an expensive method, if performance is an issue consider caching the TextureRegions.
         Array<TextureAtlas.AtlasRegion> walkingLeft = textureAtlas.findRegions(textureRegionPrefix+"-walking-left");
         characterTextures.addAnimation("walking-left", walkingLeft, 0.1f);
         Array<TextureAtlas.AtlasRegion> walkingRight = textureAtlas.findRegions(textureRegionPrefix+"-walking-right");

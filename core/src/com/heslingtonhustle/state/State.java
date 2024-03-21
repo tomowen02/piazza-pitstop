@@ -9,7 +9,12 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
-/** Contains all data related to the logical state of the game. */
+
+/**
+ * Contains all data related to the logical state of the game.
+ * Acts as coordinator for the whole game, mutating the state given a player's Action.
+ * This class should be queried in order to perform tasks like rendering.
+ */
 public class State {
     private static final int MAX_DAYS = 7;
     private boolean gameOver;

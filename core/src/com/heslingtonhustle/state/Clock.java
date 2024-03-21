@@ -1,5 +1,8 @@
 package com.heslingtonhustle.state;
 
+/**
+ * Manages both the day and the time.
+ */
 public class Clock {
     private final float MAX_TIME = 1000;  // This is the number of time units in a day.
                                           // This doesn't really mean anything as the player cant do anything at night anyway

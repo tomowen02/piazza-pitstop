@@ -1,5 +1,10 @@
 package com.heslingtonhustle.state;
 
+/**
+ * A generic game activity, which can be populated by triggers in the external editor.
+ * Be sure to call dayAdvanced() each new day.
+ * Use this for Recreation, Study, Eating.
+ */
 public class Activity {
     private int counter;
     private int value;

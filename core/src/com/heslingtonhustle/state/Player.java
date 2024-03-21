@@ -4,13 +4,8 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
-/** Represents the player character */
+/** Represents the player character. Is responsible for the movement of the player. */
 public class Player {
-    public static final float UP = 0f;
-    public static final float LEFT = 90f;
-    public static final float DOWN = 180f;
-    public static final float RIGHT = 270f;
-
     public static final float SPEED = 0.15f;
 
     private Vector2 position;
@@ -20,8 +15,13 @@ public class Player {
     private final float width;
     private final float height;
 
+    /**
+     * @param startingX Spawn location
+     * @param startingY Spawn location
+     * @param width Width in game units
+     * @param height Height in game units
+     */
     public Player(float startingX, float startingY, float width, float height) {
-        // The width and height are in game units
         this.width = width;
         this.height = height;
         setPosition(startingX,startingY);

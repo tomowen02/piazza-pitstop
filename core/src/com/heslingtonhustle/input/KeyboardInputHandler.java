@@ -9,11 +9,11 @@ import java.util.HashSet;
 import java.util.Queue;
 import java.util.LinkedList;
 
-/** Transform the user's raw input into a game Action.
+/** Transform the user's raw keyboard input into a game Action.
  * Maintains a small FIFO buffer of actions.
  * */
 public class KeyboardInputHandler extends InputAdapter implements InputHandler {
-    public static final int INPUT_BUFFER_LIMIT = 5;
+    public static final int INPUT_BUFFER_LIMIT = 5; // Higher limit = less responsive feel
     private final HashMap<Integer, Action> inputMap;
     private final HashSet<Integer> pressedKeys;
     private final Queue<Action> inputBuffer;

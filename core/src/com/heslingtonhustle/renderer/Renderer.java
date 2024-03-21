@@ -1,6 +1,5 @@
 package com.heslingtonhustle.renderer;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -17,6 +16,9 @@ import com.heslingtonhustle.screens.PauseMenu;
 
 import static java.lang.Math.round;
 
+/**
+ * Queries the State to draw the current state to the screen; does not make any changes to State.
+ */
 public class Renderer implements Disposable {
     private final boolean DEBUG_COLLISIONS = false;
 
