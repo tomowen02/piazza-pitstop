@@ -11,7 +11,7 @@ public class Player {
     public static final float DOWN = 180f;
     public static final float RIGHT = 270f;
 
-    public static final float SPEED = 0.25f;
+    public static final float SPEED = 0.15f;
 
     private Vector2 position;
     private Rectangle collisionBox;

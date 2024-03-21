@@ -28,8 +28,10 @@ public class PlayScreen implements Screen {
         this.heslingtonHustleGame = parentClass;
         isPaused = false;
 
-        float playerWidth = 0.6f; // This is in world units
+        // The player size is in world units
+        float playerWidth = 0.6f;
         float playerHeight = 0.9f;
+
         mapManager = new MapManager();
         gameState = new State(mapManager, playerWidth, playerHeight);
         pauseMenu = new PauseMenu(this, gameState);
@@ -63,6 +65,7 @@ public class PlayScreen implements Screen {
         if (action == null) {
             return false;
         }
+        // One of the debugging keys have been pressed. By default, these are ',' '.' '/' keys
         switch (action) {
             case DEBUGGING_ACTION1:
                 gameState.printActivities();
@@ -87,6 +90,7 @@ public class PlayScreen implements Screen {
     }
 
     private void addInputHandlers() {
+        // We use an input multiplexer so that we can handle multiple sources of inputs at once
         inputMultiplexer = new InputMultiplexer();
 
         inputMultiplexer.addProcessor(inputHandler);

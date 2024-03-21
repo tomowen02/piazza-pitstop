@@ -38,7 +38,7 @@ public class State {
 
         score = 0;
         replenishEnergy();
-        currentTrigger = null;
+        currentTrigger = null; // This stores the Tiled trigger box that we are currently stood inside of
     }
 
     /** Given an Action, apply that action to the state. */
@@ -121,6 +121,8 @@ public class State {
     }
 
     private boolean canDoActivity(Activity activity) {
+        // Check if the player is allowed to do the activity that is assigned to the current
+        // trigger that the player is stood in
         if (!activity.canIncreaseValue()) {
             return false;
         }
@@ -141,6 +143,7 @@ public class State {
             return;
         }
 
+        // The player is only allowed to do the same activity twice once in a week
         Activity study = activities.get("study");
         if (study.getTimesPerformedToday() == 2) {
             study.changeMaxTimesPerDay(1);
@@ -178,9 +181,6 @@ public class State {
         return player.getFacing();
     }
 
-    public Rectangle getPlayerCollisionBox() {
-        return player.getCollisionBox();
-    }
     public float getPlayerWidth() {
         return player.getPlayerWidth();
     }
@@ -204,7 +204,7 @@ public class State {
     }
 
     public void pushTestDialogue() {
-        // This is temporary
+        // This is a debugging function that creates a useful control dialog box when you press '/'
         List<String> options = new ArrayList<>(Arrays.asList("Increment day", "Decrement day", "Set time speed to VERY FAST", "Set time speed to normal", "Close"));
         dialogueManager.addDialogue("This is the debugging console. Please select an option", options, selectedOption -> {
             switch (selectedOption) {
@@ -222,13 +222,6 @@ public class State {
                     break;
             }
         });
-    }
-
-    public int getScore() {
-        return score;
-    }
-    public void increaseScore(int increase) {
-        score += increase;
     }
 
     public void replenishEnergy() {

@@ -10,6 +10,9 @@ import com.badlogic.gdx.utils.Array;
 import java.util.HashMap;
 
 public class TextureManager {
+    /* This class is used to store textures and animations easily and be able to retrieve them by using a string as an identifier.
+    * This class is mainly intended to make animations easier to use as it automatically takes care of timing and frame selection. */
+
 
     private final HashMap<String, Animation<TextureRegion>> animations;
     private final HashMap<String, TextureRegion> staticTextures;

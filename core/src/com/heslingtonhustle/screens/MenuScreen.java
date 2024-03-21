@@ -3,6 +3,9 @@ package com.heslingtonhustle.screens;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
@@ -18,6 +21,8 @@ public class MenuScreen implements Screen {
     private final Stage stage;
     private Table optionsTable;
     private final Skin skin;
+    private final Texture backgroundTexture;
+    private final Batch batch;
 
 
     public MenuScreen(HeslingtonHustleGame parentClass) {
@@ -25,7 +30,10 @@ public class MenuScreen implements Screen {
         stage = new Stage(new ScreenViewport());
         Gdx.input.setInputProcessor(stage);
 
-        skin = new Skin(Gdx.files.internal("Graphics/UI/Skin/plain-james-ui.json"));
+        skin = new Skin(Gdx.files.internal("Graphics/UI/Skin/plain-james-ui.json")); // This is just a UI skin for the buttons etc.
+        backgroundTexture = new Texture("Graphics/UI/menu-background.jpg");
+        batch = new SpriteBatch();
+
         createTable();
         addOptions();
     }
@@ -69,6 +77,10 @@ public class MenuScreen implements Screen {
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
 
+        batch.begin();
+        batch.draw(backgroundTexture, 0 , 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+        batch.end();
+
         stage.act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 30f));
         stage.draw();
     }
@@ -90,5 +102,7 @@ public class MenuScreen implements Screen {
     @Override
     public void dispose() {
         stage.dispose();
+        batch.dispose();
+        backgroundTexture.dispose();
     }
 }

@@ -4,7 +4,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.*;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Disposable;
@@ -25,7 +24,8 @@ public class HudRenderer implements Disposable {
     private final TextureAtlas textureAtlas;
     private final SpriteBatch batch;
 
-    private final ShapeRenderer shapeRenderer;
+    private final Sprite dialogueBoxSprite;
+    private final TextureRegion dialogueBoxTexture;
     private final BitmapFont font;
 
     private final float PADDING = 50f;
@@ -36,7 +36,7 @@ public class HudRenderer implements Disposable {
     private final Sprite calendarSprite;
     private TextureRegion calendarTexture;
     private final Sprite interactSprite;
-    private TextureManager textureManager;
+    private TextureManager animationManager;
 
     public HudRenderer(State gameState, TextureAtlas textureAtlas){
         this.gameState = gameState;
@@ -51,9 +51,10 @@ public class HudRenderer implements Disposable {
 
         font = new BitmapFont();
 
-        shapeRenderer = new ShapeRenderer();
+        dialogueBoxTexture = textureAtlas.findRegion("dialogue-box");
+        dialogueBoxSprite = new Sprite(dialogueBoxTexture);
 
-        textureManager = new TextureManager();
+        animationManager = new TextureManager();
         addAnimations();
 
         clockTexture = textureAtlas.findRegion("morningClock"); // This is the default but will be overwritten
@@ -66,14 +67,13 @@ public class HudRenderer implements Disposable {
 
         interactSprite = new Sprite();
         interactSprite.setSize(128, 34);
-        interactSprite.setRegion(textureManager.retrieveTexture("interact"));
+        interactSprite.setRegion(animationManager.retrieveTexture("interact"));
 
     }
 
     public void render(){
         hudCamera.update();
         batch.setProjectionMatrix(hudCamera.combined);
-        shapeRenderer.setProjectionMatrix(hudCamera.combined);
 
         setClockTexture();
         setCalendarTexture();
@@ -85,9 +85,8 @@ public class HudRenderer implements Disposable {
         if (gameState.isInteractionPossible()) {
             interactSprite.draw(batch);
         }
-        batch.end();
-
         showDialogue();
+        batch.end();
     }
 
     private void setClockTexture() {
@@ -103,7 +102,7 @@ public class HudRenderer implements Disposable {
                 break;
             case NIGHT:
                 clockTexture = textureAtlas.findRegion("clock-night");
-                clockTexture = textureManager.retrieveTexture("clock-night");
+                clockTexture = animationManager.retrieveTexture("clock-night");
                 break;
         }
         clockSprite.setRegion(clockTexture);
@@ -139,7 +138,7 @@ public class HudRenderer implements Disposable {
     }
 
     private void setInteractTexture() {
-        interactSprite.setRegion(textureManager.retrieveTexture("interact"));
+        interactSprite.setRegion(animationManager.retrieveTexture("interact"));
     }
 
     private void showDialogue() {
@@ -151,20 +150,16 @@ public class HudRenderer implements Disposable {
         List<String> options = dialogueManager.getOptions();
         int selectedOption = dialogueManager.getSelectedOption();
 
+        // Draw the box background
         float x = 100;
         float y = 100;
         float height = 250;
         float width = Gdx.graphics.getWidth() - x*2;
+        dialogueBoxSprite.setSize(width, height);
+        dialogueBoxSprite.setPosition(x, y);
+        dialogueBoxSprite.draw(batch);
 
-        // Start ShapeRenderer for the background
-        shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-        shapeRenderer.setColor(Color.DARK_GRAY);
-        shapeRenderer.rect(x, y, width, height);
-        shapeRenderer.end();
-
-        batch.begin();
-
-        font.setColor(Color.WHITE);
+        font.setColor(Color.BLACK);
         font.draw(batch, message, x + 20, y + height - 20, width - 40, Align.left, true);
 
         // Draw options
@@ -174,18 +169,16 @@ public class HudRenderer implements Disposable {
             font.draw(batch, optionPrefix + options.get(i), x + 20, optionY, width - 40, Align.left, false);
             optionY -= 20; // Move up for the next option
         }
-
-        batch.end();
     }
 
     private void addAnimations() {
         TextureRegion[] clockAnimationFrames = new TextureRegion[2];
         clockAnimationFrames[0] = clockTexture = textureAtlas.findRegion("clock-night");
         clockAnimationFrames[1] = clockTexture = textureAtlas.findRegion("clock-red");
-        textureManager.addAnimation("clock-night", clockAnimationFrames, 0.4f);
+        animationManager.addAnimation("clock-night", clockAnimationFrames, 0.4f);
 
         Array<TextureAtlas.AtlasRegion> interact = textureAtlas.findRegions("interact");
-        textureManager.addAnimation("interact", interact, 0.4f);
+        animationManager.addAnimation("interact", interact, 0.4f);
     }
 
     public void resize(int width, int height) {

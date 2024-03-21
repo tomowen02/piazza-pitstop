@@ -10,7 +10,7 @@ public class Clock {
     public Clock() {
         timeUnits = 0;
         day = 1;
-        speed = 6; // Probably want this to be less
+        speed = 8; // Probably want this to be less
     }
 
 
@@ -48,10 +48,6 @@ public class Clock {
         timeUnits = 0;
         day -= 1;
         return day;
-    }
-
-    public void increaseSpeed(int speedIncrease) {
-        speed += speedIncrease;
     }
 
     public void setSpeed(int speed) {

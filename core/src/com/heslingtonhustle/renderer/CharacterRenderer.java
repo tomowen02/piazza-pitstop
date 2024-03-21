@@ -15,7 +15,12 @@ public class CharacterRenderer {
     private final String textureRegionPrefix;
 
 
+    // This class could be used to render not only the main character, but also any other NPCs that may be added later on
     public CharacterRenderer(float width, float height, TextureAtlas textureAtlas, String textureRegionPrefix) {
+        // Because the idea is that this can be used for multiple characters, we use textureRegionPrefix
+        // For example, in the texture atlas, if you have regions such as 'main-player-idle-down', 'main-player-idle-right',
+        // the prefix is 'main-player'
+
         this.textureAtlas = textureAtlas;
         this.textureRegionPrefix = textureRegionPrefix;
 
@@ -73,7 +78,7 @@ public class CharacterRenderer {
                 textureKey = "walking-down";
                 break;
             default:
-                // Must be idle
+                // We are not trying to move, so we must be idle
                 switch (direction) {
                     case LEFT:
                         textureKey = "idle-left";
@@ -90,7 +95,6 @@ public class CharacterRenderer {
                         break;
                 }
         }
-
         return textureKey;
     }
 }

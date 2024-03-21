@@ -33,7 +33,8 @@ public class DialogueManager {
     }
 
 
-    // DialogueManager's properties and methods
+    // ~~~ DialogueManager's properties and methods ~~~
+
     private Queue<DialogueBox> dialogueQueue;
 
     public DialogueManager() {
