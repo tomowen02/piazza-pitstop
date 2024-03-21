@@ -27,11 +27,15 @@ public class MapManager implements Disposable {
     private ShapeRenderer collisionRenderer;
     private MapObjects collisionObjects;
     private MapObjects triggerObjects;
+    private final HashMap<TiledMap, Array<RectangleMapObject>> collisionRectangles;
+    private final HashMap<TiledMap, Array<RectangleMapObject>> triggerRectangles;
 
     public MapManager() {
         mapLoader = new TmxMapLoader();
         loadedMaps = new HashMap<>();
         loadedMapRenderers = new HashMap<>();
+        collisionRectangles = new HashMap<>();
+        triggerRectangles = new HashMap<>();
     }
 
     public void loadMap(String path) {
@@ -96,7 +100,7 @@ public class MapManager implements Disposable {
             return false;
         }
         playerRectangle = worldRectangleToPixelRectangle(playerRectangle);
-        Array<RectangleMapObject> mapCollisionRectangles = collisionObjects.getByType(RectangleMapObject.class);
+        Array<RectangleMapObject> mapCollisionRectangles = getRectangles(collisionRectangles);
         RectangleMapObject overlappingRectangle = getOverlappingMapRectangle(playerRectangle, mapCollisionRectangles);
         return overlappingRectangle != null;
     }
@@ -106,14 +110,28 @@ public class MapManager implements Disposable {
             return null;
         }
         playerRectangle = worldRectangleToPixelRectangle(playerRectangle);
-        Array<RectangleMapObject> mapTriggerRectangles = triggerObjects.getByType(RectangleMapObject.class);
+        Array<RectangleMapObject> mapTriggerRectangles = getRectangles(triggerRectangles);
         RectangleMapObject overlappingRectangle = getOverlappingMapRectangle(playerRectangle, mapTriggerRectangles);
         if (overlappingRectangle == null) {
             return null;
         }
         MapProperties mapProperties = overlappingRectangle.getProperties();
-        Trigger trigger = new Trigger(mapProperties);
-        return trigger;
+        return new Trigger(mapProperties);
+    }
+
+
+    /**
+     * @param cache Collection containing cached object. May be modified to add a new array.
+     * @return The array of rectangles added to/retrieved from the cache.
+     */
+    private Array<RectangleMapObject> getRectangles(HashMap<TiledMap, Array<RectangleMapObject>> cache) {
+        if (currentMap == null) return new Array<>();
+
+        if (!cache.containsKey(currentMap)) {
+            cache.put(currentMap, collisionObjects.getByType(RectangleMapObject.class));
+        }
+
+        return cache.get(currentMap);
     }
 
     public Vector2 getCurrentMapTileDimensions() {
